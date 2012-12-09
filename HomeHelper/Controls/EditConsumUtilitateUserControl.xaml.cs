@@ -26,9 +26,9 @@ namespace HomeHelper.Controls
         {
             get { return dtpLocal.Date; }
         }
-        public decimal ValoareConsum
+        public float ValoareConsum
         {
-            get { return Convert.ToDecimal(txtConsum.Text); }
+            get { return float.Parse(txtConsum.Text); }
         }
     }
 }

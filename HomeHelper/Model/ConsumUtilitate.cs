@@ -13,7 +13,7 @@ namespace HomeHelper.Model
         [SQLite.Indexed]
         public int IdUtilitate { get; set; }
         public DateTime DataConsum { get; set; }
-        public decimal ValoareConsum { get; set; }
+        public float ValoareConsum { get; set; }
 
         public override string ToString()
         {
