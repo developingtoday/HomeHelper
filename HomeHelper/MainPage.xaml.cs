@@ -8,7 +8,7 @@ using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
 using HomeHelper.Views;
-using ModernUI.Toolkit.Data.Charting.Charts.Series;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -39,12 +39,13 @@ namespace HomeHelper
             itemListUtilitati.ItemClick += (s, e) =>
                                                {
                                                    var obj = e.ClickedItem as Utilitati;
-                                                   //itemListConsum.ItemsSource = obj.Consums;
-                                                   //LineChart.DataContext = obj.Consums;
+                                                  
+                                                
                                                    var line = ((LineSeries)LineChart.Series[0]);
-                                                   line.DataContext = obj.Consums;
                                                    line.ItemsSource = obj.Consums;
-                                                   
+//                                                   line.ItemsSource = obj.Consums;
+//                                                   
+                                                  // Frame.Navigate(typeof (ChartPage), obj.IdUtilitati);
                                                };
             itemListUtilitati.IsItemClickEnabled = true;
 

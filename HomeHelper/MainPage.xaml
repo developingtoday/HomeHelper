@@ -8,11 +8,8 @@
     xmlns:common="using:HomeHelper.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Series="using:ModernUI.Toolkit.Data.Charting.Charts.Series"
-    xmlns:Axis="using:ModernUI.Toolkit.Data.Charting.Charts.Axis" 
-    xmlns:Charting="using:ModernUI.Toolkit.Data.Charting"
-    xmlns:DataPoints="using:ModernUI.Toolkit.Data.Charting.Charts.DataPoints"
-    xmlns:Chart="using:ModernUI.Toolkit.Data.Charting.Charts.Chart"
+    xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -74,12 +71,10 @@
                         <Button Name="btnDeleteConsum" Style="{StaticResource RemoveAppBarButtonStyle}" Click="BtnDeleteConsum_OnClick"></Button>
                         <Button Name="btnEditConsum" Style="{StaticResource EditAppBarButtonStyle}" Click="BtnEditConsum_OnClick"></Button>
                     </StackPanel>
-                    <Chart:Chart x:Name="LineChart" 
-                                 DataContext="{Binding Consums}"
+                    <Chart:Chart x:Name="LineChart"
                                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="423" Height="286" Background="Crimson" Title="Line Chart">
-                        <Series:LineSeries
+                        <Chart:LineSeries
         		            Title="Population"
-                            DataContext="{Binding Consums}"
         		            IndependentValueBinding="{Binding DataConsum}"
         		            DependentValueBinding="{Binding ValoareConsum}" IsSelectionEnabled="True"/>
                     </Chart:Chart>

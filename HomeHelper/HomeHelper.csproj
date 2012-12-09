@@ -137,6 +137,9 @@
     <Compile Include="Utils\DbUtils.cs" />
     <Compile Include="Utils\FactoryRepository.cs" />
     <Compile Include="Utils\ResurseMesaje.cs" />
+    <Compile Include="Views\ChartPage.xaml.cs">
+      <DependentUpon>ChartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditView.xaml.cs">
       <DependentUpon>EditView.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ChartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,8 +205,14 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="ModernUI.Toolkit.Data.Charting">
-      <HintPath>..\ModernUI.Toolkit.Data.Charting.dll</HintPath>
+    <Reference Include="StoreAppLib">
+      <HintPath>..\packages\StoreAppLib.1.1.0.3\lib\NetCore45\StoreAppLib.dll</HintPath>
+    </Reference>
+    <Reference Include="WinRTXamlToolkit">
+      <HintPath>..\packages\winrtxamltoolkit.1.3.5.1\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="WinRTXamlToolkit.Controls.DataVisualization">
+      <HintPath>..\packages\WinRTXamlToolkit.Controls.DataVisualization.1.3.5.1\lib\netcore45\WinRTXamlToolkit.Controls.DataVisualization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
