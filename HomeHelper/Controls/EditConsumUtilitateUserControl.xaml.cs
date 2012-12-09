@@ -24,7 +24,7 @@ namespace HomeHelper.Controls
         }
         public DateTime DataConsum
         {
-            get { return dtpLocal.SelectedDate.GetValueOrDefault(); }
+            get { return dtpLocal.Date; }
         }
         public decimal ValoareConsum
         {
