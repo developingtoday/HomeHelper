@@ -71,13 +71,21 @@
                         <Button Name="btnDeleteConsum" Style="{StaticResource RemoveAppBarButtonStyle}" Click="BtnDeleteConsum_OnClick"></Button>
                         <Button Name="btnEditConsum" Style="{StaticResource EditAppBarButtonStyle}" Click="BtnEditConsum_OnClick"></Button>
                     </StackPanel>
-                    <Chart:Chart x:Name="LineChart"
+                    <Chart:Chart x:Name="LineChart" 
                                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="423" Height="286" Background="Crimson" Title="Line Chart">
+                       
+                        
                         <Chart:LineSeries
-        		            Title="Population"
-        		            IndependentValueBinding="{Binding DataConsum}"
-        		            DependentValueBinding="{Binding ValoareConsum}" IsSelectionEnabled="True"/>
+                            x:Name="lineSerii"
+        		            Title="Utilitate"
+        		            IndependentValuePath="DataConsum"
+                            DependentValuePath="ValoareConsum"
+                           
+        		             IsSelectionEnabled="True"
+                           
+                            />
                     </Chart:Chart>
+                    
                 </StackPanel>
             </Grid>
         </Grid>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using HomeHelper.Common;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
@@ -32,26 +33,38 @@ namespace HomeHelper
         private readonly IRepository<Utilitati> _repository = FactoryRepository.GetInstanceRepositoryUtilitati();
 
         private readonly IRepository<ConsumUtilitate> _repositoryConsum =
-            FactoryRepository.GetInstanceRepositoryConsum(); 
+            FactoryRepository.GetInstanceRepositoryConsum();
+
+        private LineSeries line;
         public MainPage()
         {
             this.InitializeComponent();
+            line = ((LineSeries)LineChart.Series[0]);
+            line.SelectionChanged += line_SelectionChanged;
             itemListUtilitati.ItemClick += (s, e) =>
                                                {
+                                                   
                                                    var obj = e.ClickedItem as Utilitati;
-                                                  
-                                                
-                                                   var line = ((LineSeries)LineChart.Series[0]);
+                                                   
+                                                   
                                                    line.ItemsSource = obj.Consums;
-//                                                   line.ItemsSource = obj.Consums;
-//                                                   
-                                                  // Frame.Navigate(typeof (ChartPage), obj.IdUtilitati);
+                                                  
+
+
                                                };
             itemListUtilitati.IsItemClickEnabled = true;
 
         }
+        
 
+        void line_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var obj = line.SelectedItem as ConsumUtilitate;
+            if (obj == null) return;
+            Frame.Navigate(typeof(EditViewConsum), new Tuple<int, int>(obj.IdConsumUtilitate, obj.IdUtilitate));
+        }
 
+  
         private void MockUpListItem()
         {
           
@@ -132,5 +145,7 @@ namespace HomeHelper
             //Frame.Navigate(typeof(EditViewConsum), new Tuple<int, int>(obj.IdConsumUtilitate, obj.IdUtilitate));
            
         }
+
+       
     }
 }
