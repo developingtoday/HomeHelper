@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using HomeHelper.Utils;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -68,6 +69,7 @@ namespace HomeHelper
                 {
                     throw new Exception("Failed to create initial page");
                 }
+                DbUtils.InitializeDb();
             }
             // Ensure the current window is active
             Window.Current.Activate();
