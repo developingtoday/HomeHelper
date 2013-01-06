@@ -75,7 +75,7 @@
                                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="423" Height="286" Background="Crimson" Title="Line Chart">
                        
                         
-                        <Chart:LineSeries
+                        <Chart:ColumnSeries
                             x:Name="lineSerii"
         		            Title="Utilitate"
         		            IndependentValuePath="DataConsum"

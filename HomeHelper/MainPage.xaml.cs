@@ -35,27 +35,45 @@ namespace HomeHelper
         private readonly IRepository<ConsumUtilitate> _repositoryConsum =
             FactoryRepository.GetInstanceRepositoryConsum();
 
-        private LineSeries line;
+        private ColumnSeries line;
         public MainPage()
         {
             this.InitializeComponent();
-            line = ((LineSeries)LineChart.Series[0]);
-            line.SelectionChanged += line_SelectionChanged;
+            line = ((ColumnSeries)LineChart.Series[0]);
+            CreateLineSeries();
             itemListUtilitati.ItemClick += (s, e) =>
                                                {
                                                    
                                                    var obj = e.ClickedItem as Utilitati;
-                                                   
-                                                   
+                                                 
+                                                   //if (LineChart != null)
+                                                   //{
+                                                   //    line.ItemsSource = null;
+                                                      
+                                                   //    if (LineChart.Series.Any())
+                                                   //        LineChart.Series.Clear();
+                                                   //    CreateLineSeries();
+                                                   //    line.ClearPoints();
+                                                   //}
+                                                  // line.ClearPoints();
+                                                   //var colection = new ObservableCollection<ConsumUtilitate>(obj.Consums);
                                                    line.ItemsSource = obj.Consums;
-                                                  
+
+
 
 
                                                };
             itemListUtilitati.IsItemClickEnabled = true;
 
         }
-        
+
+        private void CreateLineSeries()
+        {
+          
+           if(!LineChart.Series.Any()) LineChart.Series.Add(line);
+            line.SelectionChanged += line_SelectionChanged;
+        }
+
 
         void line_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -145,7 +163,14 @@ namespace HomeHelper
             //Frame.Navigate(typeof(EditViewConsum), new Tuple<int, int>(obj.IdConsumUtilitate, obj.IdUtilitate));
            
         }
+    }
 
-       
+    public static class Extensii
+    {
+        public static void ClearPoints(this LineSeries s)
+        {
+            if (s.Points != null) s.Points.Clear();
+           
+        }
     }
 }
