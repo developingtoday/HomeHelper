@@ -14,7 +14,10 @@ namespace HomeHelper.Model
         public int IdUtilitate { get; set; }
         public DateTime DataConsum { get; set; }
         public float ValoareConsum { get; set; }
-
+        public string DataConsumGrafic
+        {
+            get { return DataConsum.ToString("d"); }
+        }
         public override string ToString()
         {
             return string.Format("IdConsumUtilitate: {0}, IdUtilitate: {1}, DataConsum: {2}, ValoareConsum: {3}", IdConsumUtilitate, IdUtilitate, DataConsum, ValoareConsum);

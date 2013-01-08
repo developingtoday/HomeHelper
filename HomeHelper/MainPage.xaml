@@ -78,7 +78,7 @@
                         <Chart:ColumnSeries
                             x:Name="lineSerii"
         		            Title="Utilitate"
-        		            IndependentValuePath="DataConsum"
+        		            IndependentValuePath="DataConsumGrafic"
                             DependentValuePath="ValoareConsum"
                            
         		             IsSelectionEnabled="True"
