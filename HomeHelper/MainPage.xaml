@@ -72,10 +72,10 @@
                         <Button Name="btnEditConsum" Style="{StaticResource EditAppBarButtonStyle}" Click="BtnEditConsum_OnClick"></Button>
                     </StackPanel>
                     <Chart:Chart x:Name="LineChart" 
-                                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="423" Height="286" Background="Crimson" Title="Line Chart">
+                                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" Height="286" Background="Crimson" Title="Line Chart">
                        
                         
-                        <Chart:ColumnSeries
+                        <Chart:LineSeries
                             x:Name="lineSerii"
         		            Title="Utilitate"
         		            IndependentValuePath="DataConsumGrafic"

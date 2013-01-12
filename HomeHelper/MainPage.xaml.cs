@@ -35,11 +35,11 @@ namespace HomeHelper
         private readonly IRepository<ConsumUtilitate> _repositoryConsum =
             FactoryRepository.GetInstanceRepositoryConsum();
 
-        private ColumnSeries line;
+        private LineSeries line;
         public MainPage()
         {
             this.InitializeComponent();
-            line = ((ColumnSeries)LineChart.Series[0]);
+            line = ((LineSeries)LineChart.Series[0]);
             CreateLineSeries();
             itemListUtilitati.ItemClick += (s, e) =>
                                                {
