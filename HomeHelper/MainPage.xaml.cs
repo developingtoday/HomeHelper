@@ -41,18 +41,19 @@ namespace HomeHelper
             this.InitializeComponent();
             line = ((LineSeries)LineChart.Series[0]);
             CreateLineSeries();
-            itemListUtilitati.ItemClick += (s, e) =>
-                                               {
-                                                   
-                                                   var obj = e.ClickedItem as Utilitati;
-                                                   LineChart.Title =
-                                                       string.Format("Evolutia consumului utilitatii : {0}",
-                                                                     obj.DenumireUtilitate);
-                                                   line.Title = obj.DenumireUtilitate;
-                                                   line.ItemsSource = obj.Consums;
-                                               };
+            itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;
             itemListUtilitati.IsItemClickEnabled = true;
 
+        }
+
+        void itemListUtilitati_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var obj = e.ClickedItem as Utilitati;
+            LineChart.Title =
+                string.Format("Evolutia consumului utilitatii : {0}",
+                              obj.DenumireUtilitate);
+            line.Title = obj.DenumireUtilitate;
+            line.ItemsSource = obj.Consums;
         }
 
         private void CreateLineSeries()
@@ -131,6 +132,7 @@ namespace HomeHelper
 
         private void BtnAddConsum_OnClick(object sender, RoutedEventArgs e)
         {
+            
             var obj = itemListUtilitati.SelectedItem as Utilitati;
             if (obj == null) return;
             Frame.Navigate(typeof (EditViewConsum), new Tuple<int,int>(0,obj.IdUtilitati));
