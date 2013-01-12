@@ -29,6 +29,7 @@ namespace HomeHelper.Controls
             cmbUtilitate.ItemsSource = rep.GetAll();
             cmbUtilitate.DisplayMemberPath = "DenumireUtilitate";
             cmbUtilitate.SelectedValuePath = "IdUtilitati";
+            cmbUtilitate.IsEnabled = cmbUtilitate.SelectedIndex < 0;
 
         }
         public EditConsumUtilitateUserControl()
@@ -43,6 +44,10 @@ namespace HomeHelper.Controls
         public float ValoareConsum
         {
             get { return float.Parse(txtConsum.Text); }
+        }
+        public int IdUtilitate
+        {
+            get { return (int) cmbUtilitate.SelectedValue; }
         }
 
 

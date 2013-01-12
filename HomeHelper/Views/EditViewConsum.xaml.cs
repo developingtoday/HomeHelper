@@ -49,6 +49,7 @@ namespace HomeHelper.Views
                                                                   IdUtilitate = tuplu.Item2
                                                               };
             DefaultViewModel["Consum"] = obj;
+            
             btnDelete.Visibility=(obj.IdConsumUtilitate==0)?Visibility.Collapsed : Visibility.Visible;
 
         }
@@ -68,6 +69,7 @@ namespace HomeHelper.Views
             var contex = DefaultViewModel["Consum"] as ConsumUtilitate;
             contex.DataConsum = ctrlConsumUtilitate.DataConsum;
             contex.ValoareConsum = ctrlConsumUtilitate.ValoareConsum;
+            contex.IdUtilitate = ctrlConsumUtilitate.IdUtilitate;
             _repository.CreateOrUpdate(contex);
         }
 

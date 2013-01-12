@@ -35,6 +35,7 @@ namespace HomeHelper
         private readonly IRepository<ConsumUtilitate> _repositoryConsum =
             FactoryRepository.GetInstanceRepositoryConsum();
 
+        private int _lastUtilitateSelect = 0;
         private LineSeries line;
         public MainPage()
         {
@@ -54,6 +55,7 @@ namespace HomeHelper
                               obj.DenumireUtilitate);
             line.Title = obj.DenumireUtilitate;
             line.ItemsSource = obj.Consums;
+            _lastUtilitateSelect = obj.IdUtilitati;
         }
 
         private void CreateLineSeries()
@@ -131,11 +133,8 @@ namespace HomeHelper
         }
 
         private void BtnAddConsum_OnClick(object sender, RoutedEventArgs e)
-        {
-            
-            var obj = itemListUtilitati.SelectedItem as Utilitati;
-            if (obj == null) return;
-            Frame.Navigate(typeof (EditViewConsum), new Tuple<int,int>(0,obj.IdUtilitati));
+        {       
+            Frame.Navigate(typeof (EditViewConsum), new Tuple<int,int>(0,_lastUtilitateSelect));
         }
 
 
