@@ -44,11 +44,21 @@ namespace HomeHelper
             CreateLineSeries();
             itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;
             itemListUtilitati.IsItemClickEnabled = true;
-
+            itemListUtilitati.SelectionChanged += (s, e) =>
+                                                      {
+                                                          btnDelete.Visibility = (e.AddedItems.Any())
+                                                                                     ? Visibility.Visible
+                                                                                     : Visibility.Collapsed;
+                                                          btnEdit.Visibility = (e.AddedItems.Any())
+                                                                                   ? Visibility.Visible
+                                                                                   : Visibility.Collapsed;
+                                                          botomAppbar.IsOpen = e.AddedItems.Any();
+                                                      };
         }
 
         void itemListUtilitati_ItemClick(object sender, ItemClickEventArgs e)
         {
+            if (itemListUtilitati.SelectedItems.Any()) itemListUtilitati.SelectedItem=null;
             var obj = e.ClickedItem as Utilitati;
             LineChart.Title =
                 string.Format("Evolutia consumului utilitatii : {0}",
