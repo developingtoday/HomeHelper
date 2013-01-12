@@ -68,8 +68,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Consum" Padding="30" FontSize="20"></TextBlock>
                         <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Click="BtnAddConsum_OnClick"></Button>
-                        <Button Name="btnDeleteConsum" Style="{StaticResource RemoveAppBarButtonStyle}" Click="BtnDeleteConsum_OnClick"></Button>
-                        <Button Name="btnEditConsum" Style="{StaticResource EditAppBarButtonStyle}" Click="BtnEditConsum_OnClick"></Button>
+                       
                     </StackPanel>
                     <Chart:Chart x:Name="LineChart" 
                                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" Height="286" Background="Crimson" Title="Line Chart">

@@ -49,6 +49,7 @@ namespace HomeHelper.Views
                                                                   IdUtilitate = tuplu.Item2
                                                               };
             DefaultViewModel["Consum"] = obj;
+            btnDelete.Visibility=(obj.IdConsumUtilitate==0)?Visibility.Collapsed : Visibility.Visible;
 
         }
 
