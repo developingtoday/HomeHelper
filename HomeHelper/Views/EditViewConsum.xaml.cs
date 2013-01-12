@@ -69,5 +69,14 @@ namespace HomeHelper.Views
             contex.ValoareConsum = ctrlConsumUtilitate.ValoareConsum;
             _repository.CreateOrUpdate(contex);
         }
+
+        private void BtnDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            var context = DefaultViewModel["Consum"] as ConsumUtilitate;
+            _repository.Delete(context);
+            Frame.GoBack();
+        }
+
+
     }
 }

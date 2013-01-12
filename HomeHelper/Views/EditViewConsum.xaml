@@ -23,7 +23,10 @@
     -->
     <Page.BottomAppBar>
         <AppBar>
+            <StackPanel Orientation="Horizontal">
             <Button Name="btnSave" Click="BtnSave_OnClick" Style="{StaticResource SaveAppBarButtonStyle}"></Button>
+            <Button Name="btnDelete" Click="BtnDelete_OnClick" Style="{StaticResource DeleteAppBarButtonStyle}" ></Button>
+            </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
     <Grid Style="{StaticResource LayoutRootStyle}">
