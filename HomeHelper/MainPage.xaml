@@ -71,7 +71,7 @@
                        
                     </StackPanel>
                     <Chart:Chart x:Name="LineChart" 
-                                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" Height="286" Background="Crimson" Title="Line Chart">
+                                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="650" Height="286" Background="Crimson" >
                        
                         
                         <Chart:LineSeries
