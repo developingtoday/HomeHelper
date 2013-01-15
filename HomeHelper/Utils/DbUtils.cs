@@ -25,6 +25,7 @@ namespace HomeHelper.Utils
                 {
                    sqlConn.CreateTable<Utilitati>();
                     sqlConn.CreateTable<ConsumUtilitate>();
+                    sqlConn.CreateTable<AlertaUtilitate>();
                     return "Succes";
 
                 }

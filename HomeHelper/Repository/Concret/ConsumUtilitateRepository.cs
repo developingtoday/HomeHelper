@@ -68,4 +68,64 @@ namespace HomeHelper.Repository.Concret
             return GetAll().FirstOrDefault(x => x.IdConsumUtilitate == id);
         }
     }
+
+    public class AlertaUtilitateRepository : IRepository<AlertaUtilitate>
+    {
+        public Tuple<string, bool> CreateOrUpdate(AlertaUtilitate t)
+        {
+            using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
+            {
+                try
+                {
+                    sqlConn.BeginTransaction();
+                    if (t.IdAlertaUilitate == 0)
+                    {
+                        sqlConn.Insert(t);
+                    }
+                    else sqlConn.Update(t);
+                    sqlConn.Commit();
+                    return new Tuple<string, bool>(ResurseMesaje.CrudSucces, true);
+                }
+                catch (Exception ex)
+                {
+                    sqlConn.Rollback();
+                    return new Tuple<string, bool>(ex.Message, false);
+                }
+            }
+        }
+
+        public Tuple<string, bool> Delete(AlertaUtilitate t)
+        {
+            using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
+            {
+                try
+                {
+                    sqlConn.BeginTransaction();
+                    sqlConn.Delete(t);
+                    sqlConn.Commit();
+                    return new Tuple<string, bool>(ResurseMesaje.CrudSucces, true);
+                }
+                catch (Exception ex)
+                {
+                    sqlConn.Rollback();
+                    return new Tuple<string, bool>(ex.Message, false);
+                }
+            }
+        }
+
+        public ObservableCollection<AlertaUtilitate> GetAll()
+        {
+            using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
+            {
+                return new ObservableCollection<AlertaUtilitate>(sqlConn.Table<AlertaUtilitate>());
+            }
+        }
+
+        public AlertaUtilitate GetById(int id)
+        {
+            return GetAll().FirstOrDefault(x => x.IdAlertaUilitate == id);
+        }
+    }
+
+   
 }
