@@ -35,36 +35,37 @@ namespace HomeHelper
         private readonly IRepository<ConsumUtilitate> _repositoryConsum =
             FactoryRepository.GetInstanceRepositoryConsum();
 
+        private int _lastUtilitateSelect = 0;
         private LineSeries line;
         public MainPage()
         {
             this.InitializeComponent();
             line = ((LineSeries)LineChart.Series[0]);
             CreateLineSeries();
-            itemListUtilitati.ItemClick += (s, e) =>
-                                               {
-                                                   
-                                                   var obj = e.ClickedItem as Utilitati;
-                                                 
-                                                   //if (LineChart != null)
-                                                   //{
-                                                   //    line.ItemsSource = null;
-                                                      
-                                                   //    if (LineChart.Series.Any())
-                                                   //        LineChart.Series.Clear();
-                                                   //    CreateLineSeries();
-                                                   //    line.ClearPoints();
-                                                   //}
-                                                  // line.ClearPoints();
-                                                   //var colection = new ObservableCollection<ConsumUtilitate>(obj.Consums);
-                                                   line.ItemsSource = obj.Consums;
-
-
-
-
-                                               };
+            itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;
             itemListUtilitati.IsItemClickEnabled = true;
+            itemListUtilitati.SelectionChanged += (s, e) =>
+                                                      {
+                                                          btnDelete.Visibility = (e.AddedItems.Any())
+                                                                                     ? Visibility.Visible
+                                                                                     : Visibility.Collapsed;
+                                                          btnEdit.Visibility = (e.AddedItems.Any())
+                                                                                   ? Visibility.Visible
+                                                                                   : Visibility.Collapsed;
+                                                          botomAppbar.IsOpen = e.AddedItems.Any();
+                                                      };
+        }
 
+        void itemListUtilitati_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (itemListUtilitati.SelectedItems.Any()) itemListUtilitati.SelectedItem=null;
+            var obj = e.ClickedItem as Utilitati;
+            LineChart.Title =
+                string.Format("Evolutia consumului utilitatii : {0}",
+                              obj.DenumireUtilitate);
+            line.Title = obj.DenumireUtilitate;
+            line.ItemsSource = obj.Consums;
+            _lastUtilitateSelect = obj.IdUtilitati;
         }
 
         private void CreateLineSeries()
@@ -142,35 +143,12 @@ namespace HomeHelper
         }
 
         private void BtnAddConsum_OnClick(object sender, RoutedEventArgs e)
-        {
-            var obj = itemListUtilitati.SelectedItem as Utilitati;
-            if (obj == null) return;
-            Frame.Navigate(typeof (EditViewConsum), new Tuple<int,int>(0,obj.IdUtilitati));
+        {       
+            Frame.Navigate(typeof (EditViewConsum), new Tuple<int,int>(0,_lastUtilitateSelect));
         }
 
-        private void BtnDeleteConsum_OnClick(object sender, RoutedEventArgs e)
-        {
-            //var obj = itemListConsum.SelectedItem as ConsumUtilitate;
-            //if (obj == null) return;
-            //_repositoryConsum.Delete(obj);
-            //MockUpListItem();
-        }
 
-        private void BtnEditConsum_OnClick(object sender, RoutedEventArgs e)
-        {
-            //var obj = itemListConsum.SelectedItem as ConsumUtilitate;
-            //if (obj == null) return;
-            //Frame.Navigate(typeof(EditViewConsum), new Tuple<int, int>(obj.IdConsumUtilitate, obj.IdUtilitate));
-           
-        }
     }
 
-    public static class Extensii
-    {
-        public static void ClearPoints(this LineSeries s)
-        {
-            if (s.Points != null) s.Points.Clear();
-           
-        }
-    }
+
 }

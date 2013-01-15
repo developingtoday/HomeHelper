@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Utilitate" Margin="10" Grid.Column="0" Grid.Row="0"></TextBlock>
-        <ComboBox Name="cmbUtilitate" IsEnabled="False"  SelectedValue="{Binding IdUtilitate}"  Grid.Row="0" Margin="10" Grid.Column="1"></ComboBox>
+        <ComboBox Name="cmbUtilitate"   SelectedValue="{Binding IdUtilitate}"  Grid.Row="0" Margin="10" Grid.Column="1"></ComboBox>
         <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
         <storeAppControl:DatePicker Grid.Column="1" Grid.Row="1" Date="{Binding DataConsum}" x:Name="dtpLocal" Margin="10" ></storeAppControl:DatePicker>
         <TextBlock Text="Consum" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
