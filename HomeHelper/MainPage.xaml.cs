@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HomeHelper.Common;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
+using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
 using HomeHelper.Views;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
@@ -31,7 +32,7 @@ namespace HomeHelper
     public sealed partial class MainPage : HomeHelper.Common.LayoutAwarePage
     {
         private readonly IRepository<Utilitati> _repository = FactoryRepository.GetInstanceRepositoryUtilitati();
-
+        private readonly IRepository<AlertaUtilitate> _repositoryAlerta = new AlertaUtilitateRepository(); 
         private readonly IRepository<ConsumUtilitate> _repositoryConsum =
             FactoryRepository.GetInstanceRepositoryConsum();
 
@@ -44,6 +45,8 @@ namespace HomeHelper
             CreateLineSeries();
             itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;
             itemListUtilitati.IsItemClickEnabled = true;
+            itemListAlerte.ItemClick += itemListAlerte_ItemClick;
+            itemListAlerte.IsItemClickEnabled = true;
             itemListUtilitati.SelectionChanged += (s, e) =>
                                                       {
                                                           btnDelete.Visibility = (e.AddedItems.Any())
@@ -54,6 +57,15 @@ namespace HomeHelper
                                                                                    : Visibility.Collapsed;
                                                           botomAppbar.IsOpen = e.AddedItems.Any();
                                                       };
+        }
+
+        void itemListAlerte_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+            var obj = e.ClickedItem as AlertaUtilitate;
+            if (obj == null) return;
+            Frame.Navigate(typeof (EditViewAlerta), obj.IdAlertaUilitate);
+
         }
 
         void itemListUtilitati_ItemClick(object sender, ItemClickEventArgs e)
@@ -88,6 +100,7 @@ namespace HomeHelper
         {
           
             itemListUtilitati.ItemsSource = _repository.GetAll();
+            itemListAlerte.ItemsSource = _repositoryAlerta.GetAll();
         }
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -148,6 +161,10 @@ namespace HomeHelper
         }
 
 
+        private void BtnAddAlerta_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (EditViewAlerta), 0);
+        }
     }
 
 

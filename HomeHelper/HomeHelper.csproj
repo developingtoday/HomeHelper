@@ -144,6 +144,9 @@
     <Compile Include="Views\EditView.xaml.cs">
       <DependentUpon>EditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditViewAlerta.xaml.cs">
+      <DependentUpon>EditViewAlerta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditViewConsum.xaml.cs">
       <DependentUpon>EditViewConsum.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditViewAlerta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
