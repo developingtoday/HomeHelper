@@ -47,16 +47,19 @@ namespace HomeHelper
             itemListUtilitati.IsItemClickEnabled = true;
             itemListAlerte.ItemClick += itemListAlerte_ItemClick;
             itemListAlerte.IsItemClickEnabled = true;
-            itemListUtilitati.SelectionChanged += (s, e) =>
-                                                      {
-                                                          btnDelete.Visibility = (e.AddedItems.Any())
+            itemListUtilitati.SelectionChanged +=ItemListUtilitatiOnSelectionChanged;
+            itemListAlerte.SelectionChanged += ItemListUtilitatiOnSelectionChanged;
+        }
+
+        private void ItemListUtilitatiOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnDelete.Visibility = (e.AddedItems.Any())
                                                                                      ? Visibility.Visible
                                                                                      : Visibility.Collapsed;
-                                                          btnEdit.Visibility = (e.AddedItems.Any())
-                                                                                   ? Visibility.Visible
-                                                                                   : Visibility.Collapsed;
-                                                          botomAppbar.IsOpen = e.AddedItems.Any();
-                                                      };
+            btnEdit.Visibility = (e.AddedItems.Any())
+                                     ? Visibility.Visible
+                                     : Visibility.Collapsed;
+            botomAppbar.IsOpen = e.AddedItems.Any();
         }
 
         void itemListAlerte_ItemClick(object sender, ItemClickEventArgs e)
@@ -131,7 +134,9 @@ namespace HomeHelper
             try
             {
                 var obj = itemListUtilitati.SelectedItem as Utilitati;
-                _repository.Delete(obj);
+                var objAlerta = itemListAlerte.SelectedItem as AlertaUtilitate;
+                if(obj!=null) _repository.Delete(obj);
+                if (objAlerta != null) _repositoryAlerta.Delete(objAlerta);
                 MockUpListItem();
             }
             catch (Exception ex)
