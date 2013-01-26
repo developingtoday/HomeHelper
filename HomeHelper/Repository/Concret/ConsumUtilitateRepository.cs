@@ -8,6 +8,7 @@ using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
 using SQLite;
+using Windows.UI.Notifications;
 
 namespace HomeHelper.Repository.Concret
 {
@@ -69,7 +70,7 @@ namespace HomeHelper.Repository.Concret
         }
     }
 
-    public class AlertaUtilitateRepository : IRepository<AlertaUtilitate>
+    public class AlertaUtilitateRepository : IEnhancedRepository<AlertaUtilitate>
     {
         public Tuple<string, bool> CreateOrUpdate(AlertaUtilitate t)
         {
@@ -102,6 +103,14 @@ namespace HomeHelper.Repository.Concret
                 {
                     sqlConn.BeginTransaction();
                     sqlConn.Delete(t);
+                    var found =
+                           ToastNotificationManager.CreateToastNotifier()
+                                                   .GetScheduledToastNotifications()
+                                                   .FirstOrDefault(x => x.Id == t.IdAlertaUilitate.ToString());
+                    if (found != null)
+                    {
+                        ToastNotificationManager.CreateToastNotifier().RemoveFromSchedule(found);
+                    }
                     sqlConn.Commit();
                     return new Tuple<string, bool>(ResurseMesaje.CrudSucces, true);
                 }
@@ -125,7 +134,47 @@ namespace HomeHelper.Repository.Concret
         {
             return GetAll().FirstOrDefault(x => x.IdAlertaUilitate == id);
         }
+
+        public Tuple<string, bool, int> CreateOrUpdateEnhanced(AlertaUtilitate t)
+        {
+             using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
+            {
+                try
+                {
+                    sqlConn.BeginTransaction();
+                    if (t.IdAlertaUilitate == 0)
+                    {
+                        sqlConn.Insert(t);
+                    }
+                    else sqlConn.Update(t);
+                    sqlConn.Commit();
+                    if (t.IdAlertaUilitate != 0)
+                    {
+                        var found =
+                            ToastNotificationManager.CreateToastNotifier()
+                                                    .GetScheduledToastNotifications()
+                                                    .FirstOrDefault(x => x.Id == t.IdAlertaUilitate.ToString());
+                        if (found != null)
+                        {
+                            ToastNotificationManager.CreateToastNotifier().RemoveFromSchedule(found);
+                        }
+                    }
+                    var toast = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
+                    var elements = toast.GetElementsByTagName("text");
+                    elements[0].AppendChild(toast.CreateTextNode("Ba te bate vecina ca n-ai dat indexu"));
+                    var toastNou = new ScheduledToastNotification(toast, DateTime.Now.AddSeconds(10)) { Id = t.IdAlertaUilitate.ToString() };
+                    ToastNotificationManager.CreateToastNotifier().AddToSchedule(toastNou);
+                    return new Tuple<string, bool,int>(ResurseMesaje.CrudSucces, true,t.IdAlertaUilitate);
+                }
+                catch (Exception ex)
+                {
+                    sqlConn.Rollback();
+                    return new Tuple<string, bool,int>(ex.Message, false,0);
+                }
+            }
+        }
+        }
     }
 
    
-}
+

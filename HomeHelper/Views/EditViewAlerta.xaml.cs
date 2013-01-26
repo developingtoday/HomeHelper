@@ -8,6 +8,7 @@ using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,7 +26,7 @@ namespace HomeHelper.Views
     /// </summary>
     public sealed partial class EditViewAlerta : HomeHelper.Common.LayoutAwarePage
     {
-        private IRepository<AlertaUtilitate> _repository = new AlertaUtilitateRepository();
+        private IEnhancedRepository<AlertaUtilitate> _repository = new AlertaUtilitateRepository();
         public EditViewAlerta()
         {
             this.InitializeComponent();
@@ -63,7 +64,8 @@ namespace HomeHelper.Views
             var obj = DefaultViewModel["Alerta"] as AlertaUtilitate ?? new AlertaUtilitate();
             obj.IdUitlitate = ctrlAlerta.Utilitate;
             obj.DataAlerta = ctrlAlerta.DataAlerta;
-            _repository.CreateOrUpdate(obj);
+            var ul=_repository.CreateOrUpdateEnhanced(obj);
+
         }
     }
 }
