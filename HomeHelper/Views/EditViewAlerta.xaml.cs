@@ -61,9 +61,7 @@ namespace HomeHelper.Views
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            var obj = DefaultViewModel["Alerta"] as AlertaUtilitate ?? new AlertaUtilitate();
-            obj.IdUitlitate = ctrlAlerta.Utilitate;
-            obj.DataAlerta = ctrlAlerta.DataAlerta;
+            var obj = ctrlAlerta.DataContext as AlertaUtilitate ?? new AlertaUtilitate();
             var ul=_repository.CreateOrUpdateEnhanced(obj);
 
         }
