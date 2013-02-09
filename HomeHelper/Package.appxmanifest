@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HomeHelper.App">
       <VisualElements DisplayName="HomeHelper" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="HomeHelper" ForegroundText="light" BackgroundColor="#464646" ToastCapable="true">
-        <DefaultTile ShowName="allLogos" />
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\WideLog.png" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
     </Application>
