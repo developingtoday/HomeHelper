@@ -64,8 +64,9 @@ namespace HomeHelper.Views
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            var obj = ctrlUtilitate.GetViewModel();
+            var obj = ctrlUtilitate.DataContext as Utilitati ?? new Utilitati();
             _repository.CreateOrUpdate(obj);
+            Frame.GoBack();
         }
     }
 }

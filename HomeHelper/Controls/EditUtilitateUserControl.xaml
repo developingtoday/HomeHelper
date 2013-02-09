@@ -23,10 +23,10 @@
             <RowDefinition Height="50"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Utilitate" Margin="10"></TextBlock>
-        <TextBox Name="txtUtilitate" Margin="10" Grid.Row="0" Grid.Column="1" Text="{Binding DenumireUtilitate}"></TextBox>
+        <TextBox Name="txtUtilitate" Margin="10" Grid.Row="0" Grid.Column="1" Text="{Binding DenumireUtilitate, Mode=TwoWay}"></TextBox>
         <TextBlock Text="Unitate Masura" Margin="10" Grid.Row="1" Grid.Column="0"></TextBlock>
-        <TextBox Name="txtUnitate" Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding  UnitateMasura}"></TextBox>
+        <TextBox Name="txtUnitate" Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding  UnitateMasura, Mode=TwoWay}"></TextBox>
         <TextBlock Text="Valoare Initiala" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
-        <TextBox Name="txtValoareInitiala" Grid.Row="3" Grid.Column="1" Margin="10"  Text="{Binding  ValoareInitiala}"></TextBox>        
+        <TextBox Name="txtValoareInitiala" Grid.Row="3" Grid.Column="1" Margin="10"  Text="{Binding ValoareInitiala, Mode=TwoWay}"></TextBox>        
     </Grid>
 </UserControl>

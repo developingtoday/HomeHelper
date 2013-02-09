@@ -66,11 +66,9 @@ namespace HomeHelper.Views
 
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            var contex = DefaultViewModel["Consum"] as ConsumUtilitate;
-            contex.DataConsum = ctrlConsumUtilitate.DataConsum;
-            contex.ValoareConsum = ctrlConsumUtilitate.ValoareConsum;
-            contex.IdUtilitate = ctrlConsumUtilitate.IdUtilitate;
+            var contex = ctrlConsumUtilitate.DataContext as ConsumUtilitate;
             _repository.CreateOrUpdate(contex);
+            Frame.GoBack();
         }
 
         private void BtnDelete_OnClick(object sender, RoutedEventArgs e)

@@ -37,18 +37,7 @@ namespace HomeHelper.Controls
             this.InitializeComponent();
             Loaded += EditConsumUtilitateUserControl_Loaded;
         }
-        public DateTime DataConsum
-        {
-            get { return dtpLocal.Date; }
-        }
-        public float ValoareConsum
-        {
-            get { return float.Parse(txtConsum.Text); }
-        }
-        public int IdUtilitate
-        {
-            get { return (int) cmbUtilitate.SelectedValue; }
-        }
+
 
 
         

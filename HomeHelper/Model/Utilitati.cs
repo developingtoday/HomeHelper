@@ -15,38 +15,17 @@ namespace HomeHelper.Model
         private int _idUtilitati=0;
 
         [PrimaryKey,AutoIncrement]
-        public int IdUtilitati
-        {
-            get { return _idUtilitati; }
-            set { SetProperty(ref _idUtilitati, value); }
-        }
+        public int IdUtilitati { get; set; }
+        
 
         private string _denumireUtilitate = string.Empty;
-        public string DenumireUtilitate
-        {
-            get { return _denumireUtilitate; }
-            set
-            {
-                SetProperty(ref _denumireUtilitate, value,"DenumireUtilitate");
-            }
-        }
+        public string DenumireUtilitate { get; set; }
 
         private string _unitateMasura = string.Empty;
-        public string UnitateMasura
-        {
-            get { return _unitateMasura; }
-            set { SetProperty(ref _unitateMasura, value,"UnitateMasura"); }
-        }
+        public string UnitateMasura { get; set; }
 
         private decimal _valoareInitiala = 0;
-        public decimal ValoareInitiala
-        {
-            get { return _valoareInitiala; }
-            set
-            {
-                SetProperty(ref _valoareInitiala, value,"ValoareInitiala");
-            }
-        }
+        public float ValoareInitiala { get; set; }
         public IEnumerable<ConsumUtilitate> Consums
         {
             get
