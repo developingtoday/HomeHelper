@@ -18,11 +18,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Utilitate" Margin="10" Grid.Row="0" Grid.Column="0"></TextBlock>
         <ComboBox Name="cmbUtilitate" Margin="10" SelectedValue="{Binding IdUitlitate}" Grid.Row="0" Grid.Column="1"></ComboBox>
         <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
         <storeAppControl:DatePicker Grid.Column="1" Grid.Row="1" Date="{Binding DataAlerta}" x:Name="dtpLocal" Margin="10" ></storeAppControl:DatePicker>
+        <storeAppControl:TimePicker Grid.Column="1" Grid.Row="2" Time="{Binding DataAlerta, Mode=TwoWay}" Format="hh:mm:ss" Name="tmLoca"></storeAppControl:TimePicker>
     </Grid>
 </UserControl>

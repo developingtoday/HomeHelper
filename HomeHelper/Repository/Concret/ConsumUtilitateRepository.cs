@@ -162,7 +162,7 @@ namespace HomeHelper.Repository.Concret
                     var toast = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
                     var elements = toast.GetElementsByTagName("text");
                     elements[0].AppendChild(toast.CreateTextNode("Ba te bate vecina ca n-ai dat indexu"));
-                    var toastNou = new ScheduledToastNotification(toast, DateTime.Now.AddSeconds(10)) { Id = t.IdAlertaUilitate.ToString() };
+                    var toastNou = new ScheduledToastNotification(toast,t.DataAlerta) { Id = t.IdAlertaUilitate.ToString() };
                     ToastNotificationManager.CreateToastNotifier().AddToSchedule(toastNou);
                     return new Tuple<string, bool,int>(ResurseMesaje.CrudSucces, true,t.IdAlertaUilitate);
                 }

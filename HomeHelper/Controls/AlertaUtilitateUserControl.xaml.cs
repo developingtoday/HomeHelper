@@ -38,6 +38,6 @@ namespace HomeHelper.Controls
             get { return int.Parse(cmbUtilitate.SelectedValue.ToString()); }
         }
 
-        public DateTime DataAlerta { get { return dtpLocal.Date; } }
+        public DateTime DataAlerta { get { return new DateTime(dtpLocal.Date.Year,dtpLocal.Date.Month,dtpLocal.Date.Day,tmLoca.Time.Hour,tmLoca.Time.Minute,tmLoca.Time.Second); } }
     }
 }
