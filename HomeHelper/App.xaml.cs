@@ -43,7 +43,7 @@ namespace HomeHelper
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             Frame rootFrame = Window.Current.Content as Frame;
-
+            DbUtils.InitializeDb();
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -69,7 +69,7 @@ namespace HomeHelper
                 {
                     throw new Exception("Failed to create initial page");
                 }
-                DbUtils.InitializeDb();
+              
             }
             // Ensure the current window is active
             Window.Current.Activate();
