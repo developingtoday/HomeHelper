@@ -33,7 +33,7 @@ namespace HomeHelper.Model
                 return
                     FactoryRepository.GetInstanceRepositoryConsum()
                                      .GetAll()
-                                     .Where(x => x.IdUtilitate == _idUtilitati).OrderBy(x=>x.DataConsum)
+                                     .Where(x => x.IdUtilitate == IdUtilitati).OrderBy(x => x.DataConsum)
                                      .AsEnumerable();
             }
         } 
