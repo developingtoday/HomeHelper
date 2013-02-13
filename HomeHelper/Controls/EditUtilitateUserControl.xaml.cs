@@ -24,14 +24,7 @@ namespace HomeHelper.Controls
             this.InitializeComponent();
         }
 
-        public Utilitati GetViewModel()
-        {
-            var context = DataContext as Utilitati;
-            context.DenumireUtilitate = txtUtilitate.Text;
-            context.UnitateMasura = txtUnitate.Text;
-            context.ValoareInitiala = int.Parse(txtValoareInitiala.Text);
-            return context;
-        }
+      
 
     }
 }

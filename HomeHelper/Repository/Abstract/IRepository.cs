@@ -15,4 +15,8 @@ namespace HomeHelper.Repository.Abstract
         T GetById(int id);
 
     }
+    public interface IEnhancedRepository<T>:IRepository<T>
+    {
+        Tuple<string, bool, int> CreateOrUpdateEnhanced(T t);
+    }
 }

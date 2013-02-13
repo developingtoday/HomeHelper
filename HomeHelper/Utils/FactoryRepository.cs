@@ -21,5 +21,9 @@ namespace HomeHelper.Utils
             return new ConsumUtilitateRepository();
         }
 
+        public static IRepository<AlertaUtilitate> GetInstanceAlertaUtilitate()
+        {
+            return new AlertaUtilitateRepository();
+        }
     }
 }

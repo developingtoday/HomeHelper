@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HomeHelper.Common;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
+using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
 using HomeHelper.Views;
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
@@ -21,7 +22,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
+// The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237  
 
 namespace HomeHelper
 {
@@ -31,7 +32,7 @@ namespace HomeHelper
     public sealed partial class MainPage : HomeHelper.Common.LayoutAwarePage
     {
         private readonly IRepository<Utilitati> _repository = FactoryRepository.GetInstanceRepositoryUtilitati();
-
+        private readonly IRepository<AlertaUtilitate> _repositoryAlerta = new AlertaUtilitateRepository(); 
         private readonly IRepository<ConsumUtilitate> _repositoryConsum =
             FactoryRepository.GetInstanceRepositoryConsum();
 
@@ -44,16 +45,30 @@ namespace HomeHelper
             CreateLineSeries();
             itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;
             itemListUtilitati.IsItemClickEnabled = true;
-            itemListUtilitati.SelectionChanged += (s, e) =>
-                                                      {
-                                                          btnDelete.Visibility = (e.AddedItems.Any())
+            itemListAlerte.ItemClick += itemListAlerte_ItemClick;
+            itemListAlerte.IsItemClickEnabled = true;
+            itemListUtilitati.SelectionChanged +=ItemListUtilitatiOnSelectionChanged;
+            itemListAlerte.SelectionChanged += ItemListUtilitatiOnSelectionChanged;
+        }
+
+        private void ItemListUtilitatiOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnDelete.Visibility = (e.AddedItems.Any())
                                                                                      ? Visibility.Visible
                                                                                      : Visibility.Collapsed;
-                                                          btnEdit.Visibility = (e.AddedItems.Any())
-                                                                                   ? Visibility.Visible
-                                                                                   : Visibility.Collapsed;
-                                                          botomAppbar.IsOpen = e.AddedItems.Any();
-                                                      };
+            btnEdit.Visibility = (e.AddedItems.Any())
+                                     ? Visibility.Visible
+                                     : Visibility.Collapsed;
+            botomAppbar.IsOpen = e.AddedItems.Any();
+        }
+
+        void itemListAlerte_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+            var obj = e.ClickedItem as AlertaUtilitate;
+            if (obj == null) return;
+            Frame.Navigate(typeof (EditViewAlerta), obj.IdAlertaUilitate);
+
         }
 
         void itemListUtilitati_ItemClick(object sender, ItemClickEventArgs e)
@@ -88,6 +103,7 @@ namespace HomeHelper
         {
           
             itemListUtilitati.ItemsSource = _repository.GetAll();
+            itemListAlerte.ItemsSource = _repositoryAlerta.GetAll();
         }
         /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
@@ -118,7 +134,9 @@ namespace HomeHelper
             try
             {
                 var obj = itemListUtilitati.SelectedItem as Utilitati;
-                _repository.Delete(obj);
+                var objAlerta = itemListAlerte.SelectedItem as AlertaUtilitate;
+                if(obj!=null) _repository.Delete(obj);
+                if (objAlerta != null) _repositoryAlerta.Delete(objAlerta);
                 MockUpListItem();
             }
             catch (Exception ex)
@@ -148,6 +166,10 @@ namespace HomeHelper
         }
 
 
+        private void BtnAddAlerta_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (EditViewAlerta), 0);
+        }
     }
 
 

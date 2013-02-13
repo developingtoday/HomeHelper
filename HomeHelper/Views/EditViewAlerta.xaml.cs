@@ -5,9 +5,10 @@ using System.Linq;
 using HomeHelper.Common;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
-using HomeHelper.Utils;
+using HomeHelper.Repository.Concret;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,14 +24,12 @@ namespace HomeHelper.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class EditView : HomeHelper.Common.LayoutAwarePage
+    public sealed partial class EditViewAlerta : HomeHelper.Common.LayoutAwarePage
     {
-        private readonly IRepository<Utilitati> _repository = FactoryRepository.GetInstanceRepositoryUtilitati();
-        public EditView()
+        private IEnhancedRepository<AlertaUtilitate> _repository = new AlertaUtilitateRepository();
+        public EditViewAlerta()
         {
             this.InitializeComponent();
-            
-            
         }
 
         /// <summary>
@@ -44,10 +43,10 @@ namespace HomeHelper.Views
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            var navId = (int) navigationParameter;
-            var obj = _repository.GetById(navId)??new Utilitati();
-            DefaultViewModel["Utilitati"] = obj;
-            
+            var val = (int) navigationParameter;
+            var obj = _repository.GetById(val) ?? new AlertaUtilitate();
+            DefaultViewModel["Alerta"] = obj;
+            ctrlAlerta.DataContext = obj;
         }
 
         /// <summary>
@@ -60,13 +59,11 @@ namespace HomeHelper.Views
         {
         }
 
-     
-
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            var obj = ctrlUtilitate.DataContext as Utilitati ?? new Utilitati();
-            _repository.CreateOrUpdate(obj);
-            Frame.GoBack();
+            var obj = ctrlAlerta.DataContext as AlertaUtilitate ?? new AlertaUtilitate();
+            var ul=_repository.CreateOrUpdateEnhanced(obj);
+
         }
     }
 }
