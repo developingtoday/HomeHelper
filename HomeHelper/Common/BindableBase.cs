@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using Windows.UI.Xaml.Data;
 
 namespace HomeHelper.Common
@@ -51,5 +52,37 @@ namespace HomeHelper.Common
                 eventHandler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    public class RelayCommand:ICommand
+    {
+        private readonly Action<object> _execute;
+        private readonly Predicate<object> _canExecute;
+
+        public RelayCommand(Action<object> exec ):this(exec,null)
+        {
+        }
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute  )
+        {
+            if(execute==null) throw new ArgumentNullException("The delegate for the execution is null");
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+        public bool CanExecute(object parameter)
+        {
+            return (_canExecute == null) || _canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter); 
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            var copy = CanExecuteChanged;
+            if(copy!=null) copy(this,new EventArgs());
+        }
+        public event EventHandler CanExecuteChanged;
+
     }
 }
