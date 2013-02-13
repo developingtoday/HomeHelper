@@ -340,8 +340,8 @@
     <Page.BottomAppBar>
         <AppBar Name="botomAppbar"  >
             <StackPanel Orientation="Horizontal">
-                <Button Name="btnDelete" Visibility="Collapsed" Style="{StaticResource RemoveAppBarButtonStyle}" Click="BtnDelete_OnClick"></Button>
-                <Button Name="btnEdit" Visibility="Collapsed"  Style="{StaticResource EditAppBarButtonStyle}" Click="BtnEdit_OnClick"></Button>
+                <Button Name="btnDelete" Visibility="Collapsed" Style="{StaticResource RemoveAppBarButtonStyle}" ></Button>
+                <Button Name="btnEdit" Visibility="Collapsed"  Style="{StaticResource EditAppBarButtonStyle}" ></Button>
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
@@ -373,9 +373,11 @@
                     <StackPanel HorizontalAlignment="Left" Margin="0,-300,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Utilitati" Padding="30" FontSize="20"></TextBlock>
-                            <Button Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Click="BtnAdd_OnClick"></Button>
+                            <Button Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" ></Button>
                         </StackPanel>
-                        <ListView Name="itemListUtilitati" Background="DarkBlue" >
+                        <ListView Name="itemListUtilitati" ItemsSource="{Binding ListaUtilitati}" Background="DarkBlue" IsItemClickEnabled="True" 
+                                common:ListViewClickCommand.Command="{Binding CmdListView}"
+                                  >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="10,0,0,0">
@@ -392,11 +394,11 @@
                         <StackPanel Orientation="Vertical" Margin="100,-30,0,0">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Consum" Padding="30" FontSize="20"></TextBlock>
-                                <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Click="BtnAddConsum_OnClick"></Button>
+                                <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" ></Button>
                             </StackPanel>
-                        <Chart:Chart x:Name="LineChart" 
+                        <Chart:Chart x:Name="LineChart"
                                  HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800" >
-                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" Title="Utilitate"/>
+                            <Chart:LineSeries x:Name="lineSerii" ItemsSource="{Binding ConsumUtilitate, Mode=TwoWay}" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" Title="Utilitate"/>
                         </Chart:Chart>
                     </StackPanel>
                 </GridViewItem>
@@ -404,9 +406,9 @@
                     <StackPanel Orientation="Vertical" Margin="100,-300,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Alerte" Padding="30" FontSize="20"></TextBlock>
-                            <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" Click="BtnAddAlerta_OnClick"></Button>
+                            <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" ></Button>
                         </StackPanel>
-                        <ListView Name="itemListAlerte" Background="Blue">
+                        <ListView Name="itemListAlerte" DataContext="{Binding AlerteUtilitati}" Background="Blue">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
