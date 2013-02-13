@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
 namespace HomeHelper.Common
@@ -84,5 +86,35 @@ namespace HomeHelper.Common
         }
         public event EventHandler CanExecuteChanged;
 
+    }
+    public class ListViewClickCommand
+    {
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command",
+                                                                                                        typeof (ICommand
+                                                                                                            ),
+                                                                                                        typeof (
+                                                                                                            ListViewClickCommand
+                                                                                                            ),
+                                                                                                        new PropertyMetadata
+                                                                                                            (null,
+                                                                                                             CommadPropertyChanged));
+
+        public static void SetCommand(DependencyObject aO, ICommand val)
+        {
+            aO.SetValue(CommandProperty,val);
+        }
+        public static ICommand GetCommand(DependencyObject aO)
+        {
+           return (ICommand) aO.GetValue(CommandProperty);
+        }
+        private static void CommadPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as ListView).ItemClick += (s, e1) =>
+                                             {
+                                                 var cast = s as ListView;
+                                                 var cmd = GetCommand(cast);
+                                                 cmd.Execute(e1.ClickedItem);
+                                             };
+        } 
     }
 }
