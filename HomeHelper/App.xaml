@@ -2,10 +2,11 @@
     x:Class="HomeHelper.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:HomeHelper">
+    xmlns:local="using:HomeHelper" xmlns:mvvm="using:HomeHelper.Common">
 
     <Application.Resources>
         <ResourceDictionary>
+            <mvvm:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></mvvm:BooleanToVisibilityConverter>
             <ResourceDictionary.MergedDictionaries>
 
                 <!-- 
