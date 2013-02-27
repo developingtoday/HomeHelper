@@ -211,11 +211,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.WinRT, Version=3.7.14.1">
-      <Name>SQLite for Windows Runtime</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="StoreAppLib, Version=1.1.2.0, Culture=neutral, PublicKeyToken=f3cd13981968e4ee, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\StoreAppLib.1.1.2.0\lib\NetCore45\StoreAppLib.dll</HintPath>
@@ -231,6 +226,17 @@
     <Reference Include="WinRTXamlToolkit.Debugging">
       <HintPath>..\packages\WinRTXamlToolkit.Debugging.1.3.5.2\lib\netcore45\WinRTXamlToolkit.Debugging.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, version=11.0">
+      <Name>Microsoft Visual C++ Runtime Package</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.WinRT, Version=3.7.15.2">
+      <Name>SQLite for Windows Runtime</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

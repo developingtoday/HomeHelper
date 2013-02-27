@@ -340,8 +340,8 @@
     <Page.BottomAppBar>
         <AppBar Name="botomAppbar"  >
             <StackPanel Orientation="Horizontal">
-                <Button Name="btnDelete" Visibility="Collapsed" Style="{StaticResource RemoveAppBarButtonStyle}" ></Button>
-                <Button Name="btnEdit" Visibility="Collapsed"  Style="{StaticResource EditAppBarButtonStyle}" ></Button>
+                <Button Name="btnDelete"  Style="{StaticResource RemoveAppBarButtonStyle}" ></Button>
+                <Button Name="btnEdit" Visibility="{Binding ShowEdit, Converter={StaticResource booleanToVisibilityConverter}, Mode=TwoWay}"   Style="{StaticResource EditAppBarButtonStyle}" Command="{Binding EditeazaCommand}" ></Button>
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
@@ -376,7 +376,7 @@
                             <Button Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" ></Button>
                         </StackPanel>
                         <ListView Name="itemListUtilitati" ItemsSource="{Binding ListaUtilitati}" Background="DarkBlue" IsItemClickEnabled="True" 
-                                common:ListViewClickCommand.Command="{Binding CmdListView}"
+                                common:ListViewClickCommand.Command="{Binding CmdListView}" SelectedItem="{Binding UtilitateSelectata, Mode=TwoWay}"
                                   >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -408,7 +408,7 @@
                             <TextBlock Text="Alerte" Padding="30" FontSize="20"></TextBlock>
                             <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" ></Button>
                         </StackPanel>
-                        <ListView Name="itemListAlerte" DataContext="{Binding AlerteUtilitati}" Background="Blue">
+                        <ListView Name="itemListAlerte" DataContext="{Binding AlerteUtilitati}" SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="Blue">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">

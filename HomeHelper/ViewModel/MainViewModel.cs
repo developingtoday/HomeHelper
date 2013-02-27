@@ -15,6 +15,7 @@ namespace HomeHelper.ViewModel
 {
     public class MainViewModel:BindableBase
     {
+        private bool _showEdit;
         private Utilitati _utilitateSelectata;
         private ObservableCollection<Utilitati> _listaUtilitati;
         private AlertaUtilitate _alertaSelectata;
@@ -37,7 +38,13 @@ namespace HomeHelper.ViewModel
         public Utilitati UtilitateSelectata
         {
             get { return _utilitateSelectata; }
-            set { SetProperty(ref _utilitateSelectata, value, "UtilitateSelectata"); }
+            set
+            {
+                if (value == null && _alertaSelectata != null) ShowEdit = true;
+                if(value!=null && _alertaSelectata==null) ShowEdit = true;
+                if (value == null && _alertaSelectata == null) ShowEdit = false;
+                SetProperty(ref _utilitateSelectata, value, "UtilitateSelectata");
+            }
         }
         public ObservableCollection<Utilitati> ListaUtilitati
         {
@@ -58,6 +65,15 @@ namespace HomeHelper.ViewModel
         {
             get { return _repositoryAlerta.GetAll(); }
         } 
+
+        public bool ShowEdit
+        {
+            get { return _showEdit; }
+            set
+            {
+                SetProperty(ref _showEdit, value, "ShowEdit");
+            }
+        }
 
         public RelayCommand AddUtilitateCommand
         {
@@ -95,12 +111,39 @@ namespace HomeHelper.ViewModel
                                                         {
                                                             var cast = o as Utilitati;
                                                             if (cast == null) return;
-                                                            UtilitateSelectata = cast;
                                                             ConsumUtilitate = new ObservableCollection<ConsumUtilitate>(cast.Consums);
                                                         },o=>ListaUtilitati.Any());
                 }
                 return _cmdListView;
             }
         }
+
+        public RelayCommand EditeazaCommand
+        {
+            get
+            {
+                if (UtilitateSelectata != null)
+                {
+
+
+                    if (_editeazaUtilitateCommand == null)
+                    {
+                        _editeazaUtilitateCommand =
+                            new RelayCommand(
+                                x => CurrentFrame.Navigate(typeof (EditView), UtilitateSelectata.IdUtilitati));
+                    }
+                    return _editeazaUtilitateCommand;
+                }
+                if (AlertaSelectata != null)
+                {
+                   if (_editeazaAlertaCommand == null)
+                   {
+                       _editeazaAlertaCommand=new RelayCommand(x=>CurrentFrame.Navigate(typeof(EditViewAlerta),AlertaSelectata.IdAlertaUilitate));
+                   }
+                }
+                return null;
+            }
+        }
     }
+ 
 }
