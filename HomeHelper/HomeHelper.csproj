@@ -228,14 +228,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <SDKReference Include="Microsoft.VCLibs, version=11.0">
       <Name>Microsoft Visual C++ Runtime Package</Name>
     </SDKReference>
     <SDKReference Include="SQLite.WinRT, Version=3.7.15.2">
       <Name>SQLite for Windows Runtime</Name>
+    </SDKReference>
+    <SDKReference Include="Syncfusion controls for WinRT XAML, Version=10.4.0.72">
+      <Name>Syncfusion controls for WinRT XAML</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
