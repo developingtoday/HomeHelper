@@ -408,7 +408,7 @@
                             <TextBlock Text="Alerte" Padding="30" FontSize="20"></TextBlock>
                             <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AdaugaAlertaCommand}"></Button>
                         </StackPanel>
-                        <ListView Name="itemListAlerte" DataContext="{Binding AlerteUtilitati}" SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="Blue">
+                        <ListView Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}" SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="Blue">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">

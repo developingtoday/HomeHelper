@@ -5,7 +5,7 @@
     xmlns:local="using:HomeHelper.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:storeAppControl="using:StoreAppLib.Controls"
+    xmlns:storeAppControl="using:StoreAppLib.Controls" xmlns:Input="using:Syncfusion.UI.Xaml.Controls.Input"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -24,7 +24,7 @@
         <TextBlock Text="Utilitate" Margin="10" Grid.Row="0" Grid.Column="0"></TextBlock>
         <ComboBox Name="cmbUtilitate" Margin="10" SelectedValue="{Binding IdUitlitate, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"></ComboBox>
         <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
-        <storeAppControl:DatePicker Grid.Column="1" Grid.Row="1" Date="{Binding DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></storeAppControl:DatePicker>
-        <storeAppControl:TimePicker Grid.Column="1" Grid.Row="2" Time="{Binding DataAlerta, Mode=TwoWay}" Format="hh:mm:ss" Name="tmLoca"></storeAppControl:TimePicker>
+        <Input:DatePicker Grid.Column="1" Grid.Row="1" Value="{Binding DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
+        <Input:TimePicker Grid.Column="1" Grid.Row="2" Value="{Binding DataAlerta, Mode=TwoWay}" Name="tmLoca"></Input:TimePicker>
     </Grid>
 </UserControl>

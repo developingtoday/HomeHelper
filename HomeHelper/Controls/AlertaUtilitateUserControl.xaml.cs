@@ -21,7 +21,8 @@ namespace HomeHelper.Controls
 {
     public sealed partial class AlertaUtilitateUserControl : UserControl
     {
-        private IRepository<Utilitati> _repository = new UtilitatiRepository(); 
+        private IRepository<Utilitati> _repository = new UtilitatiRepository();
+
         public AlertaUtilitateUserControl()
         {
             this.InitializeComponent();
@@ -31,13 +32,7 @@ namespace HomeHelper.Controls
                               cmbUtilitate.DisplayMemberPath = "DenumireUtilitate";
                               cmbUtilitate.SelectedValuePath = "IdUtilitati";
                           };
-            
-        }
-        public int Utilitate
-        {
-            get { return int.Parse(cmbUtilitate.SelectedValue.ToString()); }
-        }
 
-        public DateTime DataAlerta { get { return new DateTime(dtpLocal.Date.Year,dtpLocal.Date.Month,dtpLocal.Date.Day,tmLoca.Time.Hour,tmLoca.Time.Minute,tmLoca.Time.Second); } }
+        }
     }
 }
