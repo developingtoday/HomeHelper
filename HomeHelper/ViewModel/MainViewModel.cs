@@ -145,14 +145,27 @@ namespace HomeHelper.ViewModel
                     }
                     return _editeazaUtilitateCommand;
                 }
-                if (AlertaSelectata != null)
-                {
-                   if (_editeazaAlertaCommand == null)
-                   {
-                       _editeazaAlertaCommand=new RelayCommand(x=>CurrentFrame.Navigate(typeof(EditViewAlerta),AlertaSelectata.IdAlertaUilitate));
-                   }
-                }
+           
                 return null;
+            }
+        }
+        public RelayCommand EditeazaAlertaCommand
+        {
+            get
+            {
+              
+                if (_editeazaAlertaCommand == null)
+                {
+                    _editeazaAlertaCommand = new RelayCommand(o =>
+                                                                  {
+                                                                      var cast = o as AlertaUtilitate;
+                                                                      if (cast == null) return;
+                                                                      CurrentFrame.Navigate(typeof (EditViewAlerta),
+                                                                                            cast.IdAlertaUilitate);
+                                                                  });
+                }
+                return _editeazaAlertaCommand;
+               
             }
         }
     }
