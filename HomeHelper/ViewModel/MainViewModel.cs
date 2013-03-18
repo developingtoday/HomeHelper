@@ -87,6 +87,17 @@ namespace HomeHelper.ViewModel
                 return _adaugaUtilitatCommand;
             }
         }
+        public RelayCommand AdaugaAlertaCommand
+        {
+            get
+            {
+                if (_adaugaAlertaCommand == null)
+                {
+                    _adaugaAlertaCommand=new RelayCommand(x=>CurrentFrame.Navigate(typeof(EditViewAlerta),0),x=>true);
+                }
+                return _adaugaAlertaCommand;
+            }
+        }
 
         public RelayCommand AddConsumCommand
         {
