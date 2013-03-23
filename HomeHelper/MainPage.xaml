@@ -8,7 +8,7 @@
     xmlns:common="using:HomeHelper.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting" xmlns:Syncfusion="using:Syncfusion.UI.Xaml.Charts"
 
     mc:Ignorable="d">
 
@@ -396,10 +396,22 @@
                                 <TextBlock Text="Consum" Padding="30" FontSize="20"></TextBlock>
                                 <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" ></Button>
                             </StackPanel>
-                        <Chart:Chart x:Name="LineChart"
+                        <Syncfusion:Chart x:Name="LineChart"
                                  HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800" >
-                            <Chart:LineSeries x:Name="lineSerii" ItemsSource="{Binding ConsumUtilitate, Mode=TwoWay}" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" Title="Utilitate"/>
-                        </Chart:Chart>
+                          <Syncfusion:Chart.PrimaryAxis>
+                              <Syncfusion:ChartAxis ShowTrackBallInfo="True"></Syncfusion:ChartAxis>
+                          </Syncfusion:Chart.PrimaryAxis>
+                            <Syncfusion:Chart.SecondaryAxis>
+                                <Syncfusion:ChartAxis ShowTrackBallInfo="True"></Syncfusion:ChartAxis>
+                            </Syncfusion:Chart.SecondaryAxis>
+                            <Syncfusion:SplineSeries  ItemsSource="{Binding ConsumUtilitate}" XBindingPath="DataConsumGrafic"  YBindingPath="ValoareConsum">  
+                            </Syncfusion:SplineSeries>
+                            <Syncfusion:Chart.Behaviors>
+                                <Syncfusion:ChartTrackBallBehavior AxisLabelAlignment="Center" LabelHorizontalAlignment="Far"
+                                                                   LabelVerticalAlignment="Center" ShowLine="True" 
+                                                                   ></Syncfusion:ChartTrackBallBehavior>
+                            </Syncfusion:Chart.Behaviors>
+                        </Syncfusion:Chart>
                     </StackPanel>
                 </GridViewItem>
                 <GridViewItem Style="{StaticResource GridViewItemSemanticZoom}">
