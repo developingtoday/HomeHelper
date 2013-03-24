@@ -46,6 +46,8 @@ namespace HomeHelper
             this.InitializeComponent();
             this.DataContext = _mainViewModel;
             this.Loaded += (s, e) => _mainViewModel.CurrentFrame = Frame;
+            _mainViewModel.RefreshGraph=LineChart.UpdateLayout;
+            
 //            line = ((LineSeries)LineChart.Series[0]);
 //            CreateLineSeries();
 //            itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;

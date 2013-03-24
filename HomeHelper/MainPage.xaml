@@ -396,20 +396,20 @@
                                 <TextBlock Text="Consum" Padding="30" FontSize="20"></TextBlock>
                                 <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" ></Button>
                             </StackPanel>
-                        <Syncfusion:Chart x:Name="LineChart"
-                                 HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800" >
+                        <Syncfusion:Chart x:Name="LineChart" 
+                                 HorizontalAlignment="Center"  VerticalAlignment="Top" Background="Crimson" Height="500" Width="800" >
                           <Syncfusion:Chart.PrimaryAxis>
                               <Syncfusion:ChartAxis ShowTrackBallInfo="True"></Syncfusion:ChartAxis>
                           </Syncfusion:Chart.PrimaryAxis>
                             <Syncfusion:Chart.SecondaryAxis>
                                 <Syncfusion:ChartAxis ShowTrackBallInfo="True"></Syncfusion:ChartAxis>
                             </Syncfusion:Chart.SecondaryAxis>
-                            <Syncfusion:SplineSeries  ItemsSource="{Binding ConsumUtilitate}" XBindingPath="DataConsumGrafic"  YBindingPath="ValoareConsum">  
+                            <Syncfusion:SplineSeries ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}" XBindingPath="DataConsumGrafic"  YBindingPath="ValoareConsum">  
                             </Syncfusion:SplineSeries>
                             <Syncfusion:Chart.Behaviors>
-                                <Syncfusion:ChartTrackBallBehavior AxisLabelAlignment="Center" LabelHorizontalAlignment="Far"
-                                                                   LabelVerticalAlignment="Center" ShowLine="True" 
-                                                                   ></Syncfusion:ChartTrackBallBehavior>
+<!--                                <Syncfusion:ChartTrackBallBehavior AxisLabelAlignment="Center" LabelHorizontalAlignment="Far"-->
+<!--                                                                   LabelVerticalAlignment="Center" ShowLine="True" -->
+<!--                                                                   ></Syncfusion:ChartTrackBallBehavior>-->
                             </Syncfusion:Chart.Behaviors>
                         </Syncfusion:Chart>
                     </StackPanel>

@@ -15,12 +15,13 @@ namespace HomeHelper.ViewModel
 {
     public class MainViewModel:BindableBase
     {
+
         private bool _showEdit;
         private Utilitati _utilitateSelectata;
         private ObservableCollection<Utilitati> _listaUtilitati;
         private AlertaUtilitate _alertaSelectata;
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati; 
-        private ObservableCollection<ConsumUtilitate> _consumUtilitate;
+        private ObservableCollection<ConsumUtilitate> _consumUtilitates;
         private IRepository<Utilitati> _repositoryUtilitati;
         private IRepository<ConsumUtilitate> _repositoryConsum;
         private IRepository<AlertaUtilitate> _repositoryAlerta;
@@ -33,8 +34,10 @@ namespace HomeHelper.ViewModel
             _repositoryConsum=new ConsumUtilitateRepository();
             _repositoryAlerta = new AlertaUtilitateRepository();
             _repositoryUtilitati = new UtilitatiRepository();
+           
         }
 
+        public Action RefreshGraph { get; set; }
         public Utilitati UtilitateSelectata
         {
             get { return _utilitateSelectata; }
@@ -53,13 +56,17 @@ namespace HomeHelper.ViewModel
         public AlertaUtilitate AlertaSelectata
         {
             get { return _alertaSelectata; }
-            set { SetProperty(ref _alertaSelectata, value, "AlertaSelectata"); }
+            set
+            {
+                SetProperty(ref _alertaSelectata, value, "AlertaSelectata");
+                if (RefreshGraph != null) RefreshGraph();
+            }
         }
 
-        public ObservableCollection<ConsumUtilitate> ConsumUtilitate
+        public ObservableCollection<ConsumUtilitate> ConsumUtilitates
         {
-            get { return _consumUtilitate; }
-            set { SetProperty(ref _consumUtilitate, value, "ConsumUtilitate"); }
+            get { return _consumUtilitates; }
+            set { SetProperty(ref _consumUtilitates, (value.Any())?value:null, "ConsumUtilitates"); }
         }  
         public ObservableCollection<AlertaUtilitate> AlerteUtilitati
         {
@@ -122,7 +129,7 @@ namespace HomeHelper.ViewModel
                                                         {
                                                             var cast = o as Utilitati;
                                                             if (cast == null) return;
-                                                            ConsumUtilitate = new ObservableCollection<ConsumUtilitate>(cast.Consums);
+                                                            ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(cast.Consums);
                                                         },o=>ListaUtilitati.Any());
                 }
                 return _cmdListView;
@@ -166,6 +173,13 @@ namespace HomeHelper.ViewModel
                 }
                 return _editeazaAlertaCommand;
                
+            }
+        }
+        public RelayCommand StergeCommand
+        {
+            get
+            {
+              
             }
         }
     }
