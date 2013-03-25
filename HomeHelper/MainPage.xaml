@@ -340,7 +340,7 @@
     <Page.BottomAppBar>
         <AppBar Name="botomAppbar"  >
             <StackPanel Orientation="Horizontal">
-                <Button Name="btnDelete"  Style="{StaticResource RemoveAppBarButtonStyle}" ></Button>
+                <Button Name="btnDelete"  Style="{StaticResource RemoveAppBarButtonStyle}" Command="{Binding StergeCommand}" ></Button>
                 <Button Name="btnEdit" Visibility="{Binding ShowEdit, Converter={StaticResource booleanToVisibilityConverter}, Mode=TwoWay}"   Style="{StaticResource EditAppBarButtonStyle}" Command="{Binding EditeazaCommand}" ></Button>
             </StackPanel>
         </AppBar>

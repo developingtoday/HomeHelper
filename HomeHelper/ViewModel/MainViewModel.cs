@@ -27,14 +27,16 @@ namespace HomeHelper.ViewModel
         private IRepository<AlertaUtilitate> _repositoryAlerta;
         private RelayCommand _adaugaUtilitatCommand, _adaugaConsumCommand, _adaugaAlertaCommand;
         private RelayCommand _editeazaUtilitateCommand, _editeazaConsumCommand, _editeazaAlertaCommand;
-        private RelayCommand _stergeUtilitateCommand, _stergeAlertaCommand,_cmdListView;
+        private RelayCommand _cmdListView,_stergeCommand;
 
         public MainViewModel()
         {
             _repositoryConsum=new ConsumUtilitateRepository();
             _repositoryAlerta = new AlertaUtilitateRepository();
             _repositoryUtilitati = new UtilitatiRepository();
-           
+            _listaUtilitati = _repositoryUtilitati.GetAll();
+            _alerteUtilitati = _repositoryAlerta.GetAll();
+
         }
 
         public Action RefreshGraph { get; set; }
@@ -51,7 +53,8 @@ namespace HomeHelper.ViewModel
         }
         public ObservableCollection<Utilitati> ListaUtilitati
         {
-           get { return _repositoryUtilitati.GetAll(); }
+           get { return _listaUtilitati; }
+            set { SetProperty(ref _listaUtilitati, value, "ListaUtilitati"); }
         }
         public AlertaUtilitate AlertaSelectata
         {
@@ -70,7 +73,8 @@ namespace HomeHelper.ViewModel
         }  
         public ObservableCollection<AlertaUtilitate> AlerteUtilitati
         {
-            get { return _repositoryAlerta.GetAll(); }
+            get {return  _alerteUtilitati; }
+            set { SetProperty(ref _alerteUtilitati, value, "AlerteUtilitati"); }
         } 
 
         public bool ShowEdit
@@ -177,9 +181,31 @@ namespace HomeHelper.ViewModel
         }
         public RelayCommand StergeCommand
         {
-            get
-            {
-              
+            get {
+               
+                  
+                    if (_stergeCommand == null)
+                    {
+                        _stergeCommand=new RelayCommand(o =>
+                                                            {
+                                                                if (UtilitateSelectata != null)
+                                                                {
+                                                               
+                                                                        _repositoryUtilitati.Delete(
+                                                                            UtilitateSelectata);
+
+                                                                    ListaUtilitati =
+                                                                        _repositoryUtilitati.GetAll();
+                                                                }
+                                                                if (AlertaSelectata == null) return;
+                                                                
+                                                                    _repositoryAlerta.Delete(AlertaSelectata);
+                                                                AlerteUtilitati = _repositoryAlerta.GetAll();
+
+                                                            });
+                    }
+               
+                return _stergeCommand;
             }
         }
     }
