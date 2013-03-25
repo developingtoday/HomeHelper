@@ -69,7 +69,7 @@ namespace HomeHelper.ViewModel
         public ObservableCollection<ConsumUtilitate> ConsumUtilitates
         {
             get { return _consumUtilitates; }
-            set { SetProperty(ref _consumUtilitates, (value.Any())?value:null, "ConsumUtilitates"); }
+            set { SetProperty(ref _consumUtilitates, (value.Any()) ? value : new ObservableCollection<ConsumUtilitate>() { new ConsumUtilitate() { DataConsum = DateTime.Now, ValoareConsum = 0, IdUtilitate = 1 }, new ConsumUtilitate() { DataConsum = DateTime.Now, ValoareConsum = 0, IdUtilitate = 1 } }, "ConsumUtilitates"); }
         }  
         public ObservableCollection<AlertaUtilitate> AlerteUtilitati
         {
