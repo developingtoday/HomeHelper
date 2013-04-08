@@ -20,6 +20,7 @@ namespace HomeHelper.ViewModel
         private Utilitati _utilitateSelectata;
         private ObservableCollection<Utilitati> _listaUtilitati;
         private AlertaUtilitate _alertaSelectata;
+        private ConsumUtilitate _consumSelect;
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati; 
         private ObservableCollection<ConsumUtilitate> _consumUtilitates;
         private IRepository<Utilitati> _repositoryUtilitati;
@@ -55,6 +56,17 @@ namespace HomeHelper.ViewModel
         {
            get { return _listaUtilitati; }
             set { SetProperty(ref _listaUtilitati, value, "ListaUtilitati"); }
+        }
+
+        public ConsumUtilitate ConsumSelect
+        {
+            get { return _consumSelect; }
+            set
+            {
+                SetProperty(ref _consumSelect, value, "ConsumSelect");
+                CurrentFrame.Navigate(typeof (EditViewConsum),
+                                      new Tuple<int, int>(value.IdConsumUtilitate, value.IdUtilitate));
+            }
         }
         public AlertaUtilitate AlertaSelectata
         {
@@ -157,6 +169,27 @@ namespace HomeHelper.ViewModel
                     return _editeazaUtilitateCommand;
                 }
            
+                return null;
+            }
+        }
+        public RelayCommand EditeazaConsumCommand
+        {
+            get
+            {
+                if (_consumSelect != null)
+                {
+                    if (_editeazaConsumCommand == null)
+                    {
+                        _editeazaConsumCommand=new RelayCommand(o =>
+                                                                    {
+                                                                        var cast = o as ConsumUtilitate;
+                                                                        if (cast == null) return;
+                                                                        CurrentFrame.Navigate(typeof (EditViewConsum),
+                                                                                              cast.IdConsumUtilitate);
+                                                                    });
+                    }
+                    return _editeazaConsumCommand;
+                }
                 return null;
             }
         }

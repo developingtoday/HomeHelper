@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -87,6 +88,45 @@ namespace HomeHelper.Common
         public event EventHandler CanExecuteChanged;
 
     }
+
+    public class ChartLineClickCommand
+    {
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command",
+                                                                                                        typeof (ICommand
+                                                                                                            ),
+                                                                                                        typeof (
+                                                                                                            ChartLineClickCommand
+                                                                                                            ),
+                                                                                                        new PropertyMetadata
+                                                                                                            (null,
+                                                                                                             CommandPropertyChanged));
+
+
+        private static void CommandPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var cast = d as LineSeries;
+           
+            if (cast == null) return;
+      
+            cast.SelectionChanged += (s, e1) =>
+                                         {
+                                             //if (cast.SelectedItem == null) return;
+                                            
+                                             var cmd = GetCommand(cast);
+                                             cmd.Execute(cast.SelectedItem);
+                                         };
+        }
+
+        public static void SetCommand(DependencyObject dependencyObject, ICommand val)
+        {
+            dependencyObject.SetValue(CommandProperty,val);
+        }
+        public static ICommand GetCommand(DependencyObject d)
+        {
+            return (ICommand)d.GetValue(CommandProperty);
+        }
+    }
+
     public class ListViewClickCommand
     {
         public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command",
