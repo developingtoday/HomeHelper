@@ -110,9 +110,11 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Common\InputViewModelBase.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\UIHelper.cs" />
     <Compile Include="Controls\AlertaUtilitateUserControl.xaml.cs">
       <DependentUpon>AlertaUtilitateUserControl.xaml</DependentUpon>
     </Compile>
@@ -142,6 +144,7 @@
     <Compile Include="Utils\FactoryRepository.cs" />
     <Compile Include="Utils\ResurseMesaje.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\UtilitateInputViewModel.cs" />
     <Compile Include="Views\EditView.xaml.cs">
       <DependentUpon>EditView.xaml</DependentUpon>
     </Compile>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HomeHelper.Common;
+using HomeHelper.Controls;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
@@ -104,7 +105,7 @@ namespace HomeHelper.ViewModel
             {
                 if (_adaugaUtilitatCommand == null)
                 {
-                    _adaugaUtilitatCommand=new RelayCommand(o => CurrentFrame.Navigate(typeof(EditView),0),o => true);
+                    _adaugaUtilitatCommand=new RelayCommand(o => ShowInputUtilitate(InputViewOperatiune.Adaugare, new Utilitati()),o => true);
                    
                 }
                 return _adaugaUtilitatCommand;
@@ -164,7 +165,7 @@ namespace HomeHelper.ViewModel
                     {
                         _editeazaUtilitateCommand =
                             new RelayCommand(
-                                x => CurrentFrame.Navigate(typeof (EditView), UtilitateSelectata.IdUtilitati));
+                                x => ShowInputUtilitate(InputViewOperatiune.Modificare ,UtilitateSelectata));
                     }
                     return _editeazaUtilitateCommand;
                 }
@@ -172,6 +173,9 @@ namespace HomeHelper.ViewModel
                 return null;
             }
         }
+
+   
+
         public RelayCommand EditeazaConsumCommand
         {
             get
@@ -241,6 +245,26 @@ namespace HomeHelper.ViewModel
                 return _stergeCommand;
             }
         }
+
+        private void ShowInputUtilitate(InputViewOperatiune op, Utilitati u)
+        {
+            var uc = new EditUtilitateUserControl(op,
+                                                  u);
+            var popup = UiHelper.ShowPopup(CurrentFrame, uc);
+            var dataContext = uc.DataContext as UtilitateInputViewModel;
+            if (dataContext != null)
+            {
+                dataContext.IsClosedChanged += (s, e) => popup.IsOpen = !dataContext.IsClosed;
+            }
+            popup.Closed += (s, e) =>
+                                {
+
+                                    if (dataContext !=null && !dataContext.RefreshDataSource) return;
+                                    ListaUtilitati = _repositoryUtilitati.GetAll();
+                                };
+        }
     }
  
+
+
 }
