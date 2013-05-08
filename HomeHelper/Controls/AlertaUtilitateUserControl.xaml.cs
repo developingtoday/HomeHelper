@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using HomeHelper.Common;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
+using HomeHelper.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,13 +28,16 @@ namespace HomeHelper.Controls
         public AlertaUtilitateUserControl()
         {
             this.InitializeComponent();
-            Loaded += (s, e) =>
-                          {
-                              cmbUtilitate.ItemsSource = _repository.GetAll().ToList();
-                              cmbUtilitate.DisplayMemberPath = "DenumireUtilitate";
-                              cmbUtilitate.SelectedValuePath = "IdUtilitati";
-                          };
-
+            
+        }
+        public AlertaUtilitateUserControl(InputViewOperatiune op, AlertaUtilitate a):this()
+        {
+            var viewModel = new AlertaUtilitateViewModel(new AlertaUtilitateRepository())
+                                {
+                                    ObiectInBinding = a,
+                                    Operatiune = op
+                                };
+            DataContext = viewModel;
         }
     }
 }

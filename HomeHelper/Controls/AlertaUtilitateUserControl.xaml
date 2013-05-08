@@ -8,9 +8,12 @@
     xmlns:storeAppControl="using:StoreAppLib.Controls" xmlns:Input="using:Syncfusion.UI.Xaml.Controls.Input"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+     Height="300"
+    Width="400"
+    >
     
-    <Grid>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -22,9 +25,18 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Utilitate" Margin="10" Grid.Row="0" Grid.Column="0"></TextBlock>
-        <ComboBox Name="cmbUtilitate" Margin="10" SelectedValue="{Binding IdUitlitate, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"></ComboBox>
+        <ComboBox Name="cmbUtilitate" Margin="10"
+                  ItemsSource="{Binding ListaUtilitati}"
+                  DisplayMemberPath="DenumireUtilitate"
+                  SelectedValuePath="IdUtilitati"
+                  SelectedValue="{Binding ObiectInBinding.IdUitlitate, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1"></ComboBox>
         <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
-        <Input:DatePicker Grid.Column="1" Grid.Row="1" Value="{Binding DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
-        <Input:TimePicker Grid.Column="1" Grid.Row="2" Value="{Binding DataAlerta, Mode=TwoWay}" Name="tmLoca"></Input:TimePicker>
+        <Input:DatePicker Grid.Column="1" Grid.Row="1" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
+        <Input:TimePicker Grid.Column="1" Grid.Row="2" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca"></Input:TimePicker>
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+            <Button  Style="{StaticResource SaveAppBarButtonStyle}" Command="{Binding SaveCommand}"></Button>
+            <Button  Style="{StaticResource DeleteAppBarButtonStyle}" Visibility="{Binding ShowDelete, Mode=TwoWay, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding DeleteCommand}"></Button>
+            <Button  Style="{StaticResource CancelAppBarButtonStyle}" Command="{Binding CancelCommand}"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>

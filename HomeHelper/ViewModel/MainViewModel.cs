@@ -161,7 +161,10 @@ namespace HomeHelper.ViewModel
             {
                 if (_adaugaAlertaCommand == null)
                 {
-                    _adaugaAlertaCommand=new RelayCommand(x=>CurrentFrame.Navigate(typeof(EditViewAlerta),0),x=>true);
+                    _adaugaAlertaCommand = new RelayCommand(o => ShowInput<AlertaUtilitate>(
+                        new AlertaUtilitateUserControl(InputViewOperatiune.Adaugare, new AlertaUtilitate()),
+                        () => AlerteUtilitati = _repositoryAlerta.GetAll()
+                                                                     ), x => true);
                 }
                 return _adaugaAlertaCommand;
             }
@@ -274,8 +277,7 @@ namespace HomeHelper.ViewModel
                                                                   {
                                                                       var cast = o as AlertaUtilitate;
                                                                       if (cast == null) return;
-                                                                      CurrentFrame.Navigate(typeof (EditViewAlerta),
-                                                                                            cast.IdAlertaUilitate);
+                                                                      ShowInput<AlertaUtilitate>(new AlertaUtilitateUserControl(InputViewOperatiune.Modificare, cast),()=>AlerteUtilitati=_repositoryAlerta.GetAll() );
                                                                   });
                 }
                 return _editeazaAlertaCommand;

@@ -25,7 +25,11 @@ namespace HomeHelper.Model
         }
         public string NumeUtilitate
         {
-            get { return new UtilitatiRepository().GetById(IdUitlitate).DenumireUtilitate; }
+            get
+            {
+                if (IdUitlitate == 0) return string.Empty;
+                return new UtilitatiRepository().GetById(IdUitlitate).DenumireUtilitate;
+            }
         }
         public override string ToString()
         {

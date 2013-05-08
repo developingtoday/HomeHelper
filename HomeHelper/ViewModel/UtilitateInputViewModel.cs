@@ -35,4 +35,17 @@ namespace HomeHelper.ViewModel
         }  
 
     }
+
+    public class AlertaUtilitateViewModel:InputViewModelBase<AlertaUtilitate>
+    {
+        private readonly IRepository<Utilitati> _repositoryUtilitati=new UtilitatiRepository(); //TODO facut cumva collection view?? 
+        public AlertaUtilitateViewModel(IRepository<AlertaUtilitate> repository ):base(repository)
+        {
+            
+        }
+        public ObservableCollection<Utilitati> ListaUtilitati
+        {
+            get { return _repositoryUtilitati.GetAll(); }
+        } 
+    }
 }
