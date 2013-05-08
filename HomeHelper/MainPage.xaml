@@ -402,8 +402,10 @@
                                      >
                             <Chart:LineSeries x:Name="lineSerii" 
                                               ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}" 
+                                              Title="{Binding Path=LegendaUtilitateGrafic, Mode=TwoWay}"
                                               DependentValuePath="ValoareConsum" 
-                                              IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" Title="Utilitate"
+                                              IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" 
+                                             
                                               SelectedItem="{Binding ConsumSelect, Mode=TwoWay}"
                                               />
                         </Chart:Chart >

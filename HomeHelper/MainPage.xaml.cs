@@ -43,6 +43,7 @@ namespace HomeHelper
         public MainPage()
         {
             _mainViewModel = new MainViewModel();
+            
             this.InitializeComponent();
             this.DataContext = _mainViewModel;
             this.Loaded += (s, e) => _mainViewModel.CurrentFrame = Frame;
