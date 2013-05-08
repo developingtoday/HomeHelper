@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using HomeHelper.Common;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
+using HomeHelper.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -21,25 +23,20 @@ namespace HomeHelper.Controls
 {
     public sealed partial class EditConsumUtilitateUserControl : UserControl
     {
-        private IRepository<Utilitati> rep = new UtilitatiRepository(); 
 
-
-        void EditConsumUtilitateUserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            cmbUtilitate.ItemsSource = rep.GetAll();
-            cmbUtilitate.DisplayMemberPath = "DenumireUtilitate";
-            cmbUtilitate.SelectedValuePath = "IdUtilitati";
-            cmbUtilitate.IsEnabled = cmbUtilitate.SelectedIndex < 0;
-
-        }
         public EditConsumUtilitateUserControl()
         {
             this.InitializeComponent();
-            Loaded += EditConsumUtilitateUserControl_Loaded;
         }
-
-
-
-        
+        public EditConsumUtilitateUserControl(InputViewOperatiune op, ConsumUtilitate c)
+        {
+            this.InitializeComponent();
+            var viewModel = new ConsumUtilitateInputViewModel(new ConsumUtilitateRepository())
+                                {
+                                    Operatiune = op,
+                                    ObiectInBinding = c
+                                };
+            DataContext = viewModel;
+        }
     }
 }
