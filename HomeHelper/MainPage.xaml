@@ -8,7 +8,7 @@
     xmlns:common="using:HomeHelper.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting" xmlns:Syncfusion="using:Syncfusion.UI.Xaml.Charts"
 
     mc:Ignorable="d">
 
@@ -340,7 +340,7 @@
     <Page.BottomAppBar>
         <AppBar Name="botomAppbar"  >
             <StackPanel Orientation="Horizontal">
-                <Button Name="btnDelete"  Style="{StaticResource RemoveAppBarButtonStyle}" ></Button>
+                <Button Name="btnDelete"  Style="{StaticResource RemoveAppBarButtonStyle}" Command="{Binding StergeCommand}" ></Button>
                 <Button Name="btnEdit" Visibility="{Binding ShowEdit, Converter={StaticResource booleanToVisibilityConverter}, Mode=TwoWay}"   Style="{StaticResource EditAppBarButtonStyle}" Command="{Binding EditeazaCommand}" ></Button>
             </StackPanel>
         </AppBar>
@@ -397,18 +397,29 @@
                                 <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" ></Button>
                             </StackPanel>
                         <Chart:Chart x:Name="LineChart"
-                                 HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800" >
-                            <Chart:LineSeries x:Name="lineSerii" ItemsSource="{Binding ConsumUtilitate, Mode=TwoWay}" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" Title="Utilitate"/>
-                        </Chart:Chart>
+                                 HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800"
+                                    
+                                     >
+                            <Chart:LineSeries x:Name="lineSerii" 
+                                              ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}" 
+                                              Title="{Binding Path=LegendaUtilitateGrafic, Mode=TwoWay}"
+                                              DependentValuePath="ValoareConsum" 
+                                              IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" 
+                                             
+                                              SelectedItem="{Binding ConsumSelect, Mode=TwoWay}"
+                                              />
+                        </Chart:Chart >
                     </StackPanel>
                 </GridViewItem>
                 <GridViewItem Style="{StaticResource GridViewItemSemanticZoom}">
                     <StackPanel Orientation="Vertical" Margin="100,-300,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Alerte" Padding="30" FontSize="20"></TextBlock>
-                            <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" ></Button>
+                            <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AdaugaAlertaCommand}"></Button>
                         </StackPanel>
-                        <ListView Name="itemListAlerte" DataContext="{Binding AlerteUtilitati}" SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="Blue">
+                        <ListView Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="Blue"
+                                  common:ListViewClickCommand.Command="{Binding EditeazaAlertaCommand }" IsItemClickEnabled="True"
+                                  >
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">

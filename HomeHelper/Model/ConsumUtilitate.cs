@@ -8,6 +8,10 @@ namespace HomeHelper.Model
 {
     public class ConsumUtilitate
     {
+        public ConsumUtilitate()
+        {
+            DataConsum = DateTime.Now;
+        }
         [SQLite.PrimaryKey,SQLite.AutoIncrement]
         public int IdConsumUtilitate { get; set; }
         [SQLite.Indexed]

@@ -10,7 +10,7 @@ using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
 using HomeHelper.ViewModel;
-using HomeHelper.Views;
+
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -43,9 +43,12 @@ namespace HomeHelper
         public MainPage()
         {
             _mainViewModel = new MainViewModel();
+            
             this.InitializeComponent();
             this.DataContext = _mainViewModel;
             this.Loaded += (s, e) => _mainViewModel.CurrentFrame = Frame;
+            _mainViewModel.RefreshGraph=LineChart.UpdateLayout;
+            
 //            line = ((LineSeries)LineChart.Series[0]);
 //            CreateLineSeries();
 //            itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;

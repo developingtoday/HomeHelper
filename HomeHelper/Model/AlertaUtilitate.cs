@@ -9,6 +9,10 @@ namespace HomeHelper.Model
 {
     public class AlertaUtilitate
     {
+        public AlertaUtilitate()
+        {
+            DataAlerta = DateTime.Now;
+        }
         [SQLite.PrimaryKey,SQLite.AutoIncrement]
         public int IdAlertaUilitate { get; set; }
         [SQLite.Indexed]
@@ -21,7 +25,11 @@ namespace HomeHelper.Model
         }
         public string NumeUtilitate
         {
-            get { return new UtilitatiRepository().GetById(IdUitlitate).DenumireUtilitate; }
+            get
+            {
+                if (IdUitlitate == 0) return string.Empty;
+                return new UtilitatiRepository().GetById(IdUitlitate).DenumireUtilitate;
+            }
         }
         public override string ToString()
         {
