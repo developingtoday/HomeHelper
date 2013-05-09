@@ -250,22 +250,7 @@ namespace HomeHelper.ViewModel
 
    
 
-        public RelayCommand EditeazaConsumCommand
-        {
-            get
-            {
-                if (_consumSelect != null)
-                {
-                    //if (_editeazaConsumCommand == null)
-                    //{
-                    //    _editeazaConsumCommand = new RelayCommand(o => ShowInput<ConsumUtilitate>(new EditConsumUtilitateUserControl(InputViewOperatiune.Modificare, _consumSelect))
-                    //                                                );
-                    //}
-                    return _editeazaConsumCommand;
-                }
-                return null;
-            }
-        }
+        
         public RelayCommand EditeazaAlertaCommand
         {
             get
