@@ -368,9 +368,9 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <GridView  Style="{StaticResource GridViewStyleContextZoom}" Margin="0" Width="Auto">
-                <GridViewItem Style="{StaticResource GridViewItemSemanticZoom}" Margin="120,-4,-4,0" >
-                    <StackPanel HorizontalAlignment="Left" Margin="0,-300,0,0">
+            <GridView  Style="{StaticResource GridViewStyleContextZoom}" ItemContainerStyle="{StaticResource GridViewItemSemanticZoom}" Margin="0" Width="Auto">
+                <GridViewItem Padding="120 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Left" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Utilitati" Padding="30" FontSize="20"></TextBlock>
                             <Button Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" ></Button>
@@ -390,8 +390,8 @@
 
                     </StackPanel>
                 </GridViewItem>
-                <GridViewItem Style="{StaticResource GridViewItemSemanticZoom}">
-                        <StackPanel Orientation="Vertical" Margin="100,-30,0,0">
+                <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
+                        <StackPanel Orientation="Vertical" >
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Consum" Padding="30" FontSize="20"></TextBlock>
                                 <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" ></Button>
@@ -411,13 +411,13 @@
                         </Chart:Chart >
                     </StackPanel>
                 </GridViewItem>
-                <GridViewItem Style="{StaticResource GridViewItemSemanticZoom}">
-                    <StackPanel Orientation="Vertical" Margin="100,-300,0,0">
+                <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
+                    <StackPanel Orientation="Vertical" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Alerte" Padding="30" FontSize="20"></TextBlock>
                             <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AdaugaAlertaCommand}"></Button>
                         </StackPanel>
-                        <ListView Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="Blue"
+                        <ListView Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="DarkBlue"
                                   common:ListViewClickCommand.Command="{Binding EditeazaAlertaCommand }" IsItemClickEnabled="True"
                                   >
                             <ListView.ItemTemplate>
