@@ -434,8 +434,12 @@
                                     <StackPanel Margin="10,0,0,0">
                                         <TextBlock Text="{Binding DenumireUtilitate}" FontSize="20" TextAlignment="Center"/>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Consum=" FontSize="20" TextAlignment="Left"></TextBlock>
+                                            <TextBlock Text="Luna Curenta=" FontSize="20" TextAlignment="Left"></TextBlock>
                                             <TextBlock Text="{Binding ConsumActual}" FontSize="20" TextAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Luna Anterioara=" FontSize="20" TextAlignment="Left"></TextBlock>
+                                            <TextBlock Text="{Binding ConsumLunaAnterioara}" FontSize="20" TextAlignment="Center"></TextBlock>
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
