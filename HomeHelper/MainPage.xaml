@@ -9,7 +9,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting" xmlns:Syncfusion="using:Syncfusion.UI.Xaml.Charts"
-
+    
     mc:Ignorable="d">
 
     <common:LayoutAwarePage.Resources>
@@ -345,95 +345,14 @@
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
-    
-    <Grid Style="{StaticResource LayoutRootStyle}">
+
+    <Grid Style="{StaticResource LayoutRootStyle}" Background="#464646">
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="154*"/>
         </Grid.RowDefinitions>
 
-        <!-- Back button and page title -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
-        </Grid>
-        <Grid Grid.Row="1" Grid.RowSpan="2">
-            <Grid.ColumnDefinitions>
-                
-                <ColumnDefinition Width="*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
-            <GridView  Style="{StaticResource GridViewStyleContextZoom}" ItemContainerStyle="{StaticResource GridViewItemSemanticZoom}" Margin="0" Width="Auto">
-                <GridViewItem Padding="120 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center">
-                    <StackPanel HorizontalAlignment="Left" >
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Utilitati" Padding="30" FontSize="20"></TextBlock>
-                            <Button Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" ></Button>
-                        </StackPanel>
-                        <ListView Name="itemListUtilitati" ItemsSource="{Binding ListaUtilitati}" Background="DarkBlue" IsItemClickEnabled="True" 
-                                common:ListViewClickCommand.Command="{Binding CmdListView}" SelectedItem="{Binding UtilitateSelectata, Mode=TwoWay}"
-                                  >
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="10,0,0,0">
-                                        <TextBlock Text="{Binding DenumireUtilitate}" FontSize="20" TextAlignment="Center"></TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-
-                        </ListView>
-
-                    </StackPanel>
-                </GridViewItem>
-                <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
-                        <StackPanel Orientation="Vertical" >
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Consum" Padding="30" FontSize="20"></TextBlock>
-                                <Button Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" ></Button>
-                            </StackPanel>
-                        <Chart:Chart x:Name="LineChart"
-                                 HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800"
-                                    
-                                     >
-                            <Chart:LineSeries x:Name="lineSerii" 
-                                              ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}" 
-                                              Title="{Binding Path=LegendaUtilitateGrafic, Mode=TwoWay}"
-                                              DependentValuePath="ValoareConsum" 
-                                              IndependentValuePath="DataConsumGrafic" IsSelectionEnabled="True" 
-                                             
-                                              SelectedItem="{Binding ConsumSelect, Mode=TwoWay}"
-                                              />
-                        </Chart:Chart >
-                    </StackPanel>
-                </GridViewItem>
-                <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
-                    <StackPanel Orientation="Vertical" >
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Alerte" Padding="30" FontSize="20"></TextBlock>
-                            <Button Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AdaugaAlertaCommand}"></Button>
-                        </StackPanel>
-                        <ListView Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  SelectedItem="{Binding AlertaSelectata,Mode=TwoWay}" Background="DarkBlue"
-                                  common:ListViewClickCommand.Command="{Binding EditeazaAlertaCommand }" IsItemClickEnabled="True"
-                                  >
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding NumeUtilitate}"></TextBlock>
-                                        <TextBlock Text="{Binding DataAfisareAlerta}"></TextBlock>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-
-                    </StackPanel>
-                </GridViewItem>
-            </GridView>
-        </Grid>
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->
@@ -463,5 +382,82 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+
+        <!-- Back button and page title -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" Style="{StaticResource PageHeaderTextStyle}"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <GridView  Style="{StaticResource GridViewStyleContextZoom}" ItemContainerStyle="{StaticResource GridViewItemSemanticZoom}" Margin="0" Width="Auto">
+                <GridViewItem Padding="120 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center">
+                    <StackPanel HorizontalAlignment="Left" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Utilitati" Padding="30" FontSize="20"/>
+                            <Button x:Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" />
+                        </StackPanel>
+                        <ListView x:Name="itemListUtilitati" ItemsSource="{Binding ListaUtilitati}" Background="DarkBlue" IsItemClickEnabled="True" 
+                                SelectedItem="{Binding UtilitateSelectata, Mode=TwoWay}"
+                                  common:ListViewClickCommand.Command="{Binding CmdListView}"
+                                  >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10,0,0,0">
+                                        <TextBlock Text="{Binding DenumireUtilitate}" FontSize="20" TextAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+
+                    </StackPanel>
+                </GridViewItem>
+                <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
+                    <StackPanel Orientation="Vertical" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Consum" Padding="30" FontSize="20"/>
+                            <Button x:Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" />
+                        </StackPanel>
+                        <Chart:Chart x:Name="LineChart"
+                                 HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800"
+                                    
+                                     >
+                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic" ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}" IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>
+                        </Chart:Chart>
+                    </StackPanel>
+                </GridViewItem>
+                <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
+                    <StackPanel Orientation="Vertical" >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Alerte" Padding="30" FontSize="20"/>
+                            <Button x:Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AdaugaAlertaCommand}"/>
+                        </StackPanel>
+                        <ListView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  SelectedItem="{Binding AlertaSelectata, Mode=TwoWay}" Background="DarkBlue"
+                                  IsItemClickEnabled="True"
+                                  common:ListViewClickCommand.Command="{Binding EditeazaAlertaCommand}"
+                                  >
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding NumeUtilitate}"/>
+                                        <TextBlock Text="{Binding DataAfisareAlerta}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+
+                    </StackPanel>
+                </GridViewItem>
+            </GridView>
+        </Grid>
     </Grid>
 </common:LayoutAwarePage>
