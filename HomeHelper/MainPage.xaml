@@ -417,8 +417,16 @@
                             <TextBlock Text="Utilitati" Padding="30" FontSize="20"/>
                             <Button x:Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" />
                         </StackPanel>
-                        <ListView x:Name="itemListUtilitati" ItemsSource="{Binding ListaUtilitati}" Background="DarkBlue" IsItemClickEnabled="True" 
-                                SelectedItem="{Binding UtilitateSelectata, Mode=TwoWay}"
+                        <TextBlock
+                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Text="Nu sunt inregistrari adaugate"
+                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
+                            ></TextBlock>
+                        <ListView x:Name="itemListUtilitati" 
+                                  ItemsSource="{Binding ListaUtilitati}" 
+                                  Background="DarkBlue" IsItemClickEnabled="True" 
+                                  Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                  SelectedItem="{Binding UtilitateSelectata, Mode=TwoWay}"
                                   common:ListViewClickCommand.Command="{Binding CmdListView}"
                                   >
                             <ListView.ItemTemplate>
@@ -437,13 +445,24 @@
                     <StackPanel Orientation="Vertical" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Consum" Padding="30" FontSize="20"/>
-                            <Button x:Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" />
+                            <Button x:Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" 
+                                    Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                    />
                         </StackPanel>
+                        <TextBlock
+                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Text="Nu sunt inregistrari adaugate"
+                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
+                            ></TextBlock>
                         <Chart:Chart x:Name="LineChart"
-                                 HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800"
-                                    
+                                 HorizontalAlignment="Center" VerticalAlignment="Top"
+                                     Background="Crimson" Height="500" Width="800"
+                                  Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                      >
-                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic" ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}" IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>
+                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic"
+                                              ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"
+                                              
+                                              IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>
                         </Chart:Chart>
                     </StackPanel>
                 </GridViewItem>
@@ -451,9 +470,21 @@
                     <StackPanel Orientation="Vertical" >
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Alerte" Padding="30" FontSize="20"/>
-                            <Button x:Name="btnAddAlerta" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AdaugaAlertaCommand}"/>
+                            <Button x:Name="btnAddAlerta"
+                                    Style="{StaticResource AddAppBarButtonStyle}" 
+                                    Command="{Binding AdaugaAlertaCommand}"
+                                     Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                    />
                         </StackPanel>
-                        <ListView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  SelectedItem="{Binding AlertaSelectata, Mode=TwoWay}" Background="DarkBlue"
+                        <TextBlock
+                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Text="Nu sunt inregistrari adaugate"
+                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
+                            ></TextBlock>
+                        <ListView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  
+                                  SelectedItem="{Binding AlertaSelectata, Mode=TwoWay}"
+                                  Background="DarkBlue"
+                                  Visibility="{Binding AlerteUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                   IsItemClickEnabled="True"
                                   common:ListViewClickCommand.Command="{Binding EditeazaAlertaCommand}"
                                   >

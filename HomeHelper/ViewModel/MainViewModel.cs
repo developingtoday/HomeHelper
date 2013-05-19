@@ -24,8 +24,8 @@ namespace HomeHelper.ViewModel
         private ObservableCollection<Utilitati> _listaUtilitati;
         private AlertaUtilitate _alertaSelectata;
         private ConsumUtilitate _consumSelect;
-        private ObservableCollection<AlertaUtilitate> _alerteUtilitati; 
-        private ObservableCollection<ConsumUtilitate> _consumUtilitates;
+        private ObservableCollection<AlertaUtilitate> _alerteUtilitati=new ObservableCollection<AlertaUtilitate>(); 
+        private ObservableCollection<ConsumUtilitate> _consumUtilitates=new ObservableCollection<ConsumUtilitate>();
         private IRepository<Utilitati> _repositoryUtilitati;
         private IRepository<ConsumUtilitate> _repositoryConsum;
         private IRepository<AlertaUtilitate> _repositoryAlerta;
@@ -96,31 +96,7 @@ namespace HomeHelper.ViewModel
             set
             {
                 SetProperty(ref _consumUtilitates,
-                            (value.Any())
-                                ? value
-                                : new ObservableCollection<ConsumUtilitate>()
-                                      {
-                                          new ConsumUtilitate()
-                                              {
-                                                  DataConsum =
-                                                      DateTime
-                                                      .Now,
-                                                  ValoareConsum
-                                                      = 0,
-                                                  IdUtilitate
-                                                      = 0
-                                              },
-                                          new ConsumUtilitate()
-                                              {
-                                                  DataConsum =
-                                                      DateTime
-                                                      .Now,
-                                                  ValoareConsum
-                                                      = 0,
-                                                  IdUtilitate
-                                                      = 0
-                                              }
-                                      },
+                            value,
                             "ConsumUtilitates");
                 LegendaUtilitateGrafic = (value.Any()) ? _repositoryUtilitati.GetById(value.FirstOrDefault().IdUtilitate).DenumireUtilitate : "Utilitate";
             }
@@ -179,25 +155,41 @@ namespace HomeHelper.ViewModel
                     _adaugaConsumCommand =
                         new RelayCommand(
                             o =>
-                            ShowInput<ConsumUtilitate>(
-                                new EditConsumUtilitateUserControl(InputViewOperatiune.Adaugare, new ConsumUtilitate()
-                                                                                                     {
-                                                                                                         IdUtilitate =(_utilitateClicked==null)?0: _utilitateClicked.IdUtilitati
-                                                                                                     }),
-                                () =>
-                                    {
-                                        
-                                        var id = _utilitateClicked.IdUtilitati;
-                                        if (id == 0) return;
-                                        ConsumUtilitates =
-                                            new ObservableCollection<ConsumUtilitate>(
-                                                _repositoryConsum.GetAll()
-                                                                 .Where(
-                                                                     a =>
-                                                                     a.IdUtilitate == id));
-                                    }
-                                                     
-                                                     ),
+                                {
+                                    var uc = new EditConsumUtilitateUserControl(InputViewOperatiune.Adaugare,
+                                                                                new ConsumUtilitate()
+                                                                                    {
+                                                                                        IdUtilitate =
+                                                                                            (_utilitateClicked == null)
+                                                                                                ? 0
+                                                                                                : _utilitateClicked
+                                                                                                      .IdUtilitati
+                                                                                    });
+                                    uc.Unloaded += (s, e) =>
+                                                       {
+                                                           var c = uc.DataContext as ConsumUtilitate;
+                                                           if (c == null) return;
+                                                           _utilitateClicked = new Utilitati()
+                                                                                   {
+                                                                                       IdUtilitati = c.IdUtilitate
+                                                                                   };
+                                                       };
+                                    ShowInput<ConsumUtilitate>(
+                                        uc,
+                                        () =>
+                                            {
+
+                                                var id = _utilitateClicked.IdUtilitati;
+                                                if (id == 0) return;
+                                                ConsumUtilitates =
+                                                    new ObservableCollection<ConsumUtilitate>(
+                                                        _repositoryConsum.GetAll()
+                                                                         .Where(
+                                                                             a =>
+                                                                             a.IdUtilitate == id));
+                                            }
+                                        );
+                                },
                             x => true);
                 }
                 return _adaugaConsumCommand;
