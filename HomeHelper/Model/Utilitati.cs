@@ -98,6 +98,10 @@ namespace HomeHelper.Model
 
         private float ConsumUtilitateLaData(IOrderedEnumerable<ConsumUtilitate> source)
         {
+            if (source.Count() == 1)
+            {
+                return source.FirstOrDefault().IndexUtilitate - IndexInitial;
+            }
             var stack = new Stack<ConsumUtilitate>(source);
             var first = stack.Pop().IndexUtilitate;
             float usedDif = 0;
@@ -110,7 +114,7 @@ namespace HomeHelper.Model
                 sum += first;
                 first = usedDif;
             }
-            return sum - IndexInitial;
+            return sum;
         }
 
         public float ConsumActual

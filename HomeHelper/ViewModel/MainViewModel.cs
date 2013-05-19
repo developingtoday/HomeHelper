@@ -100,6 +100,7 @@ namespace HomeHelper.ViewModel
             get { return _consumUtilitates; }
             set
             {
+                if(value.Any()) value=new ObservableCollection<ConsumUtilitate>(value.OrderBy(a=>a.DataConsum));
                 SetProperty(ref _consumUtilitates,
                             value,
                             "ConsumUtilitates");
@@ -238,7 +239,21 @@ namespace HomeHelper.ViewModel
                         _editeazaUtilitateCommand =
                             new RelayCommand(
                                 x => ShowInput<Utilitati>(new EditUtilitateUserControl(InputViewOperatiune.Modificare, UtilitateSelectata),
-                                    () => ConsumUtilitates=new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().Where(a=>a.IdUtilitate==ConsumSelect.IdUtilitate))));
+                                    () =>
+                                        {
+                                            
+                                            ConsumUtilitates =
+                                                new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().
+                                                                                                            Where(
+                                                                                                                a =>
+                                                                                                                a
+                                                                                                                    .IdUtilitate ==
+                                                                                                                UtilitateSelectata.IdUtilitati
+                                                                                                                   ));
+                                            ListaUtilitati = _repositoryUtilitati.GetAll();
+                                        }
+                                            
+                                            ));
                     }
                     return _editeazaUtilitateCommand;
                 }
