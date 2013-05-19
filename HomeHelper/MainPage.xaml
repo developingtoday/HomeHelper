@@ -417,6 +417,11 @@
                             <TextBlock Text="Utilitati" Padding="30" FontSize="20"/>
                             <Button x:Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" />
                         </StackPanel>
+                        <TextBlock
+                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Text="Nu sunt inregistrari adaugate"
+                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
+                            ></TextBlock>
                         <ListView x:Name="itemListUtilitati" 
                                   ItemsSource="{Binding ListaUtilitati}" 
                                   Background="DarkBlue" IsItemClickEnabled="True" 
@@ -444,6 +449,11 @@
                                     Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                     />
                         </StackPanel>
+                        <TextBlock
+                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Text="Nu sunt inregistrari adaugate"
+                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
+                            ></TextBlock>
                         <Chart:Chart x:Name="LineChart"
                                  HorizontalAlignment="Center" VerticalAlignment="Top"
                                      Background="Crimson" Height="500" Width="800"
@@ -466,6 +476,11 @@
                                      Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                     />
                         </StackPanel>
+                        <TextBlock
+                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Text="Nu sunt inregistrari adaugate"
+                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
+                            ></TextBlock>
                         <ListView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  
                                   SelectedItem="{Binding AlertaSelectata, Mode=TwoWay}"
                                   Background="DarkBlue"
