@@ -445,12 +445,13 @@
                                     />
                         </StackPanel>
                         <Chart:Chart x:Name="LineChart"
-                                 HorizontalAlignment="Center" VerticalAlignment="Top" Background="Crimson" Height="500" Width="800"
-                                    
+                                 HorizontalAlignment="Center" VerticalAlignment="Top"
+                                     Background="Crimson" Height="500" Width="800"
+                                  Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                      >
                             <Chart:LineSeries x:Name="lineSerii" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic"
                                               ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"
-                                               Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                              
                                               IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>
                         </Chart:Chart>
                     </StackPanel>
