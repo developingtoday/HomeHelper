@@ -24,8 +24,8 @@ namespace HomeHelper.Model
         private string _unitateMasura = string.Empty;
         public string UnitateMasura { get; set; }
 
-        private decimal _valoareInitiala = 0;
-        public float ValoareInitiala { get; set; }
+  
+        public float IndexInitial { get; set; }
         public IEnumerable<ConsumUtilitate> Consums
         {
             get
@@ -36,7 +36,22 @@ namespace HomeHelper.Model
                                      .Where(x => x.IdUtilitate == IdUtilitati).OrderBy(x => x.DataConsum)
                                      .AsEnumerable();
             }
-        } 
+        }
+
+        public float GetConsumUtilitateLaData(DateTime data)
+        {
+            var list = Consums.ToList();
+            if (!list.Any()) return 0;
+            if (list.All(a => a.DataConsum > data)) return 0;
+            var source = list.Where(a => a.DataConsum <= data).OrderByDescending(a=>a.DataConsum);
+            var sum = source.Sum(a => -a.IndexUtilitate);
+            return sum - IndexInitial;
+        }
+
+        public float ConsumActual
+        {
+            get { return GetConsumUtilitateLaData(DateTime.Now); }
+        }
 
     }
 }

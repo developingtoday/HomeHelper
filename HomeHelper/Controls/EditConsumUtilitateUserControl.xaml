@@ -36,8 +36,8 @@
                    Grid.Row="0" Margin="10" Grid.Column="1"></ComboBox>
         <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
         <Input:DatePicker Grid.Column="1" Grid.Row="1" Value="{Binding ObiectInBinding.DataConsum, Mode=TwoWay}" Margin="10" />
-        <TextBlock  Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
-        <Input:NumericTextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding ObiectInBinding.ValoareConsum, Mode=TwoWay }"></Input:NumericTextBox>
+        <TextBlock Text="Index utilitate" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
+        <Input:NumericTextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding ObiectInBinding.IndexUtilitate, Mode=TwoWay }"></Input:NumericTextBox>
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
             <Button  Style="{StaticResource SaveAppBarButtonStyle}" Command="{Binding SaveCommand}"></Button>
             <Button  Style="{StaticResource DeleteAppBarButtonStyle}" Visibility="{Binding ShowDelete, Mode=TwoWay, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding DeleteCommand}"></Button>
