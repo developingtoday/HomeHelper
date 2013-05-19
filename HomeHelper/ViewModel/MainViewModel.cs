@@ -75,9 +75,14 @@ namespace HomeHelper.ViewModel
                 if (value == null) return;
                 ShowInput<ConsumUtilitate>(new EditConsumUtilitateUserControl(InputViewOperatiune.Modificare, value),
                                            () =>
-                                           ConsumUtilitates =
-                                           new ObservableCollection<ConsumUtilitate>(
-                                               _repositoryConsum.GetAll().Where(a => a.IdUtilitate == value.IdUtilitate)));
+                                               {
+                                                   ConsumUtilitates =
+                                                       new ObservableCollection<ConsumUtilitate>(
+                                                           _repositoryConsum.GetAll()
+                                                                            .Where(
+                                                                                a => a.IdUtilitate == value.IdUtilitate));
+                                                   ListaUtilitati = _repositoryUtilitati.GetAll();
+                                               });
             }
         }
         public AlertaUtilitate AlertaSelectata
@@ -187,6 +192,7 @@ namespace HomeHelper.ViewModel
                                                                          .Where(
                                                                              a =>
                                                                              a.IdUtilitate == id));
+                                                ListaUtilitati = _repositoryUtilitati.GetAll();
                                             }
                                         );
                                 },
@@ -231,7 +237,8 @@ namespace HomeHelper.ViewModel
                     {
                         _editeazaUtilitateCommand =
                             new RelayCommand(
-                                x => ShowInput<Utilitati>(new EditUtilitateUserControl(InputViewOperatiune.Modificare, UtilitateSelectata),() => ConsumUtilitates=new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().Where(a=>a.IdUtilitate==ConsumSelect.IdUtilitate))));
+                                x => ShowInput<Utilitati>(new EditUtilitateUserControl(InputViewOperatiune.Modificare, UtilitateSelectata),
+                                    () => ConsumUtilitates=new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().Where(a=>a.IdUtilitate==ConsumSelect.IdUtilitate))));
                     }
                     return _editeazaUtilitateCommand;
                 }
