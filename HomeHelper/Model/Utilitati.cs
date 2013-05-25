@@ -30,13 +30,16 @@ namespace HomeHelper.Model
         {
             get
             {
-                return
+              var list=
                     FactoryRepository.GetInstanceRepositoryConsum()
                                      .GetAll()
                                      .Where(x => x.IdUtilitate == IdUtilitati).OrderBy(x => x.DataConsum)
-                                     .AsEnumerable();
+                                     ;
+                ConsumUtilitateRefacereColectie(ref list);
+                return list;
             }
         }
+
 
         public float GetConsumUtilitateLaData(DateTime data)
         {
@@ -56,10 +59,12 @@ namespace HomeHelper.Model
             var lastDay = new DateTime(time.Year, time.Month, 1).AddDays(-1);
             var firstDay = new DateTime(time.Year, time.Month, 1).AddMonths(-1);
             var monthSearch = firstDay.AddDays(-1);
+            if (!Consums.Any()) return 0;
             var list =
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
                        .LastOrDefault();
+            if (list == null) return 0;
             firstDay = list.DataConsum;
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
@@ -69,10 +74,12 @@ namespace HomeHelper.Model
             var lastDay = new DateTime(time.Year, time.Month, 1).AddMonths(1).AddDays(-1);
             var firstDay = new DateTime(time.Year, time.Month, 1);
             var monthSearch = firstDay.AddDays(-1);
+            if (!Consums.Any()) return 0;
             var list =
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
                        .LastOrDefault();
+            if (list == null) return 0;
             firstDay = list.DataConsum; 
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
@@ -94,6 +101,24 @@ namespace HomeHelper.Model
             var source = list.Where(a => dataI <=a.DataConsum && a.DataConsum <= dataF).OrderBy(a=>a.DataConsum);
             if (!source.Any()) return 0;
             return ConsumUtilitateLaData(source);
+        }
+
+        private void ConsumUtilitateRefacereColectie(ref IOrderedEnumerable<ConsumUtilitate> source)
+        {
+            //TODO este duplicat cu o metoda mai jos
+            if (!source.Any()) return;
+            if (source.Count() == 1)
+            {
+                source.FirstOrDefault().Consum = source.FirstOrDefault().IndexUtilitate - IndexInitial;
+                return;
+            }
+            ConsumUtilitate prev = source.FirstOrDefault();
+            prev.Consum = prev.IndexUtilitate - IndexInitial;
+            for (int i = 1; i < source.Count(); i++)
+            {
+                source.ElementAt(i).Consum = source.ElementAt(i).IndexUtilitate - source.ElementAt(i - 1).IndexUtilitate;
+            }
+            
         }
 
         private float ConsumUtilitateLaData(IOrderedEnumerable<ConsumUtilitate> source)

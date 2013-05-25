@@ -467,7 +467,7 @@
                                      Background="Crimson" Height="500" Width="800"
                                   Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                      >
-                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="IndexUtilitate" IndependentValuePath="DataConsumGrafic"
+                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="Consum" IndependentValuePath="DataConsumGrafic"
                                               ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"
                                               
                                               IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>

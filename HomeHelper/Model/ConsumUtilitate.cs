@@ -18,6 +18,7 @@ namespace HomeHelper.Model
         public int IdUtilitate { get; set; }
         public DateTime DataConsum { get; set; }
         public float IndexUtilitate { get; set; }
+        public float Consum { get; set; }
         public string DataConsumGrafic
         {
             get { return DataConsum.ToString("d"); }

@@ -76,11 +76,7 @@ namespace HomeHelper.ViewModel
                 ShowInput<ConsumUtilitate>(new EditConsumUtilitateUserControl(InputViewOperatiune.Modificare, value),
                                            () =>
                                                {
-                                                   ConsumUtilitates =
-                                                       new ObservableCollection<ConsumUtilitate>(
-                                                           _repositoryConsum.GetAll()
-                                                                            .Where(
-                                                                                a => a.IdUtilitate == value.IdUtilitate));
+                                                   ConsumUtilitates =new ObservableCollection<ConsumUtilitate>(_repositoryUtilitati.GetById(value.IdUtilitate).Consums);
                                                    ListaUtilitati = _repositoryUtilitati.GetAll();
                                                });
             }
