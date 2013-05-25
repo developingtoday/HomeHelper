@@ -127,6 +127,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Abstract\IValidation.cs" />
     <Compile Include="Model\AlertaUtilitate.cs" />
     <Compile Include="Model\ConsumUtilitate.cs" />
     <Compile Include="Model\Utilitati.cs" />
