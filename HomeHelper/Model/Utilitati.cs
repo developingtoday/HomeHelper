@@ -24,19 +24,141 @@ namespace HomeHelper.Model
         private string _unitateMasura = string.Empty;
         public string UnitateMasura { get; set; }
 
-        private decimal _valoareInitiala = 0;
-        public float ValoareInitiala { get; set; }
+  
+        public float IndexInitial { get; set; }
         public IEnumerable<ConsumUtilitate> Consums
         {
             get
             {
-                return
+              var list=
                     FactoryRepository.GetInstanceRepositoryConsum()
                                      .GetAll()
                                      .Where(x => x.IdUtilitate == IdUtilitati).OrderBy(x => x.DataConsum)
-                                     .AsEnumerable();
+                                     ;
+                ConsumUtilitateRefacereColectie(ref list);
+                return list;
             }
-        } 
+        }
+
+
+        public float GetConsumUtilitateLaData(DateTime data)
+        {
+            var list = Consums.ToList();
+            if (!list.Any()) return 0;
+            if (list.All(a => a.DataConsum > data)) return 0;
+            var source = list.Where(a => a.DataConsum <= data).OrderBy(a=>a.DataConsum);
+            return ConsumUtilitateLaData(source);
+        }
+
+        /// <summary>
+        /// Calculeaza consum pe ultima luna. Daca sunt in luna mai o sa am afisat pe luna aprilie
+        /// </summary>
+        /// <param name="time">Data de referinta</param>
+        public float GetConsumUtilitatePeLunaAnterioara(DateTime time)
+        {
+            var lastDay = new DateTime(time.Year, time.Month, 1).AddDays(-1);
+            var firstDay = new DateTime(time.Year, time.Month, 1).AddMonths(-1);
+            var monthSearch = firstDay.AddDays(-1);
+            if (!Consums.Any()) return 0;
+            var list =
+                Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
+                       .OrderByDescending(a => a.DataConsum)
+                       .LastOrDefault();
+            if (list == null) return 0;
+            firstDay = list.DataConsum;
+            return GetConsumUtilitateIntreDate(lastDay, firstDay);
+        }
+
+        public float GetConsumUtilitatePeLunaCurenta(DateTime time)
+        {
+            var lastDay = new DateTime(time.Year, time.Month, 1).AddMonths(1).AddDays(-1);
+            var firstDay = new DateTime(time.Year, time.Month, 1);
+            var monthSearch = firstDay.AddDays(-1);
+            if (!Consums.Any()) return 0;
+            var list =
+                Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
+                       .OrderByDescending(a => a.DataConsum)
+                       .LastOrDefault();
+            if (list == null) return 0;
+            firstDay = list.DataConsum; 
+            return GetConsumUtilitateIntreDate(lastDay, firstDay);
+        }
+
+        private float GetConsumUtilitateIntreDate(DateTime dataI, DateTime dataF)
+        {
+            var list = Consums.ToList();
+            if (!list.Any()) return 0;
+            if (dataI == dataF)
+            {
+                return GetConsumUtilitateLaData(dataI);
+            }
+            if (dataI > dataF)
+            {
+                var aux = dataI;
+                dataI = dataF;
+                dataF = aux;
+            }
+            var source = list.Where(a => dataI <=a.DataConsum && a.DataConsum <= dataF).OrderBy(a=>a.DataConsum);
+            if (!source.Any()) return 0;
+            return ConsumUtilitateLaData(source);
+        }
+
+        private void ConsumUtilitateRefacereColectie(ref IOrderedEnumerable<ConsumUtilitate> source)
+        {
+            //TODO este duplicat cu o metoda mai jos
+            if (!source.Any()) return;
+            if (source.Count() == 1)
+            {
+                source.FirstOrDefault().Consum = source.FirstOrDefault().IndexUtilitate - IndexInitial;
+                return;
+            }
+            ConsumUtilitate prev = source.FirstOrDefault();
+            prev.Consum = prev.IndexUtilitate - IndexInitial;
+            for (int i = 1; i < source.Count(); i++)
+            {
+                source.ElementAt(i).Consum = source.ElementAt(i).IndexUtilitate - source.ElementAt(i - 1).IndexUtilitate;
+            }
+            
+        }
+
+        private float ConsumUtilitateLaData(IOrderedEnumerable<ConsumUtilitate> source)
+        {
+            if (source.Count() == 1)
+            {
+                return source.FirstOrDefault().IndexUtilitate - IndexInitial;
+            }
+            var stack = new Stack<ConsumUtilitate>(source);
+            var first = stack.Pop().IndexUtilitate;
+            float usedDif = 0;
+            float sum = 0;
+            if (!stack.Any()) return 0;
+            while (stack.Any())
+            {
+                usedDif = stack.Pop().IndexUtilitate;
+                first = first - usedDif;
+                sum += first;
+                first = usedDif;
+            }
+            return sum;
+        }
+
+        public float ConsumActual
+        {
+            get { return GetConsumUtilitatePeLunaCurenta(DateTime.Now); }
+        }
+        public float ConsumLunaAnterioara
+        {
+            get { return GetConsumUtilitatePeLunaAnterioara(DateTime.Now); }
+        }
+        public float ConsumPanaLaData
+        {
+            get
+            {
+                return
+                    GetConsumUtilitateLaData(DateTime.Now);
+            }
+        }
+
 
     }
 }

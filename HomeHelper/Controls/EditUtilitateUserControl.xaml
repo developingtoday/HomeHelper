@@ -29,7 +29,7 @@
         <TextBlock Text="Unitate Masura" Margin="10" Grid.Row="1" Grid.Column="0"></TextBlock>
         <TextBox Name="txtUnitate" Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding  ObiectInBinding.UnitateMasura, Mode=TwoWay}"></TextBox>
         <TextBlock Text="Valoare Initiala" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
-        <TextBox Name="txtValoareInitiala" Grid.Row="2" Grid.Column="1" Margin="10"  Text="{Binding ObiectInBinding.ValoareInitiala, Mode=TwoWay}"></TextBox>    
+        <TextBox Name="txtValoareInitiala" Grid.Row="2" Grid.Column="1" Margin="10"  Text="{Binding ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>    
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
         <Button  Style="{StaticResource SaveAppBarButtonStyle}" Command="{Binding SaveCommand}"></Button>
         <Button  Style="{StaticResource DeleteAppBarButtonStyle}" Visibility="{Binding ShowDelete, Mode=TwoWay, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding DeleteCommand}"></Button>

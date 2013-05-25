@@ -433,6 +433,14 @@
                                 <DataTemplate>
                                     <StackPanel Margin="10,0,0,0">
                                         <TextBlock Text="{Binding DenumireUtilitate}" FontSize="20" TextAlignment="Center"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Luna Curenta=" FontSize="20" TextAlignment="Left"></TextBlock>
+                                            <TextBlock Text="{Binding ConsumActual}" FontSize="20" TextAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Luna Anterioara=" FontSize="20" TextAlignment="Left"></TextBlock>
+                                            <TextBlock Text="{Binding ConsumLunaAnterioara}" FontSize="20" TextAlignment="Center"></TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -459,7 +467,7 @@
                                      Background="Crimson" Height="500" Width="800"
                                   Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                      >
-                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="ValoareConsum" IndependentValuePath="DataConsumGrafic"
+                            <Chart:LineSeries x:Name="lineSerii" DependentValuePath="Consum" IndependentValuePath="DataConsumGrafic"
                                               ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"
                                               
                                               IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>
