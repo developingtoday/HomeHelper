@@ -5,23 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HomeHelper.Common;
+using HomeHelper.Model.Abstract;
 using HomeHelper.Utils;
 using SQLite;
 
 namespace HomeHelper.Model
 {
-    public class Utilitati:BindableBase
+    public class Utilitati:BindableBase,IValidation 
     {
-        private int _idUtilitati=0;
+       
 
         [PrimaryKey,AutoIncrement]
         public int IdUtilitati { get; set; }
         
 
-        private string _denumireUtilitate = string.Empty;
         public string DenumireUtilitate { get; set; }
 
-        private string _unitateMasura = string.Empty;
+ 
         public string UnitateMasura { get; set; }
 
   
@@ -160,5 +160,24 @@ namespace HomeHelper.Model
         }
 
 
+        public void DoValidation()
+        {
+            Errors = new Dictionary<string, string>();
+            if (string.IsNullOrEmpty(DenumireUtilitate))
+            {
+                Errors.Add("DenumireUtilitate","Campul este gol");
+            }
+            if (string.IsNullOrEmpty(UnitateMasura))
+            {
+                Errors.Add("UnitateMasura","Campul este gol");
+            }
+            if (IndexInitial < 0)
+            {
+                Errors.Add("IndexInitial","Valoare invalida");
+            }
+
+        }
+
+        public Dictionary<string, string> Errors { get; private set; }
     }
 }
