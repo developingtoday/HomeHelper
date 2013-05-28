@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Concret;
 
 namespace HomeHelper.Model
 {
-    public class AlertaUtilitate
+    public class AlertaUtilitate:IValidation 
     {
         public AlertaUtilitate()
         {
@@ -35,5 +36,12 @@ namespace HomeHelper.Model
         {
             return string.Format("IdAlertaUilitate: {0}, IdUitlitate: {1}, DataAlerta: {2}", IdAlertaUilitate, IdUitlitate, DataAlerta);
         }
+
+        public void DoValidation()
+        {
+            //throw new NotImplementedException();
+        }
+
+        public Dictionary<string, string> Errors { get; private set; }
     }
 }
