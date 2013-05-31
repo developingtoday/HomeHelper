@@ -42,6 +42,15 @@ namespace HomeHelper.Model
             //throw new NotImplementedException();
         }
 
-        public List<StringKeyValue> Errors { get; private set; }
+        private List<StringKeyValue> _errors;
+        public List<StringKeyValue> Errors
+        {
+            set { _errors = value; }
+        }
+
+        public List<StringKeyValue> GetErrors()
+        {
+            return _errors;
+        }
     }
 }

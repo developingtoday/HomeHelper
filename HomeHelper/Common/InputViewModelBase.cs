@@ -108,9 +108,9 @@ namespace HomeHelper.Common
         {
             Erori.Clear();
             ObiectInBinding.DoValidation();
-            if (ObiectInBinding.Errors.Any())
+            if (ObiectInBinding.GetErrors().Any())
             {
-                Erori = ObiectInBinding.Errors;
+                Erori = ObiectInBinding.GetErrors();
                 return;
             }
             switch (Operatiune)

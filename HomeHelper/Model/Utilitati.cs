@@ -162,10 +162,10 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
-            Errors = new List<StringKeyValue>();
+            _errors = new List<StringKeyValue>();
             if (string.IsNullOrEmpty(DenumireUtilitate))
             {
-                Errors.Add(new StringKeyValue()
+                _errors.Add(new StringKeyValue()
                                {
                                    Key = "DenumireUtilitate",
                                    Value = "Denumire: Campul este gol"
@@ -173,7 +173,7 @@ namespace HomeHelper.Model
             }
             if (string.IsNullOrEmpty(UnitateMasura))
             {
-                Errors.Add(new StringKeyValue()
+                _errors.Add(new StringKeyValue()
                                {
                                    Key = "UnitateMasura",
                                    Value = "Unitate Masura: Campul este gol"
@@ -181,7 +181,7 @@ namespace HomeHelper.Model
             }
             if (IndexInitial < 0)
             {
-                Errors.Add(new StringKeyValue()
+                _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexInitial",
                                    Value = "Indext Initial: Valoare invalida"
@@ -190,6 +190,12 @@ namespace HomeHelper.Model
 
         }
 
-        public List<StringKeyValue> Errors { get; private set; }
+        private List<StringKeyValue> _errors;
+        
+
+        public List<StringKeyValue> GetErrors()
+        {
+            return _errors;
+        }
     }
 }

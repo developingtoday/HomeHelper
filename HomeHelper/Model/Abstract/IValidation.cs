@@ -9,7 +9,7 @@ namespace HomeHelper.Model.Abstract
     public interface IValidation
     {
         void DoValidation();
-        List<StringKeyValue> Errors { get; }
+        List<StringKeyValue> GetErrors();
     }
     public class StringKeyValue
     {

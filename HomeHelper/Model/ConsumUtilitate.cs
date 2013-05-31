@@ -33,10 +33,10 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
-            Errors = new List<StringKeyValue>( );
+            _errors = new List<StringKeyValue>();
             if (IdUtilitate == 0)
             {
-                Errors.Add(new StringKeyValue()
+                GetErrors().Add(new StringKeyValue()
                                {
                                    Key = "IdUtilitate",
                                    Value = "Utilitatea n-a fost selectata"
@@ -44,7 +44,7 @@ namespace HomeHelper.Model
             }
             if (IndexUtilitate < 0)
             {
-                Errors.Add(new StringKeyValue()
+                _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexUtilitate",
                                    Value = "Valoare invalida la index"
@@ -58,7 +58,7 @@ namespace HomeHelper.Model
                 var list = cons.GetAll().Where(a=>a.IdUtilitate==IdUtilitate && a.IdConsumUtilitate!=IdConsumUtilitate).OrderBy(a=>a.DataConsum).ToArray();
                 if (list.Any(a => a.IdUtilitate == IdUtilitate && a.DataConsum.Date == DataConsum.Date))
                 {
-                    Errors.Add(new StringKeyValue()
+                    _errors.Add(new StringKeyValue()
                                    {
                                        Key = "DataConsum",
                                        Value = "Pe aceasta data mai exista adaugat un consum"
@@ -76,7 +76,7 @@ namespace HomeHelper.Model
                         var last = list.FirstOrDefault(a => a.DataConsum.Date >= DataConsum.Date);
                         if (!(first.IndexUtilitate <= IndexUtilitate && IndexUtilitate <= last.IndexUtilitate))
                         {
-                            Errors.Add(new StringKeyValue()
+                            _errors.Add(new StringKeyValue()
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
@@ -90,7 +90,7 @@ namespace HomeHelper.Model
                         var first = list.FirstOrDefault(a => a.DataConsum.Date >= DataConsum.Date);
                         if (!(util.IndexInitial <= IndexUtilitate && IndexUtilitate <= first.IndexUtilitate))
                         {
-                            Errors.Add(new StringKeyValue()
+                            _errors.Add(new StringKeyValue()
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
@@ -104,7 +104,7 @@ namespace HomeHelper.Model
                         var last = list.LastOrDefault(a => a.DataConsum.Date <= DataConsum.Date);
                         if (IndexUtilitate < last.IndexUtilitate)
                         {
-                            Errors.Add(new StringKeyValue()
+                            _errors.Add(new StringKeyValue()
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
@@ -117,7 +117,7 @@ namespace HomeHelper.Model
                 {
                     if (IndexUtilitate < util.IndexInitial)
                     {
-                        Errors.Add(new StringKeyValue()
+                        _errors.Add(new StringKeyValue()
                                        {
                                            Key = "IndexUtilitate",
                                            Value = string.Format("Indexul este mai mic decat {0}",util.IndexInitial)
@@ -128,6 +128,12 @@ namespace HomeHelper.Model
 
         }
 
-        public List<StringKeyValue> Errors { get; private set; }
+        private List<StringKeyValue> _errors;
+        
+
+        public List<StringKeyValue> GetErrors()
+        {
+            return _errors;
+        }
     }
 }
