@@ -162,22 +162,34 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
-            Errors = new Dictionary<string, string>();
+            Errors = new List<StringKeyValue>();
             if (string.IsNullOrEmpty(DenumireUtilitate))
             {
-                Errors.Add("DenumireUtilitate","Campul este gol");
+                Errors.Add(new StringKeyValue()
+                               {
+                                   Key = "DenumireUtilitate",
+                                   Value = "Campul este gol"
+                               });
             }
             if (string.IsNullOrEmpty(UnitateMasura))
             {
-                Errors.Add("UnitateMasura","Campul este gol");
+                Errors.Add(new StringKeyValue()
+                               {
+                                   Key = "UnitateMasura",
+                                   Value = "Campul este gol"
+                               });
             }
             if (IndexInitial < 0)
             {
-                Errors.Add("IndexInitial","Valoare invalida");
+                Errors.Add(new StringKeyValue()
+                               {
+                                   Key = "IndexInitial",
+                                   Value = "Valoare invalida"
+                               });
             }
 
         }
 
-        public Dictionary<string, string> Errors { get; private set; }
+        public List<StringKeyValue> Errors { get; private set; }
     }
 }

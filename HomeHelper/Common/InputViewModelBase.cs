@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
 
 namespace HomeHelper.Common
@@ -17,14 +18,17 @@ namespace HomeHelper.Common
         Modificare,
         Stergere,
     }
-    public abstract class InputViewModelBase<T>:BindableBase
+    public abstract class InputViewModelBase<T>:BindableBase where T:IValidation
     {
+
+
+        private List<StringKeyValue> _eroriValidare;
 
         /// <summary>
         /// Repositoryul care il folosim pentru lucru
         /// pe obiectul care il trimite ca binding
         /// </summary>
-        private IRepository<T> _repository;
+        private readonly IRepository<T> _repository;
 
         /// <summary>
         /// Obiectul care se trimite in view si apoi il preluam pentru prelucrare
@@ -33,6 +37,7 @@ namespace HomeHelper.Common
 
         public InputViewModelBase(IRepository<T> repository )
         {
+            _eroriValidare = new List<StringKeyValue>();
             _repository = repository;
             IsClosed = false;
             RefreshDataSource = false;
@@ -50,6 +55,13 @@ namespace HomeHelper.Common
         private RelayCommand _saveCommand;
         private RelayCommand _cancelCommand;
         private RelayCommand _deleteCommand;
+
+
+        public List<StringKeyValue> Erori
+        {
+            get { return _eroriValidare; }
+            set { SetProperty(ref _eroriValidare, value, "Erori"); }
+        } 
 
         public RelayCommand SaveCommand
         {
@@ -94,6 +106,13 @@ namespace HomeHelper.Common
 
         private void Save()
         {
+            Erori.Clear();
+            ObiectInBinding.DoValidation();
+            if (ObiectInBinding.Errors.Any())
+            {
+                Erori = ObiectInBinding.Errors;
+                return;
+            }
             switch (Operatiune)
             {
                 case InputViewOperatiune.Adaugare:

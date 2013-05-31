@@ -33,14 +33,22 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
-            Errors = new Dictionary<string, string>();
+            Errors = new List<StringKeyValue>( );
             if (IdUtilitate == 0)
             {
-                Errors.Add("IdUtilitate","Utilitatea n-a fost selectata");
+                Errors.Add(new StringKeyValue()
+                               {
+                                   Key = "IdUtilitate",
+                                   Value = "Utilitatea n-a fost selectata"
+                               });
             }
             if (IndexUtilitate < 0)
             {
-                Errors.Add("IndexUtilitate","Valoare invalida la index");
+                Errors.Add(new StringKeyValue()
+                               {
+                                   Key = "IndexUtilitate",
+                                   Value = "Valoare invalida la index"
+                               });
             }
             if (IdUtilitate != 0)
             {
@@ -48,7 +56,11 @@ namespace HomeHelper.Model
                 var list = cons.GetAll().Where(a=>a.IdUtilitate==IdUtilitate && a.IdConsumUtilitate!=IdConsumUtilitate).ToArray();
                 if (list.Any(a => a.IdUtilitate == IdUtilitate && a.DataConsum == DataConsum))
                 {
-                    Errors.Add("DataConsum","Pe aceasta data mai exista adaugat un consum");
+                    Errors.Add(new StringKeyValue()
+                                   {
+                                       Key = "DataConsum",
+                                       Value = "Pe aceasta data mai exista adaugat un consum"
+                                   });
                 }
                 if (list.Any())
                 {
@@ -60,20 +72,36 @@ namespace HomeHelper.Model
                         var nextConsum = first.IndexUtilitate;
                         if (!(prevConsum <= IndexUtilitate && IndexUtilitate <= nextConsum))
                         {
-                            Errors.Add("IndexUtilitate",string.Format("Valoarea nu se afla intervalul {0}:{1}",prevConsum,nextConsum));
+                            Errors.Add(new StringKeyValue()
+                                           {
+                                               Key = "IndexUtilitate",
+                                               Value =
+                                                   string.Format("Valoarea nu se afla intervalul {0}:{1}", prevConsum,
+                                                                 nextConsum)
+                                           });
                         }
                     }else if (last != null && first == null)
                     {
                         if (last.IndexUtilitate < IndexUtilitate)
                         {
-                            Errors.Add("IndexUtilitate",string.Format("Valoarea este mai mare decat {0}",IndexUtilitate));
+                            Errors.Add(new StringKeyValue()
+                                           {
+                                               Key = "IndexUtilitate",
+                                               Value = string.Format("Valoarea este mai mare decat {0}", IndexUtilitate)
+                                           });
                         }
                     }
                     else if (last == null && first != null)
                     {
                         if (first.IndexUtilitate > IndexUtilitate)
                         {
-                            Errors.Add("Index utilitate",string.Format("Valoarea este mai mica decat {0}",IndexUtilitate));
+                            Errors.Add(new StringKeyValue()
+                                           {
+                                               Key = "Index utilitate",
+                                               Value =
+                                                   string.Format("Valoarea este mai mica decat {0}",
+                                                                 IndexUtilitate)
+                                           });
                         }
                     }
                 }
@@ -81,6 +109,6 @@ namespace HomeHelper.Model
 
         }
 
-        public Dictionary<string, string> Errors { get; private set; }
+        public List<StringKeyValue> Errors { get; private set; }
     }
 }

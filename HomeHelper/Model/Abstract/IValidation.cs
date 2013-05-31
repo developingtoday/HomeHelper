@@ -9,6 +9,11 @@ namespace HomeHelper.Model.Abstract
     public interface IValidation
     {
         void DoValidation();
-        Dictionary<string, string> Errors { get; }
+        List<StringKeyValue> Errors { get; }
+    }
+    public class StringKeyValue
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
     }
 }

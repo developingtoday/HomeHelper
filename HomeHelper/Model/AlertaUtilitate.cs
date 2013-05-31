@@ -42,6 +42,6 @@ namespace HomeHelper.Model
             //throw new NotImplementedException();
         }
 
-        public Dictionary<string, string> Errors { get; private set; }
+        public List<StringKeyValue> Errors { get; private set; }
     }
 }
