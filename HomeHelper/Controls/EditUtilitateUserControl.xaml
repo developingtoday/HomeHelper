@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Height="300"
+    Height="400"
     Width="400"
     >
         <Grid Background="Black">
@@ -22,6 +22,7 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             
         </Grid.RowDefinitions>
         <TextBlock Text="Utilitate" Margin="10"></TextBlock>
@@ -29,8 +30,23 @@
         <TextBlock Text="Unitate Masura" Margin="10" Grid.Row="1" Grid.Column="0"></TextBlock>
         <TextBox Name="txtUnitate" Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding  ObiectInBinding.UnitateMasura, Mode=TwoWay}"></TextBox>
         <TextBlock Text="Valoare Initiala" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
-        <TextBox Name="txtValoareInitiala" Grid.Row="2" Grid.Column="1" Margin="10"  Text="{Binding ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>    
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+        <TextBox Name="txtValoareInitiala" Grid.Row="2" Grid.Column="1" Margin="10"  Text="{Binding ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>
+        <ListView Grid.Row="3" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                  ItemsSource="{Binding Erori,Mode=TwoWay}" IsEnabled="False"
+                  
+                  >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="6">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="{Binding Value}" Margin="5" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
         <Button  Style="{StaticResource SaveAppBarButtonStyle}" Command="{Binding SaveCommand}"></Button>
         <Button  Style="{StaticResource DeleteAppBarButtonStyle}" Visibility="{Binding ShowDelete, Mode=TwoWay, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding DeleteCommand}"></Button>
         <Button  Style="{StaticResource CancelAppBarButtonStyle}" Command="{Binding CancelCommand}"></Button>  

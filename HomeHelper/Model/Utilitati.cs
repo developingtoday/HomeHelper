@@ -5,23 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HomeHelper.Common;
+using HomeHelper.Model.Abstract;
 using HomeHelper.Utils;
 using SQLite;
 
 namespace HomeHelper.Model
 {
-    public class Utilitati:BindableBase
+    public class Utilitati:BindableBase,IValidation 
     {
-        private int _idUtilitati=0;
+       
 
         [PrimaryKey,AutoIncrement]
         public int IdUtilitati { get; set; }
         
 
-        private string _denumireUtilitate = string.Empty;
         public string DenumireUtilitate { get; set; }
 
-        private string _unitateMasura = string.Empty;
+ 
         public string UnitateMasura { get; set; }
 
   
@@ -160,5 +160,42 @@ namespace HomeHelper.Model
         }
 
 
+        public void DoValidation()
+        {
+            _errors = new List<StringKeyValue>();
+            if (string.IsNullOrEmpty(DenumireUtilitate))
+            {
+                _errors.Add(new StringKeyValue()
+                               {
+                                   Key = "DenumireUtilitate",
+                                   Value = "Denumire: Campul este gol"
+                               });
+            }
+            if (string.IsNullOrEmpty(UnitateMasura))
+            {
+                _errors.Add(new StringKeyValue()
+                               {
+                                   Key = "UnitateMasura",
+                                   Value = "Unitate Masura: Campul este gol"
+                               });
+            }
+            if (IndexInitial < 0)
+            {
+                _errors.Add(new StringKeyValue()
+                               {
+                                   Key = "IndexInitial",
+                                   Value = "Indext Initial: Valoare invalida"
+                               });
+            }
+
+        }
+
+        private List<StringKeyValue> _errors;
+        
+
+        public List<StringKeyValue> GetErrors()
+        {
+            return _errors;
+        }
     }
 }

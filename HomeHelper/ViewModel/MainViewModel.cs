@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HomeHelper.Common;
 using HomeHelper.Controls;
 using HomeHelper.Model;
+using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
 
@@ -310,22 +311,22 @@ namespace HomeHelper.ViewModel
             }
         }
 
-        private void ShowInput<T>(UserControl control,Action refresData) where T:class,new()
+        private void ShowInput<T>(UserControl control, Action refresData) where T : class,IValidation, new() 
+    {
+        var uc = control;
+        var popup = UiHelper.ShowPopup(CurrentFrame, uc);
+        var dataContext = uc.DataContext as InputViewModelBase<T>;
+        if (dataContext != null)
         {
-            var uc = control;
-            var popup = UiHelper.ShowPopup(CurrentFrame, uc);
-            var dataContext = uc.DataContext as InputViewModelBase<T>;
-            if (dataContext != null)
-            {
-                dataContext.IsClosedChanged += (s, e) => popup.IsOpen = !dataContext.IsClosed;
-            }
-            popup.Closed += (s, e) =>
-                                {
-
-                                    if (dataContext !=null && !dataContext.RefreshDataSource) return;
-                                    if (refresData != null) refresData();
-                                };
+            dataContext.IsClosedChanged += (s, e) => popup.IsOpen = !dataContext.IsClosed;
         }
+        popup.Closed += (s, e) =>
+                            {
+
+                                if (dataContext != null && !dataContext.RefreshDataSource) return;
+                                if (refresData != null) refresData();
+                            };
+    }
     }
  
 
