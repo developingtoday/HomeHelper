@@ -168,7 +168,7 @@ namespace HomeHelper.Model
                 Errors.Add(new StringKeyValue()
                                {
                                    Key = "DenumireUtilitate",
-                                   Value = "Campul este gol"
+                                   Value = "Denumire: Campul este gol"
                                });
             }
             if (string.IsNullOrEmpty(UnitateMasura))
@@ -176,7 +176,7 @@ namespace HomeHelper.Model
                 Errors.Add(new StringKeyValue()
                                {
                                    Key = "UnitateMasura",
-                                   Value = "Campul este gol"
+                                   Value = "Unitate Masura: Campul este gol"
                                });
             }
             if (IndexInitial < 0)
@@ -184,7 +184,7 @@ namespace HomeHelper.Model
                 Errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexInitial",
-                                   Value = "Valoare invalida"
+                                   Value = "Indext Initial: Valoare invalida"
                                });
             }
 
