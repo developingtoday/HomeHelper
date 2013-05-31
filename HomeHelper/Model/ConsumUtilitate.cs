@@ -53,8 +53,10 @@ namespace HomeHelper.Model
             if (IdUtilitate != 0)
             {
                 var cons = new ConsumUtilitateRepository();
-                var list = cons.GetAll().Where(a=>a.IdUtilitate==IdUtilitate && a.IdConsumUtilitate!=IdConsumUtilitate).ToArray();
-                if (list.Any(a => a.IdUtilitate == IdUtilitate && a.DataConsum == DataConsum))
+                var rep = new UtilitatiRepository();
+                var util = rep.GetById(IdUtilitate);
+                var list = cons.GetAll().Where(a=>a.IdUtilitate==IdUtilitate && a.IdConsumUtilitate!=IdConsumUtilitate).OrderBy(a=>a.DataConsum).ToArray();
+                if (list.Any(a => a.IdUtilitate == IdUtilitate && a.DataConsum.Date == DataConsum.Date))
                 {
                     Errors.Add(new StringKeyValue()
                                    {
@@ -64,45 +66,62 @@ namespace HomeHelper.Model
                 }
                 if (list.Any())
                 {
-                    var last = list.OrderBy(a => a.DataConsum).LastOrDefault(a => a.DataConsum <= DataConsum);
-                    var first = list.OrderBy(a => a.DataConsum).LastOrDefault(a => a.DataConsum >= DataConsum);
-                    if (last != null && first != null)
+                    var maxData = list.Max(a => a.DataConsum.Date);
+                    var minData = list.Min(a => a.DataConsum.Date);
+                    if (minData <= DataConsum && DataConsum <= maxData)
                     {
-                        var prevConsum = last.IndexUtilitate;
-                        var nextConsum = first.IndexUtilitate;
-                        if (!(prevConsum <= IndexUtilitate && IndexUtilitate <= nextConsum))
+                        var first =
+                            list.OrderByDescending(a => a.DataConsum)
+                                .FirstOrDefault(a => a.DataConsum.Date <= DataConsum.Date);
+                        var last = list.FirstOrDefault(a => a.DataConsum.Date >= DataConsum.Date);
+                        if (!(first.IndexUtilitate <= IndexUtilitate && IndexUtilitate <= last.IndexUtilitate))
                         {
                             Errors.Add(new StringKeyValue()
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
-                                                   string.Format("Valoarea nu se afla intervalul {0}:{1}", prevConsum,
-                                                                 nextConsum)
-                                           });
-                        }
-                    }else if (last != null && first == null)
-                    {
-                        if (last.IndexUtilitate < IndexUtilitate)
-                        {
-                            Errors.Add(new StringKeyValue()
-                                           {
-                                               Key = "IndexUtilitate",
-                                               Value = string.Format("Valoarea este mai mare decat {0}", IndexUtilitate)
+                                                   string.Format("Indexul nu se afla in intervalul {0}-{1}",
+                                                                 first.IndexUtilitate, last.IndexUtilitate)
                                            });
                         }
                     }
-                    else if (last == null && first != null)
+                    else if (DataConsum <= minData)
                     {
-                        if (first.IndexUtilitate > IndexUtilitate)
+                        var first = list.FirstOrDefault(a => a.DataConsum.Date >= DataConsum.Date);
+                        if (!(util.IndexInitial <= IndexUtilitate && IndexUtilitate <= first.IndexUtilitate))
                         {
                             Errors.Add(new StringKeyValue()
                                            {
-                                               Key = "Index utilitate",
+                                               Key = "IndexUtilitate",
                                                Value =
-                                                   string.Format("Valoarea este mai mica decat {0}",
-                                                                 IndexUtilitate)
+                                                   string.Format("Indexul nu se afla in intervalul {0}-{1}",
+                                                                 util.IndexInitial, first.IndexUtilitate)
                                            });
                         }
+                    }
+                    else if (DataConsum >= maxData)
+                    {
+                        var last = list.LastOrDefault(a => a.DataConsum.Date <= DataConsum.Date);
+                        if (IndexUtilitate < last.IndexUtilitate)
+                        {
+                            Errors.Add(new StringKeyValue()
+                                           {
+                                               Key = "IndexUtilitate",
+                                               Value =
+                                                   string.Format("Indexul este mai mic decat {0}", last.IndexUtilitate)
+                                           });
+                        }
+                    }
+                }
+                else
+                {
+                    if (IndexUtilitate < util.IndexInitial)
+                    {
+                        Errors.Add(new StringKeyValue()
+                                       {
+                                           Key = "IndexUtilitate",
+                                           Value = string.Format("Indexul este mai mic decat {0}",util.IndexInitial)
+                                       });
                     }
                 }
             }
