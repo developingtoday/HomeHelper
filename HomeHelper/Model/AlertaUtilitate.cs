@@ -24,6 +24,12 @@ namespace HomeHelper.Model
         {
             get { return DataAlerta.ToString("d"); }
         }
+
+        public bool AlertaActiva
+        {
+            get { return DataAlerta >= DateTime.Now; }
+        }
+
         public string NumeUtilitate
         {
             get
@@ -43,11 +49,7 @@ namespace HomeHelper.Model
         }
 
         private List<StringKeyValue> _errors;
-        public List<StringKeyValue> Errors
-        {
-            set { _errors = value; }
-        }
-
+      
         public List<StringKeyValue> GetErrors()
         {
             return _errors;

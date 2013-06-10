@@ -32,13 +32,7 @@ namespace HomeHelper
     /// </summary>
     public sealed partial class MainPage : HomeHelper.Common.LayoutAwarePage
     {
-//        private readonly IRepository<Utilitati> _repository = FactoryRepository.GetInstanceRepositoryUtilitati();
-//        private readonly IRepository<AlertaUtilitate> _repositoryAlerta = new AlertaUtilitateRepository(); 
-//        private readonly IRepository<ConsumUtilitate> _repositoryConsum =
-//            FactoryRepository.GetInstanceRepositoryConsum();
-//
-//        private int _lastUtilitateSelect = 0;
-//        private LineSeries line;
+
         private MainViewModel _mainViewModel;
         public MainPage()
         {
@@ -49,70 +43,10 @@ namespace HomeHelper
             this.Loaded += (s, e) => _mainViewModel.CurrentFrame = Frame;
             _mainViewModel.RefreshGraph=LineChart.UpdateLayout;
             
-//            line = ((LineSeries)LineChart.Series[0]);
-//            CreateLineSeries();
-//            itemListUtilitati.ItemClick += itemListUtilitati_ItemClick;
-//            itemListUtilitati.IsItemClickEnabled = true;
-//            itemListAlerte.ItemClick += itemListAlerte_ItemClick;
-//            itemListAlerte.IsItemClickEnabled = true;
-//            itemListUtilitati.SelectionChanged +=ItemListUtilitatiOnSelectionChanged;
-//            itemListAlerte.SelectionChanged += ItemListUtilitatiOnSelectionChanged;
+
         }
 
-//        private void ItemListUtilitatiOnSelectionChanged(object sender, SelectionChangedEventArgs e)
-//        {
-//            btnDelete.Visibility = (e.AddedItems.Any())
-//                                                                                     ? Visibility.Visible
-//                                                                                     : Visibility.Collapsed;
-//            btnEdit.Visibility = (e.AddedItems.Any())
-//                                     ? Visibility.Visible
-//                                     : Visibility.Collapsed;
-//            botomAppbar.IsOpen = e.AddedItems.Any();
-//        }
-//
-//        void itemListAlerte_ItemClick(object sender, ItemClickEventArgs e)
-//        {
-//
-//            var obj = e.ClickedItem as AlertaUtilitate;
-//            if (obj == null) return;
-//            Frame.Navigate(typeof (EditViewAlerta), obj.IdAlertaUilitate);
-//
-//        }
-//
-//        void itemListUtilitati_ItemClick(object sender, ItemClickEventArgs e)
-//        {
-//            if (itemListUtilitati.SelectedItems.Any()) itemListUtilitati.SelectedItem=null;
-//            var obj = e.ClickedItem as Utilitati;
-//            LineChart.Title =
-//                string.Format("Evolutia consumului utilitatii : {0}",
-//                              obj.DenumireUtilitate);
-//            line.Title = obj.DenumireUtilitate;
-//            line.ItemsSource = obj.Consums;
-//            _lastUtilitateSelect = obj.IdUtilitati;
-//        }
-//
-//        private void CreateLineSeries()
-//        {
-//          
-//           if(!LineChart.Series.Any()) LineChart.Series.Add(line);
-//            line.SelectionChanged += line_SelectionChanged;
-//        }
-//
-//
-//        void line_SelectionChanged(object sender, SelectionChangedEventArgs e)
-//        {
-//            var obj = line.SelectedItem as ConsumUtilitate;
-//            if (obj == null) return;
-//            Frame.Navigate(typeof(EditViewConsum), new Tuple<int, int>(obj.IdConsumUtilitate, obj.IdUtilitate));
-//        }
-//
-//  
-//        private void MockUpListItem()
-//        {
-//          
-//            itemListUtilitati.ItemsSource = _repository.GetAll();
-//            itemListAlerte.ItemsSource = _repositoryAlerta.GetAll();
-//        }
+
 //        /// <summary>
         /// Populates the page with content passed during navigation.  Any saved state is also
         /// provided when recreating a page from a prior session.
@@ -136,48 +70,7 @@ namespace HomeHelper
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
         }
-//
-//        private void BtnDelete_OnClick(object sender, RoutedEventArgs e)
-//        {
-//            try
-//            {
-//                var obj = itemListUtilitati.SelectedItem as Utilitati;
-//                var objAlerta = itemListAlerte.SelectedItem as AlertaUtilitate;
-//                if(obj!=null) _repository.Delete(obj);
-//                if (objAlerta != null) _repositoryAlerta.Delete(objAlerta);
-//                MockUpListItem();
-//            }
-//            catch (Exception ex)
-//            {
-//                var msg = new MessageDialog(ex.Message,ResurseMesaje.NumeFereastraEroare);
-//                 msg.ShowAsync();
-//
-//            }
-//
-//        }
-//
-//        private void BtnAdd_OnClick(object sender, RoutedEventArgs e)
-//        {
-//            Frame.Navigate(typeof (EditView), 0);
-//        }
-//
-//        private void BtnEdit_OnClick(object sender, RoutedEventArgs e)
-//        {
-//            var obj = itemListUtilitati.SelectedItem as Utilitati;
-//            if (obj == null) return;
-//            Frame.Navigate(typeof (EditView), obj.IdUtilitati);
-//        }
-//
-//        private void BtnAddConsum_OnClick(object sender, RoutedEventArgs e)
-//        {       
-//            Frame.Navigate(typeof (EditViewConsum), new Tuple<int,int>(0,_lastUtilitateSelect));
-//        }
-//
-//
-//        private void BtnAddAlerta_OnClick(object sender, RoutedEventArgs e)
-//        {
-//            Frame.Navigate(typeof (EditViewAlerta), 0);
-//        }
+
     }
 
 

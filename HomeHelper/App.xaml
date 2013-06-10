@@ -9,6 +9,7 @@
             <mvvm:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></mvvm:BooleanToVisibilityConverter>
             <mvvm:ItemCountToEmptyVisibilityConverterButtonsAdd x:Key="ItemCountToEmptyVisibilityConverter"></mvvm:ItemCountToEmptyVisibilityConverterButtonsAdd>
             <mvvm:ItemCountToEmptyVisibilityConverter x:Key="ItemCountToEmptyShow"></mvvm:ItemCountToEmptyVisibilityConverter>
+            <mvvm:BooleanToActiv x:Key="BooleanToActiv"></mvvm:BooleanToActiv>
             <ResourceDictionary.MergedDictionaries>
 
                 <!-- 
