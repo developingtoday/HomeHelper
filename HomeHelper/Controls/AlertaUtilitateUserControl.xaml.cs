@@ -29,6 +29,8 @@ namespace HomeHelper.Controls
         {
             this.InitializeComponent();
             
+            
+
         }
         public AlertaUtilitateUserControl(InputViewOperatiune op, AlertaUtilitate a):this()
         {

@@ -12,13 +12,17 @@
      Height="380"
     Width="400"
     >
-    
+    <UserControl.Resources>
+        
+        
+    </UserControl.Resources>
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
@@ -31,10 +35,17 @@
                   DisplayMemberPath="DenumireUtilitate"
                   SelectedValuePath="IdUtilitati"
                   SelectedValue="{Binding ObiectInBinding.IdUitlitate, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1"></ComboBox>
-        <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
-        <Input:DatePicker Grid.Column="1" Grid.Row="1" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
-        <Input:TimePicker Grid.Column="1" Grid.Row="2" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" ></Input:TimePicker>
-        <ListView Grid.Row="3" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+        <TextBlock Text="Frecventa Alerta" Grid.Column="0" Margin="10" Grid.Row="1"></TextBlock>
+        <ComboBox Margin="10" Name="cmbFrecventare"
+                  Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Frecvente}" 
+                  SelectedValue="{Binding ObiectInBinding.FrecventaAlerta, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  DisplayMemberPath="Value"
+                  ></ComboBox>
+        <TextBlock Text="Data Alerta" Margin="10" Grid.Column="0" Grid.Row="2"></TextBlock>
+        <Input:DatePicker Grid.Column="1" Grid.Row="2" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
+        <Input:TimePicker Grid.Column="1" Grid.Row="3" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" ></Input:TimePicker>
+        <ListView Grid.Row="4" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                   ItemsSource="{Binding Erori,Mode=TwoWay}" 
                   IsSwipeEnabled="False" IsDoubleTapEnabled="False" IsEnabled="False"
                   >
