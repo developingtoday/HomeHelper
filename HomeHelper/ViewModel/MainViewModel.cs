@@ -30,7 +30,7 @@ namespace HomeHelper.ViewModel
         private ObservableCollection<ConsumUtilitate> _consumUtilitates=new ObservableCollection<ConsumUtilitate>();
         private IRepository<Utilitati> _repositoryUtilitati;
         private IRepository<ConsumUtilitate> _repositoryConsum;
-        private IRepository<AlertaUtilitate> _repositoryAlerta;
+        private IEnhancedRepository<AlertaUtilitate> _repositoryAlerta;
         private RelayCommand _adaugaUtilitatCommand, _adaugaConsumCommand, _adaugaAlertaCommand;
         private RelayCommand _editeazaUtilitateCommand, _editeazaConsumCommand, _editeazaAlertaCommand;
         private RelayCommand _cmdListView,_stergeCommand;
@@ -319,8 +319,34 @@ namespace HomeHelper.ViewModel
             {
                 if (DateTime.Now > alertaUtilitate.DataAlerta)
                 {
-                    _repositoryAlerta.Delete(alertaUtilitate);
-                    //_alerteUtilitati.Remove(alertaUtilitate);
+                   
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Anual)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddYears(1);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Lunar)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddMonths(1);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Saptamanal)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddDays(7);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Zilnic)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddDays(1);
+                    }
+
+                    if (alertaUtilitate.FrecventaAlerta != (int) RepetareAlerta.FaraRepetare)
+                    {
+                        _repositoryAlerta.CreateOrUpdateEnhanced(alertaUtilitate);
+                    }
+                    else
+                    {
+                        _repositoryAlerta.Delete(alertaUtilitate);
+                    }
+
+
                 }
             }
 
