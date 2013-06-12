@@ -10,7 +10,8 @@ using HomeHelper.Model;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
-
+using Windows.System.Threading;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace HomeHelper.ViewModel
@@ -29,11 +30,11 @@ namespace HomeHelper.ViewModel
         private ObservableCollection<ConsumUtilitate> _consumUtilitates=new ObservableCollection<ConsumUtilitate>();
         private IRepository<Utilitati> _repositoryUtilitati;
         private IRepository<ConsumUtilitate> _repositoryConsum;
-        private IRepository<AlertaUtilitate> _repositoryAlerta;
+        private IEnhancedRepository<AlertaUtilitate> _repositoryAlerta;
         private RelayCommand _adaugaUtilitatCommand, _adaugaConsumCommand, _adaugaAlertaCommand;
         private RelayCommand _editeazaUtilitateCommand, _editeazaConsumCommand, _editeazaAlertaCommand;
         private RelayCommand _cmdListView,_stergeCommand;
-
+        private ThreadPoolTimer _timer;
         public MainViewModel()
         {
             _repositoryConsum=new ConsumUtilitateRepository();
@@ -41,7 +42,8 @@ namespace HomeHelper.ViewModel
             _repositoryUtilitati = new UtilitatiRepository();
             _listaUtilitati = _repositoryUtilitati.GetAll();
             _alerteUtilitati = _repositoryAlerta.GetAll();
-
+            _timer = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => RefreshAlerte(), TimeSpan.FromSeconds(30));
+            
         }
 
         public string LegendaUtilitateGrafic
@@ -311,22 +313,62 @@ namespace HomeHelper.ViewModel
             }
         }
 
-        private void ShowInput<T>(UserControl control, Action refresData) where T : class,IValidation, new() 
-    {
-        var uc = control;
-        var popup = UiHelper.ShowPopup(CurrentFrame, uc);
-        var dataContext = uc.DataContext as InputViewModelBase<T>;
-        if (dataContext != null)
+        private void RefreshAlerte()
         {
-            dataContext.IsClosedChanged += (s, e) => popup.IsOpen = !dataContext.IsClosed;
-        }
-        popup.Closed += (s, e) =>
-                            {
+            foreach (var alertaUtilitate in _repositoryAlerta.GetAll())
+            {
+                if (DateTime.Now > alertaUtilitate.DataAlerta)
+                {
+                   
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Anual)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddYears(1);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Lunar)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddMonths(1);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Saptamanal)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddDays(7);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Zilnic)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddDays(1);
+                    }
 
-                                if (dataContext != null && !dataContext.RefreshDataSource) return;
-                                if (refresData != null) refresData();
-                            };
-    }
+                    if (alertaUtilitate.FrecventaAlerta != (int) RepetareAlerta.FaraRepetare)
+                    {
+                        _repositoryAlerta.CreateOrUpdateEnhanced(alertaUtilitate);
+                    }
+                    else
+                    {
+                        _repositoryAlerta.Delete(alertaUtilitate);
+                    }
+
+
+                }
+            }
+
+            CurrentFrame.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => AlerteUtilitati = _repositoryAlerta.GetAll());
+        }
+
+        private void ShowInput<T>(UserControl control, Action refresData) where T : class, IValidation, new()
+        {
+            var uc = control;
+            var popup = UiHelper.ShowPopup(CurrentFrame, uc);
+            var dataContext = uc.DataContext as InputViewModelBase<T>;
+            if (dataContext != null)
+            {
+                dataContext.IsClosedChanged += (s, e) => popup.IsOpen = !dataContext.IsClosed;
+            }
+            popup.Closed += (s, e) =>
+                                {
+
+                                    if (dataContext != null && !dataContext.RefreshDataSource) return;
+                                    if (refresData != null) refresData();
+                                };
+        }
     }
  
 

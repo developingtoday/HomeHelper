@@ -108,7 +108,7 @@ namespace HomeHelper.Common
         {
             Erori.Clear();
             ObiectInBinding.DoValidation();
-            if (ObiectInBinding.GetErrors().Any())
+            if (ObiectInBinding.GetErrors()!=null && ObiectInBinding.GetErrors().Any())
             {
                 Erori = ObiectInBinding.GetErrors();
                 return;
@@ -116,7 +116,10 @@ namespace HomeHelper.Common
             switch (Operatiune)
             {
                 case InputViewOperatiune.Adaugare:
-                    _repository.CreateOrUpdate(ObiectInBinding);
+                    var cast = _repository as IEnhancedRepository<T>;
+                    if (cast == null)
+                        _repository.CreateOrUpdate(ObiectInBinding);
+                    else cast.CreateOrUpdateEnhanced(ObiectInBinding);
                     break;
                 case InputViewOperatiune.Modificare:
                     _repository.CreateOrUpdate(ObiectInBinding);

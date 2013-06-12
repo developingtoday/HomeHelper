@@ -16,4 +16,9 @@ namespace HomeHelper.Model.Abstract
         public string Key { get; set; }
         public string Value { get; set; }
     }
+    public class StringIntKeyValue
+    {
+        public int Key { get; set; }
+        public string Value { get; set; }
+    }
 }

@@ -55,4 +55,17 @@ namespace HomeHelper.Common
             throw new NotImplementedException();
         }
     }
+
+    public class BooleanToActiv:IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            return (value is bool && (bool) value) ? "Activ" : "Inactiv"; //TODO facut sa fie resursa localizabila.
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
