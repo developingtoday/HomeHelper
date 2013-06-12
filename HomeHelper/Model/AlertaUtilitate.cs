@@ -82,6 +82,10 @@ namespace HomeHelper.Model
                 return new UtilitatiRepository().GetById(IdUitlitate).DenumireUtilitate;
             }
         }
+        public string FrecventaAfisare
+        {
+            get { return Util.FrecventeAlerte().Find(value => value.Key == FrecventaAlerta).Value ?? string.Empty; }
+        }
       
 
         public override string ToString()

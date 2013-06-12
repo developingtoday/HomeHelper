@@ -501,6 +501,7 @@
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock Text="{Binding NumeUtilitate}"/>
                                         <TextBlock Text="{Binding DataAlerta}"/>
+                                        <TextBlock Text="{Binding FrecventaAfisare}"></TextBlock>
                                         <TextBlock Text="{Binding AlertaActiva,  Converter={StaticResource BooleanToActiv}}"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
