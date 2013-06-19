@@ -10,6 +10,7 @@ using HomeHelper.Model;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
+using HomeHelper.Utils;
 using Windows.System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,6 +36,8 @@ namespace HomeHelper.ViewModel
         private RelayCommand _editeazaUtilitateCommand, _editeazaConsumCommand, _editeazaAlertaCommand;
         private RelayCommand _cmdListView,_stergeCommand;
         private ThreadPoolTimer _timer;
+        private ThreadPoolTimer _timeTile;
+        private LiveTileCreator _tileCreator;
         public MainViewModel()
         {
             _repositoryConsum=new ConsumUtilitateRepository();
@@ -42,6 +45,10 @@ namespace HomeHelper.ViewModel
             _repositoryUtilitati = new UtilitatiRepository();
             _listaUtilitati = _repositoryUtilitati.GetAll();
             _alerteUtilitati = _repositoryAlerta.GetAll();
+            _tileCreator = new LiveTileCreator();
+            _tileCreator.LiveTileTtl = 10;
+            _timeTile = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => _tileCreator.SetupTileNotificationWide(),
+                                                            TimeSpan.FromSeconds(20));
             _timer = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => RefreshAlerte(), TimeSpan.FromSeconds(30));
             
         }
