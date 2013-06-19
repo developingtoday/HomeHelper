@@ -140,6 +140,7 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utils\DbUtils.cs" />
     <Compile Include="Utils\FactoryRepository.cs" />
+    <Compile Include="Utils\LiveTileCreator.cs" />
     <Compile Include="Utils\ResurseMesaje.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\UtilitateInputViewModel.cs" />
