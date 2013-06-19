@@ -5,12 +5,18 @@
     xmlns:local="using:HomeHelper.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:storeAppControl="using:StoreAppLib.Controls"
+    xmlns:storeAppControl="using:StoreAppLib.Controls" xmlns:Input="using:Syncfusion.UI.Xaml.Controls.Input"
     mc:Ignorable="d"
     d:DesignHeight="300"
-    d:DesignWidth="400">
-    
-    <Grid>
+    d:DesignWidth="400"
+     Height="380"
+    Width="400"
+    >
+    <UserControl.Resources>
+        
+        
+    </UserControl.Resources>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
@@ -19,12 +25,45 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Text="Utilitate" Margin="10" Grid.Row="0" Grid.Column="0"></TextBlock>
-        <ComboBox Name="cmbUtilitate" Margin="10" SelectedValue="{Binding IdUitlitate, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"></ComboBox>
-        <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
-        <storeAppControl:DatePicker Grid.Column="1" Grid.Row="1" Date="{Binding DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></storeAppControl:DatePicker>
-        <storeAppControl:TimePicker Grid.Column="1" Grid.Row="2" Time="{Binding DataAlerta, Mode=TwoWay}" Format="hh:mm:ss" Name="tmLoca"></storeAppControl:TimePicker>
+        <ComboBox Name="cmbUtilitate" Margin="10"
+                  ItemsSource="{Binding ListaUtilitati}"
+                  DisplayMemberPath="DenumireUtilitate"
+                  SelectedValuePath="IdUtilitati"
+                  SelectedValue="{Binding ObiectInBinding.IdUitlitate, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1"></ComboBox>
+        <TextBlock Text="Frecventa Alerta" Grid.Column="0" Margin="10" Grid.Row="1"></TextBlock>
+        <ComboBox Margin="10" Name="cmbFrecventare"
+                  Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Frecvente}" 
+                  SelectedValue="{Binding ObiectInBinding.FrecventaAlerta, Mode=TwoWay}"
+                  SelectedValuePath="Key"
+                  DisplayMemberPath="Value"
+                  ></ComboBox>
+        <TextBlock Text="Data Alerta" Margin="10" Grid.Column="0" Grid.Row="2"></TextBlock>
+        <Input:DatePicker Grid.Column="1" Grid.Row="2" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
+        <Input:TimePicker Grid.Column="1" Grid.Row="3" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" ></Input:TimePicker>
+        <ListView Grid.Row="4" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                  ItemsSource="{Binding Erori,Mode=TwoWay}" 
+                  IsSwipeEnabled="False" IsDoubleTapEnabled="False" IsEnabled="False"
+                  >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="6">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="{Binding Value}" Margin="5" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+            <Button  Style="{StaticResource SaveAppBarButtonStyle}" Command="{Binding SaveCommand}"></Button>
+            <Button  Style="{StaticResource DeleteAppBarButtonStyle}" Visibility="{Binding ShowDelete, Mode=TwoWay, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding DeleteCommand}"></Button>
+            <Button  Style="{StaticResource CancelAppBarButtonStyle}" Command="{Binding CancelCommand}"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>

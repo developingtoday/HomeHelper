@@ -110,9 +110,11 @@
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Common\InputViewModelBase.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Common\UIHelper.cs" />
     <Compile Include="Controls\AlertaUtilitateUserControl.xaml.cs">
       <DependentUpon>AlertaUtilitateUserControl.xaml</DependentUpon>
     </Compile>
@@ -122,12 +124,10 @@
     <Compile Include="Controls\EditUtilitateUserControl.xaml.cs">
       <DependentUpon>EditUtilitateUserControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MyDateTimePicker.xaml.cs">
-      <DependentUpon>MyDateTimePicker.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Abstract\IValidation.cs" />
     <Compile Include="Model\AlertaUtilitate.cs" />
     <Compile Include="Model\ConsumUtilitate.cs" />
     <Compile Include="Model\Utilitati.cs" />
@@ -140,16 +140,10 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utils\DbUtils.cs" />
     <Compile Include="Utils\FactoryRepository.cs" />
+    <Compile Include="Utils\LiveTileCreator.cs" />
     <Compile Include="Utils\ResurseMesaje.cs" />
-    <Compile Include="Views\EditView.xaml.cs">
-      <DependentUpon>EditView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EditViewAlerta.xaml.cs">
-      <DependentUpon>EditViewAlerta.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EditViewConsum.xaml.cs">
-      <DependentUpon>EditViewConsum.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\UtilitateInputViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -188,48 +182,42 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\MyDateTimePicker.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditViewAlerta.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditViewConsum.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="SQLite.WinRT, Version=3.7.14.1">
-      <Name>SQLite for Windows Runtime</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="StoreAppLib, Version=1.1.2.0, Culture=neutral, PublicKeyToken=f3cd13981968e4ee, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\StoreAppLib.1.1.2.0\lib\NetCore45\StoreAppLib.dll</HintPath>
     </Reference>
-    <Reference Include="WinRTXamlToolkit, Version=1.3.5.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="WinRTXamlToolkit, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\winrtxamltoolkit.1.3.5.2\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
+      <HintPath>..\packages\winrtxamltoolkit.1.4.2.0\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="WinRTXamlToolkit.Controls.DataVisualization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WinRTXamlToolkit.Controls.DataVisualization.1.3.5.2\lib\netcore45\WinRTXamlToolkit.Controls.DataVisualization.dll</HintPath>
+      <HintPath>..\packages\WinRTXamlToolkit.Controls.DataVisualization.1.4.2.0\lib\netcore45\WinRTXamlToolkit.Controls.DataVisualization.dll</HintPath>
     </Reference>
-    <Reference Include="WinRTXamlToolkit.Debugging">
-      <HintPath>..\packages\WinRTXamlToolkit.Debugging.1.3.5.2\lib\netcore45\WinRTXamlToolkit.Debugging.dll</HintPath>
+    <Reference Include="WinRTXamlToolkit.Debugging, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WinRTXamlToolkit.Debugging.1.4.2.0\lib\netcore45\WinRTXamlToolkit.Debugging.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.VCLibs, version=11.0">
+      <Name>Microsoft Visual C++ Runtime Package</Name>
+    </SDKReference>
+    <SDKReference Include="SQLite.WinRT, Version=3.7.15.2">
+      <Name>SQLite for Windows Runtime</Name>
+    </SDKReference>
+    <SDKReference Include="Syncfusion controls for WinRT XAML, Version=10.4.0.72">
+      <Name>Syncfusion controls for WinRT XAML</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

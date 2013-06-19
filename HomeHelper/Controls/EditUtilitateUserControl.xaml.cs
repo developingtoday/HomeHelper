@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using HomeHelper.Common;
 using HomeHelper.Model;
+using HomeHelper.Repository.Concret;
+using HomeHelper.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,6 +25,17 @@ namespace HomeHelper.Controls
         public EditUtilitateUserControl()
         {
             this.InitializeComponent();
+            var _viewModel = new UtilitateInputViewModel(new UtilitatiRepository());
+            DataContext = _viewModel;
+         
+        }
+        public EditUtilitateUserControl(InputViewOperatiune op, Utilitati t)
+        {
+            this.InitializeComponent();
+            var _viewModel = new UtilitateInputViewModel(new UtilitatiRepository());
+            _viewModel.ObiectInBinding = t;
+            _viewModel.Operatiune = op;
+            DataContext = _viewModel;
         }
 
       
