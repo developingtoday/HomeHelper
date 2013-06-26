@@ -157,4 +157,35 @@ namespace HomeHelper.Common
                                              };
         } 
     }
+
+    public class GridViewClickCommand
+    {
+        public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command",
+                                                                                                        typeof(ICommand
+                                                                                                            ),
+                                                                                                        typeof(
+                                                                                                            GridViewClickCommand
+                                                                                                            ),
+                                                                                                        new PropertyMetadata
+                                                                                                            (null,
+                                                                                                             CommadPropertyChanged));
+
+        public static void SetCommand(DependencyObject aO, ICommand val)
+        {
+            aO.SetValue(CommandProperty, val);
+        }
+        public static ICommand GetCommand(DependencyObject aO)
+        {
+            return (ICommand)aO.GetValue(CommandProperty);
+        }
+        private static void CommadPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as GridView).ItemClick += (s, e1) =>
+            {
+                var cast = s as GridView;
+                var cmd = GetCommand(cast);
+                cmd.Execute(e1.ClickedItem);
+            };
+        }
+    }
 }

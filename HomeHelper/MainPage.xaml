@@ -434,31 +434,39 @@
                             Text="Nu sunt inregistrari adaugate"
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
                             ></TextBlock>
-                        <ListView x:Name="itemListUtilitati" 
+                        <GridView x:Name="itemListUtilitati"
                                   
                                   ItemsSource="{Binding ListaUtilitati}" 
-                                  Background="#FF2B1926" IsItemClickEnabled="True" 
+                                  IsItemClickEnabled="True" 
                                   Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                   SelectedItem="{Binding UtilitateSelectata, Mode=TwoWay}"
-                                  common:ListViewClickCommand.Command="{Binding CmdListView}" AllowDrop="False"
+                                  common:GridViewClickCommand.Command="{Binding CmdListView}" AllowDrop="False" Width="Auto" Height="Auto"
                                   >
-                            <ListView.ItemTemplate>
+                            <GridView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapGrid HorizontalChildrenAlignment="Center" VerticalChildrenAlignment="Top" MaximumRowsOrColumns="3"></WrapGrid>
+                                </ItemsPanelTemplate>
+                                
+                            </GridView.ItemsPanel>
+                            
+                            
+                            <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Margin="10,0,0,0">
+                                    <StackPanel Background="#FF2B1926"  Width="200" Height="120">
                                         <TextBlock Text="{Binding DenumireUtilitate}" FontSize="20" TextAlignment="Center"/>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" Margin="5">
                                             <TextBlock Text="Luna Curenta=" FontSize="20" TextAlignment="Left"></TextBlock>
                                             <TextBlock Text="{Binding ConsumActual}" FontSize="20" TextAlignment="Center"></TextBlock>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" Margin="5">
                                             <TextBlock Text="Luna Anterioara=" FontSize="20" TextAlignment="Left"></TextBlock>
                                             <TextBlock Text="{Binding ConsumLunaAnterioara}" FontSize="20" TextAlignment="Center"></TextBlock>
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
+                            </GridView.ItemTemplate>
 
-                        </ListView>
+                        </GridView>
 
                     </StackPanel>
                 </GridViewItem>
@@ -501,24 +509,29 @@
                             Text="Nu sunt inregistrari adaugate"
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
                             ></TextBlock>
-                        <ListView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  
+                        <GridView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  
                                   SelectedItem="{Binding AlertaSelectata, Mode=TwoWay}"
-                                  Background="#FF2B1926"
+                                  
                                   Visibility="{Binding AlerteUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                   IsItemClickEnabled="True"
-                                  common:ListViewClickCommand.Command="{Binding EditeazaAlertaCommand}"
+                                  common:GridViewClickCommand.Command="{Binding EditeazaAlertaCommand}"
                                   >
-                            <ListView.ItemTemplate>
+                            <GridView.ItemsPanel>
+                               <ItemsPanelTemplate>
+                                    <WrapGrid HorizontalChildrenAlignment="Center" VerticalChildrenAlignment="Top" MaximumRowsOrColumns="3"></WrapGrid>
+                                </ItemsPanelTemplate>
+                            </GridView.ItemsPanel>
+                            <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
-                                        <TextBlock Text="{Binding NumeUtilitate}"/>
-                                        <TextBlock Text="{Binding DataAlerta}"/>
-                                        <TextBlock Text="{Binding FrecventaAfisare}"></TextBlock>
-                                        <TextBlock Text="{Binding AlertaActiva,  Converter={StaticResource BooleanToActiv}}"></TextBlock>
+                                    <StackPanel Orientation="Vertical" Background="#FF2B1926" Width="200" Height="80">
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding NumeUtilitate}" FontSize="20"/>
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding DataAlerta}" FontSize="20"/>
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding FrecventaAfisare}" FontSize="20"></TextBlock>
+                                        <TextBlock Margin="10,0,0,0" Text="{Binding AlertaActiva,  Converter={StaticResource BooleanToActiv}}" FontSize="20"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            </GridView.ItemTemplate>
+                        </GridView>
 
                     </StackPanel>
                 </GridViewItem>
