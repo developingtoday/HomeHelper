@@ -18,6 +18,10 @@ namespace HomeHelper.Model
         Anual=4,
         Zilnic=5
     }
+    public enum TendintaConsum
+    {
+        Crestere,Scadere,Stagnare
+    }
     public static class Util
     {
         public static List<StringIntKeyValue> FrecventeAlerte()

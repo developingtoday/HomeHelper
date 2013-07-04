@@ -452,15 +452,30 @@
                             
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Background="#FF2B1926"  Width="200" Height="120">
-                                        <TextBlock Text="{Binding DenumireUtilitate}" FontSize="20" TextAlignment="Center"/>
-                                        <StackPanel Orientation="Horizontal" Margin="5">
-                                            <TextBlock Text="Luna Curenta=" FontSize="20" TextAlignment="Left"></TextBlock>
-                                            <TextBlock Text="{Binding ConsumActual}" FontSize="20" TextAlignment="Center"></TextBlock>
+                                    <StackPanel Background="#FF2B1926"  Width="300" Height="120">
+                                        <TextBlock Text="{Binding DenumireUtilitate}" FontSize="30" Margin="5,0,0,0" TextAlignment="Left"/>
+                                        <StackPanel Orientation="Horizontal" Margin="40 0 0 0">
+                                            <TextBlock Text="Consum" ></TextBlock>
+                                            <Polygon Points="0,24 15,0 -15,0" Stroke="Black" Fill="White" Name="crestere"  RenderTransformOrigin="0.5,0.5" Visibility="{Binding IsCrestere, Converter={StaticResource booleanToVisibilityConverter}}">
+                                                <Polygon.RenderTransform>
+                                                    <RotateTransform  Angle="180"></RotateTransform>
+                                                </Polygon.RenderTransform>
+                                            </Polygon>
+                                            <Polygon  Points="0,24 15,0 -15,0"  Stroke="Black" Fill="White" Name="scadere"  Visibility="{Binding IsScadere, Converter={StaticResource booleanToVisibilityConverter}}">
+                                                <Polygon.RenderTransform>
+                                                    <TranslateTransform X="15"></TranslateTransform>
+                                                </Polygon.RenderTransform>
+                                            </Polygon>
+                                            <Canvas Width="30" Height="10" Margin="5,5,0,0" Name="stagnare" Visibility="{Binding IsStagnare, Converter={StaticResource booleanToVisibilityConverter}}">
+                                                <Rectangle RadiusX="0" RadiusY="0" Fill="White" Width="15" Height="3" Canvas.Left="0" Canvas.Top="0" />
+                                                <Rectangle RadiusX="0" RadiusY="0" Fill="White" Width="15" Height="3" Canvas.Left="0" Canvas.Top="5" />
+                                            </Canvas>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="5">
-                                            <TextBlock Text="Luna Anterioara=" FontSize="20" TextAlignment="Left"></TextBlock>
-                                            <TextBlock Text="{Binding ConsumLunaAnterioara}" FontSize="20" TextAlignment="Center"></TextBlock>
+                                        <StackPanel Orientation="Horizontal" Margin="5 0 0 0"  >
+                                            <TextBlock Text="{Binding InformatieLunaCurenta}" FontSize="20" TextAlignment="Right"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5 0 0 0" >
+                                            <TextBlock Text="{Binding InformatieLunaAnterioara}" FontSize="20" TextAlignment="Right"></TextBlock>
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>

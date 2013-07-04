@@ -26,6 +26,32 @@ namespace HomeHelper.Model
 
   
         public float IndexInitial { get; set; }
+
+        public string InformatieLunaCurenta
+        {
+            get { return string.Format("Luna curenta: {0} {1}", ConsumActual, UnitateMasura); }
+        }
+        public string InformatieLunaAnterioara
+        {
+            get { return string.Format("Luna anterioara: {0} {1}", ConsumLunaAnterioara, UnitateMasura); }
+        }
+
+        
+
+        public bool IsCrestere
+        {
+            get { return ConsumActual > ConsumLunaAnterioara; }
+        }
+        public bool IsScadere
+        {
+            get { return ConsumActual < ConsumLunaAnterioara; }
+        }
+        public bool IsStagnare
+        {
+            get { return ConsumActual == ConsumLunaAnterioara; }
+        }
+
+
         public IEnumerable<ConsumUtilitate> Consums
         {
             get
