@@ -9,9 +9,9 @@
             <mvvm:BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"></mvvm:BooleanToVisibilityConverter>
             <mvvm:ItemCountToEmptyVisibilityConverterButtonsAdd x:Key="ItemCountToEmptyVisibilityConverter"></mvvm:ItemCountToEmptyVisibilityConverterButtonsAdd>
             <mvvm:ItemCountToEmptyVisibilityConverter x:Key="ItemCountToEmptyShow"></mvvm:ItemCountToEmptyVisibilityConverter>
+            <mvvm:ItemIndexToBackgroundConverter x:Key="ItemIndexBackgroundColor"></mvvm:ItemIndexToBackgroundConverter>
             <mvvm:BooleanToActiv x:Key="BooleanToActiv"></mvvm:BooleanToActiv>
             <ResourceDictionary.MergedDictionaries>
-
                 <!-- 
                     Styles that define common aspects of the platform look and feel
                     Required by Visual Studio project and item templates

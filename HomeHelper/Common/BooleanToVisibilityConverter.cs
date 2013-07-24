@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -27,6 +28,22 @@ namespace HomeHelper.Common
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             return value is Visibility && (Visibility)value == Visibility.Visible;
+        }
+    }
+
+    public sealed class ItemIndexToBackgroundConverter:IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (!(value is int)) return null;
+            var cast = (int)value;
+            if (cast%2 == 0) return Colors.White;
+            return Colors.Black;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
         }
     }
 }
