@@ -13,6 +13,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting" xmlns:Syncfusion="using:Syncfusion.UI.Xaml.Charts"
+    xmlns:toolkit="using:WinRTXamlToolkit.Controls"
     
     mc:Ignorable="d">
 
@@ -487,38 +488,48 @@
                 </GridViewItem>
                 
                 <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
-                                 
-                       <StackPanel Orientation="Vertical" >
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Consum" Padding="30" FontSize="20"/>
                             <Button x:Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" 
                                     Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                     />
                         </StackPanel>
-                        <Viewbox Stretch="UniformToFill"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                            <StackPanel Orientation="Horizontal">
-                           
-                            <StackPanel Orientation="Vertical">
+                        
+                            <Grid  Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
                                 <StackPanel Orientation="Horizontal"  Background="Black"  >
                                 <TextBlock Text="Data" Width="200"></TextBlock>
                                 <TextBlock Text="Index" Width="100"></TextBlock>
                                 <TextBlock Text="Consum"></TextBlock>
                             </StackPanel>
                         <ListView
-                            ScrollViewer.IsVerticalRailEnabled="True"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible"
-                            ScrollViewer.VerticalScrollMode="Enabled"
+
                             Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                             ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"   Margin="0,0,0,10"
                             AllowDrop="False"
                             IsItemClickEnabled="True"
                             Background="Black"
-                            
+                            IsSwipeEnabled="False"
+                            Grid.Row="1"
                             >
                             
                             <ListView.ItemTemplate >
                                 <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" >
+                                            <StackPanel Orientation="Horizontal" Height="40">
                                         <TextBlock Text="{Binding DataConsum}" Width="200"></TextBlock>
                                         <TextBlock Text="{Binding IndexUtilitate}" Width="100"></TextBlock>
                                         <TextBlock Text="{Binding Consum}"></TextBlock>
@@ -527,28 +538,30 @@
                             </ListView.ItemTemplate>
                             
                         </ListView>
-                            </StackPanel>
+                            </Grid>
                        
                         <TextBlock
                             Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
                             Text="Nu sunt inregistrari adaugate"
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
                             ></TextBlock>
-                        
+                        <Viewbox Stretch="Fill" StretchDirection="Both" HorizontalAlignment="Stretch" Grid.Column="1">
                         <Chart:Chart x:Name="LineChart" Margin="10,0,0,0"
-                                 HorizontalAlignment="Center" VerticalAlignment="Top" Height="500" Width="800"
+                                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="400" Width="800"
                                   Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}" Background="#FF743E44"
                                      >
                             <Chart:LineSeries x:Name="lineSerii" DependentValuePath="Consum" IndependentValuePath="DataConsumGrafic"
                                               ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"
                                               
                                               IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>
-                        </Chart:Chart>
-                            
-                        </StackPanel>
-                        </Viewbox>
-                    </StackPanel>
-                  
+                                    
+                                </Chart:Chart>
+                            </Viewbox>
+                        </Grid>
+                    </Grid>
+
+
+
 
                 </GridViewItem>
                 <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
