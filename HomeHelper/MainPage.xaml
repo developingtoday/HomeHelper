@@ -517,7 +517,7 @@
                                 <TextBlock Text="Consum"></TextBlock>
                             </StackPanel>
                         <ListView
-
+                            SelectedItem="{Binding ConsumSelectList, Mode=TwoWay}"
                             Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                             ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"   Margin="0,0,0,10"
                             AllowDrop="False"
@@ -525,6 +525,7 @@
                             Background="Black"
                             IsSwipeEnabled="False"
                             Grid.Row="1"
+                            common:ListViewClickCommand.Command="{Binding EditeazaConsumCommandList}"
                             >
                             
                             <ListView.ItemTemplate >

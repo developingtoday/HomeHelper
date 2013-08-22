@@ -26,7 +26,7 @@ namespace HomeHelper.ViewModel
         private Utilitati _utilitateSelectata;
         private ObservableCollection<Utilitati> _listaUtilitati;
         private AlertaUtilitate _alertaSelectata;
-        private ConsumUtilitate _consumSelect;
+        private ConsumUtilitate _consumSelect,_consumSelectList;
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati=new ObservableCollection<AlertaUtilitate>(); 
         private ObservableCollection<ConsumUtilitate> _consumUtilitates=new ObservableCollection<ConsumUtilitate>();
         private IRepository<Utilitati> _repositoryUtilitati;
@@ -83,14 +83,29 @@ namespace HomeHelper.ViewModel
             {
                 SetProperty(ref _consumSelect, value, "ConsumSelect");
                 if (value == null) return;
-                ShowInput<ConsumUtilitate>(new EditConsumUtilitateUserControl(InputViewOperatiune.Modificare, value),
-                                           () =>
-                                               {
-                                                   ConsumUtilitates =new ObservableCollection<ConsumUtilitate>(_repositoryUtilitati.GetById(value.IdUtilitate).Consums);
-                                                   ListaUtilitati = _repositoryUtilitati.GetAll();
-                                               });
+                ShowEditConsumUtilitate(value);
             }
         }
+
+        private void ShowEditConsumUtilitate(ConsumUtilitate value)
+        {
+            if (value == null) return;
+            ShowInput<ConsumUtilitate>(new EditConsumUtilitateUserControl(InputViewOperatiune.Modificare, value),
+                                       () =>
+                                           {
+                                               ConsumUtilitates =
+                                                   new ObservableCollection<ConsumUtilitate>(
+                                                       _repositoryUtilitati.GetById(value.IdUtilitate).Consums);
+                                               ListaUtilitati = _repositoryUtilitati.GetAll();
+                                           });
+        }
+
+        public ConsumUtilitate ConsumSelectList
+        {
+            get { return _consumSelectList; }
+            set { SetProperty(ref _consumSelectList, value, "ConsumSelectList"); }
+        }
+
         public AlertaUtilitate AlertaSelectata
         {
             get { return _alertaSelectata; }
@@ -208,6 +223,20 @@ namespace HomeHelper.ViewModel
                 return _adaugaConsumCommand;
             }
         }
+
+        public RelayCommand EditeazaConsumCommandList
+        {
+            get
+            {
+                if (_editeazaConsumCommand == null)
+                {
+                    _editeazaConsumCommand=new RelayCommand(o =>ShowEditConsumUtilitate(o as ConsumUtilitate) );
+                }
+                return _editeazaConsumCommand;
+            }
+        }
+
+
         public Frame CurrentFrame { get; set; }
 
         public RelayCommand CmdListView
@@ -231,6 +260,7 @@ namespace HomeHelper.ViewModel
                 return _cmdListView;
             }
         }
+
 
         public RelayCommand EditeazaCommand
         {
@@ -307,6 +337,17 @@ namespace HomeHelper.ViewModel
                                                                     ListaUtilitati =
                                                                         _repositoryUtilitati.GetAll();
                                                                     ConsumUtilitates=new ObservableCollection<ConsumUtilitate>();
+                                                                }
+                                                                if (ConsumSelectList!=null)
+                                                                {
+                                                                    var prevId = ConsumSelectList.IdUtilitate;
+                                                                    _repositoryConsum.Delete(ConsumSelectList);
+                                                                    ConsumUtilitates =new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll()
+                                                                                         .Where(
+                                                                                             a =>
+                                                                                             a.IdUtilitate ==
+                                                                                            prevId));
+                                                                        
                                                                 }
                                                                 if (AlertaSelectata == null) return;
                                                                 
