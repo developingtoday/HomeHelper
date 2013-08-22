@@ -32,6 +32,7 @@ namespace HomeHelper.Utils
             var nodes = document.GetElementsByTagName("text");
             var list = _repositoryUtilitati.GetAll();
             _isAlive = true;
+            if (list.Count == 0) return;
             var i = _aleator.Next(0, list.Count - 1);
             nodes[0].InnerText = "HomeHelper";
             nodes[1].InnerText = list[i].DenumireUtilitate;
