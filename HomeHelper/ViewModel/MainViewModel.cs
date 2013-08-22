@@ -35,11 +35,13 @@ namespace HomeHelper.ViewModel
         private RelayCommand _adaugaUtilitatCommand, _adaugaConsumCommand, _adaugaAlertaCommand;
         private RelayCommand _editeazaUtilitateCommand, _editeazaConsumCommand, _editeazaAlertaCommand;
         private RelayCommand _cmdListView,_stergeCommand;
+        private string _mesaj;
         private ThreadPoolTimer _timer;
         private ThreadPoolTimer _timeTile;
         private LiveTileCreator _tileCreator;
         public MainViewModel()
         {
+            MesajFaraInregistrariConsum = SeteazaMesajInregistrari(null);
             _repositoryConsum=new ConsumUtilitateRepository();
             _repositoryAlerta = new AlertaUtilitateRepository();
             _repositoryUtilitati = new UtilitatiRepository();
@@ -141,6 +143,22 @@ namespace HomeHelper.ViewModel
             {
                 SetProperty(ref _showEdit, value, "ShowEdit");
             }
+        }
+
+        public string MesajFaraInregistrariConsum
+        {
+            get { return _mesaj; }
+            set { SetProperty(ref _mesaj, value, "MesajFaraInregistrariConsum"); }
+        }
+
+        private string SeteazaMesajInregistrari(Utilitati u)
+        {
+            if (u == null)
+            {
+                return "Nu sunt inregistrari adaugate";
+            }
+            return string.Format("Nu sunt inregistrari adaugate pentru utilitatea: {0}",
+                                 u.DenumireUtilitate);
         }
 
         public RelayCommand AddUtilitateCommand
@@ -248,6 +266,7 @@ namespace HomeHelper.ViewModel
                     _cmdListView = new RelayCommand(o =>
                                                         {
                                                             var cast = o as Utilitati;
+                                                            MesajFaraInregistrariConsum=SeteazaMesajInregistrari(cast);
                                                             if (cast == null)
                                                             {
                                                                 _utilitateClicked =new Utilitati();

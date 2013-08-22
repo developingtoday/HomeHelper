@@ -511,14 +511,14 @@
                                     <RowDefinition Height="20"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <StackPanel Orientation="Horizontal"  Background="Black"  >
+                                <StackPanel Orientation="Horizontal"  Background="Black"  Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"  >
                                 <TextBlock Text="Data" Width="200"></TextBlock>
                                 <TextBlock Text="Index" Width="100"></TextBlock>
                                 <TextBlock Text="Consum"></TextBlock>
                             </StackPanel>
                         <ListView
                             SelectedItem="{Binding ConsumSelectList, Mode=TwoWay}"
-                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                            Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                             ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"   Margin="0,0,0,10"
                             AllowDrop="False"
                             IsItemClickEnabled="True"
@@ -542,9 +542,9 @@
                             </Grid>
                        
                         <TextBlock
-                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
-                            Text="Nu sunt inregistrari adaugate"
-                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
+                            Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Text="{Binding MesajFaraInregistrariConsum}"
+                            Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0" 
                             ></TextBlock>
                         <Viewbox Stretch="Fill" StretchDirection="Both" HorizontalAlignment="Stretch" Grid.Column="1">
                         <Chart:Chart x:Name="LineChart" Margin="10,0,0,0"
