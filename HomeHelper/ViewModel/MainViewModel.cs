@@ -226,12 +226,25 @@ namespace HomeHelper.ViewModel
 
                                                 var id = _utilitateClicked.IdUtilitati;
                                                 if (id == 0) return;
-                                                ConsumUtilitates =
-                                                    new ObservableCollection<ConsumUtilitate>(
-                                                        _repositoryConsum.GetAll()
-                                                                         .Where(
-                                                                             a =>
-                                                                             a.IdUtilitate == id));
+                                                var cast = uc.DataContext as ConsumUtilitateInputViewModel;
+                                                if (cast != null)
+                                                {
+                                                    if (cast.ObiectInBinding != null)
+                                                    {
+                                                        var finder = _repositoryUtilitati.GetById(cast.ObiectInBinding.IdUtilitate);
+                                                        var consums = finder.Consums;
+
+         //                                               ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(consums);
+       
+                                                      ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
+                                                    }
+                                                }
+                                                //ConsumUtilitates =
+                                                //    new ObservableCollection<ConsumUtilitate>(
+                                                //        _repositoryConsum.GetAll()
+                                                //                         .Where(
+                                                //                             a =>
+                                                //                             a.IdUtilitate == id));
                                                 ListaUtilitati = _repositoryUtilitati.GetAll();
                                             }
                                         );
@@ -361,11 +374,7 @@ namespace HomeHelper.ViewModel
                                                                 {
                                                                     var prevId = ConsumSelectList.IdUtilitate;
                                                                     _repositoryConsum.Delete(ConsumSelectList);
-                                                                    ConsumUtilitates =new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll()
-                                                                                         .Where(
-                                                                                             a =>
-                                                                                             a.IdUtilitate ==
-                                                                                            prevId));
+                                                                    ConsumUtilitates.Remove(ConsumSelectList);
                                                                         
                                                                 }
                                                                 if (AlertaSelectata == null) return;
