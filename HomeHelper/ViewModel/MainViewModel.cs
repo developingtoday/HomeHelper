@@ -49,10 +49,11 @@ namespace HomeHelper.ViewModel
             _alerteUtilitati = _repositoryAlerta.GetAll();
             _tileCreator = new LiveTileCreator();
             _tileCreator.LiveTileTtl = 10;
+#if !DEBUG
             _timeTile = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => _tileCreator.SetupTileNotificationWide(),
                                                             TimeSpan.FromSeconds(20));
             _timer = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => RefreshAlerte(), TimeSpan.FromSeconds(30));
-            
+#endif   
         }
 
         public string LegendaUtilitateGrafic

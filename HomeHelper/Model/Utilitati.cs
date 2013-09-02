@@ -97,8 +97,15 @@ namespace HomeHelper.Model
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
                        .LastOrDefault();
-            if (list == null) return 0;
-            firstDay = list.DataConsum;
+            if (list == null)
+            {
+                firstDay = DataIndexInitial;
+            }
+            else
+            {
+
+                firstDay = list.DataConsum;   
+            }
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
 
@@ -112,8 +119,15 @@ namespace HomeHelper.Model
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
                        .LastOrDefault();
-            if (list == null) return 0;
-            firstDay = list.DataConsum; 
+            if (list == null)
+            {
+                firstDay = DataIndexInitial;
+            }
+            else
+            {
+
+                firstDay = list.DataConsum;
+            }
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
 
@@ -131,7 +145,7 @@ namespace HomeHelper.Model
                 dataI = dataF;
                 dataF = aux;
             }
-            var source = list.Where(a => dataI <=a.DataConsum && a.DataConsum <= dataF).OrderBy(a=>a.DataConsum);
+            var source = list.Where(a => dataI.Date <=a.DataConsum.Date && a.DataConsum.Date <= dataF.Date).OrderBy(a=>a.DataConsum);
             if (!source.Any()) return 0;
             return ConsumUtilitateLaData(source);
         }
@@ -229,18 +243,16 @@ namespace HomeHelper.Model
                                      .ToList();
                 if (list.Any())
                 {
-                    var minDate = list.Min(a => a.DataConsum);
-                    var maxDate = list.Max(a => a.DataConsum);
-                    var condInterval = minDate <= DataIndexInitial && DataIndexInitial <= maxDate;
-                    if (!condInterval)
+                    var minDate = list.Min(a => a.DataConsum).Date;
+                    var maxDate = list.Max(a => a.DataConsum).Date;
+                    var condInterval = DataIndexInitial > minDate || DataIndexInitial > maxDate;
+                    if (condInterval)
                     {
                         _errors.Add(new StringKeyValue()
                                         {
                                             Key = "DataIndexInitial",
-                                            Value =
-                                                string.Format(
-                                                    "Data indexului initial nu se afla in intervalul {0} : {1}",
-                                                    minDate.ToString("d"), maxDate.ToString("d"))
+                                            Value ="Data invalida in respectarea intervalelor consumului"
+                                                                                                    
                                         });
                     }
                 }
