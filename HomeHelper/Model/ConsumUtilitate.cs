@@ -64,6 +64,14 @@ namespace HomeHelper.Model
                                        Value = "Pe aceasta data mai exista adaugat un consum"
                                    });
                 }
+                if (DataConsum < util.DataIndexInitial)
+                {
+                    _errors.Add(new StringKeyValue()
+                                    {
+                                        Key = "DataConsum",
+                                        Value="Data consumului nu poate fi mai mica decat data indexului initial"
+                                    });
+                }
                 if (list.Any())
                 {
                     var maxData = list.Max(a => a.DataConsum.Date);
