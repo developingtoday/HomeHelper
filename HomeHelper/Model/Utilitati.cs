@@ -27,6 +27,8 @@ namespace HomeHelper.Model
   
         public float IndexInitial { get; set; }
 
+        public DateTime DataIndexInitial { get; set; }
+
         public string InformatieLunaCurenta
         {
             get { return string.Format("Luna curenta: {0} {1}", ConsumActual, UnitateMasura); }
@@ -64,6 +66,11 @@ namespace HomeHelper.Model
                 ConsumUtilitateRefacereColectie(ref list);
                 return list;
             }
+        }
+
+        public Utilitati()
+        {
+            DataIndexInitial = DateTime.Now;
         }
 
 
@@ -212,6 +219,31 @@ namespace HomeHelper.Model
                                    Key = "IndexInitial",
                                    Value = "Indext Initial: Valoare invalida"
                                });
+            }
+            if (DataIndexInitial != DateTime.MinValue)
+            {
+                var list =
+                    FactoryRepository.GetInstanceRepositoryConsum()
+                                     .GetAll()
+                                     .Where(a => a.IdUtilitate == IdUtilitati).OrderBy(a=>a.DataConsum)
+                                     .ToList();
+                if (list.Any())
+                {
+                    var minDate = list.Min(a => a.DataConsum);
+                    var maxDate = list.Max(a => a.DataConsum);
+                    var condInterval = minDate <= DataIndexInitial && DataIndexInitial <= maxDate;
+                    if (!condInterval)
+                    {
+                        _errors.Add(new StringKeyValue()
+                                        {
+                                            Key = "DataIndexInitial",
+                                            Value =
+                                                string.Format(
+                                                    "Data indexului initial nu se afla in intervalul {0} : {1}",
+                                                    minDate.ToString("d"), maxDate.ToString("d"))
+                                        });
+                    }
+                }
             }
 
         }
