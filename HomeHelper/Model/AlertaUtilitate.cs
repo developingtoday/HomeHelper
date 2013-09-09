@@ -100,12 +100,14 @@ namespace HomeHelper.Model
         public void DoValidation()
         {
             _errors=new List<StringKeyValue>();
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+
             if (IdUitlitate == 0)
             {
                 _errors.Add(new StringKeyValue()
                                 {
                                     Key = "IdUtilitate",
-                                    Value = "Utilitatea nu a fost selectata"
+                                    Value = loader.GetString("IdUtilitateErrorValid")
                                 });
             }
             if (!AlertaActiva)
@@ -113,7 +115,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                 {
                                     Key = "DataAlerta",
-                                    Value = "Alerta nu va fi activa"
+                                    Value = loader.GetString("DataAlertaErrorValid")
                                 });
             }
         }

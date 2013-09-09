@@ -209,13 +209,14 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             _errors = new List<StringKeyValue>();
             if (string.IsNullOrEmpty(DenumireUtilitate))
             {
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "DenumireUtilitate",
-                                   Value = "Denumire: Campul este gol"
+                                   Value = loader.GetString("DenumireUtilitateCampGol")
                                });
             }
             if (string.IsNullOrEmpty(UnitateMasura))
@@ -223,7 +224,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "UnitateMasura",
-                                   Value = "Unitate Masura: Campul este gol"
+                                   Value = loader.GetString("UnitateMasuraCampGol")
                                });
             }
             if (IndexInitial < 0)
@@ -231,7 +232,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexInitial",
-                                   Value = "Indext Initial: Valoare invalida"
+                                   Value = loader.GetString("IndexInitialValoareInvalida")
                                });
             }
             if (DataIndexInitial != DateTime.MinValue)
@@ -251,7 +252,7 @@ namespace HomeHelper.Model
                         _errors.Add(new StringKeyValue()
                                         {
                                             Key = "DataIndexInitial",
-                                            Value ="Data invalida in respectarea intervalelor consumului"
+                                            Value = loader.GetString("DataIndexInitialRespectareConsumInitial")
                                                                                                     
                                         });
                     }
