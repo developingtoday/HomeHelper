@@ -311,14 +311,15 @@ namespace HomeHelper.ViewModel
                                     () =>
                                         {
                                             
-                                            ConsumUtilitates =
-                                                new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().
-                                                                                                            Where(
-                                                                                                                a =>
-                                                                                                                a
-                                                                                                                    .IdUtilitate ==
-                                                                                                                UtilitateSelectata.IdUtilitati
-                                                                                                                   ));
+//                                            ConsumUtilitates =
+//                                                new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().
+//                                                                                                            Where(
+//                                                                                                                a =>
+//                                                                                                                a
+//                                                                                                                    .IdUtilitate ==
+//                                                                                                                UtilitateSelectata.IdUtilitati
+//                                                                                                                   ));
+                                            ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(UtilitateSelectata.Consums);
                                             ListaUtilitati = _repositoryUtilitati.GetAll();
                                         }
                                             
