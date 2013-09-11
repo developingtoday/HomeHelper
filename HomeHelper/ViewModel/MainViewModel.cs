@@ -11,6 +11,7 @@ using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
+using Windows.ApplicationModel.Resources;
 using Windows.System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -39,8 +40,10 @@ namespace HomeHelper.ViewModel
         private ThreadPoolTimer _timer;
         private ThreadPoolTimer _timeTile;
         private LiveTileCreator _tileCreator;
+        private readonly Windows.ApplicationModel.Resources.ResourceLoader _loader;
         public MainViewModel()
         {
+            _loader = new ResourceLoader();
             MesajFaraInregistrariConsum = SeteazaMesajInregistrari(null);
             _repositoryConsum=new ConsumUtilitateRepository();
             _repositoryAlerta = new AlertaUtilitateRepository();
@@ -156,10 +159,10 @@ namespace HomeHelper.ViewModel
         {
             if (u == null)
             {
-                return "Nu sunt inregistrari adaugate";
+                return _loader.GetString("NuSuntInregistrariAdaugate");
             }
-            return string.Format("Nu sunt inregistrari adaugate pentru utilitatea: {0}",
-                                 u.DenumireUtilitate);
+            return string.Format("{1} {0}",
+                                 u.DenumireUtilitate, _loader.GetString("NuSuntInregistrariAdaugateUtilitatea"));
         }
 
         public RelayCommand AddUtilitateCommand
@@ -234,18 +237,9 @@ namespace HomeHelper.ViewModel
                                                     {
                                                         var finder = _repositoryUtilitati.GetById(cast.ObiectInBinding.IdUtilitate);
                                                         var consums = finder.Consums;
-
-         //                                               ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(consums);
-       
                                                       ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
                                                     }
                                                 }
-                                                //ConsumUtilitates =
-                                                //    new ObservableCollection<ConsumUtilitate>(
-                                                //        _repositoryConsum.GetAll()
-                                                //                         .Where(
-                                                //                             a =>
-                                                //                             a.IdUtilitate == id));
                                                 ListaUtilitati = _repositoryUtilitati.GetAll();
                                             }
                                         );
@@ -310,15 +304,6 @@ namespace HomeHelper.ViewModel
                                 x => ShowInput<Utilitati>(new EditUtilitateUserControl(InputViewOperatiune.Modificare, UtilitateSelectata),
                                     () =>
                                         {
-                                            
-//                                            ConsumUtilitates =
-//                                                new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().
-//                                                                                                            Where(
-//                                                                                                                a =>
-//                                                                                                                a
-//                                                                                                                    .IdUtilitate ==
-//                                                                                                                UtilitateSelectata.IdUtilitati
-//                                                                                                                   ));
                                             ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(UtilitateSelectata.Consums);
                                             ListaUtilitati = _repositoryUtilitati.GetAll();
                                         }
@@ -332,9 +317,6 @@ namespace HomeHelper.ViewModel
             }
         }
 
-   
-
-        
         public RelayCommand EditeazaAlertaCommand
         {
             get

@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConsumaLunaAnterioaraMesaj" xml:space="preserve">
+    <value>Consum luna anterioara</value>
+  </data>
+  <data name="ConsumLstUtilitati.Text" xml:space="preserve">
+    <value>Consum</value>
+  </data>
+  <data name="ConsumLunaCurentaMesaj" xml:space="preserve">
+    <value>Consum luna curenta</value>
+  </data>
   <data name="DataAlertaErrorValid" xml:space="preserve">
     <value>Alerta nu va fi activa</value>
   </data>
@@ -146,6 +155,15 @@
   </data>
   <data name="IndexUtilitateInvalidInterval" xml:space="preserve">
     <value>Indexul nu se afla in intervalul</value>
+  </data>
+  <data name="InregistrariGoale.Text" xml:space="preserve">
+    <value>Nu sunt inregistrari adaugate</value>
+  </data>
+  <data name="NuSuntInregistrariAdaugate" xml:space="preserve">
+    <value>Nu sunt inregistrari adaugate</value>
+  </data>
+  <data name="NuSuntInregistrariAdaugateUtilitatea" xml:space="preserve">
+    <value>Nu sunt inregistrari adaugate pentru utilitatea:</value>
   </data>
   <data name="UnitateMasuraCampGol" xml:space="preserve">
     <value>Unitate Masura: Campul este gol</value>

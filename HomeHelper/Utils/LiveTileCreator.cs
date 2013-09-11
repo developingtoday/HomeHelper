@@ -28,6 +28,7 @@ namespace HomeHelper.Utils
 
         public void SetupTileNotificationWide()
         {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             var document = BuildTileXml(TileTemplateType.TileWideText01);
             var nodes = document.GetElementsByTagName("text");
             var list = _repositoryUtilitati.GetAll();
@@ -36,9 +37,8 @@ namespace HomeHelper.Utils
             var i = _aleator.Next(0, list.Count - 1);
             nodes[0].InnerText = "HomeHelper";
             nodes[1].InnerText = list[i].DenumireUtilitate;
-            nodes[2].InnerText = string.Format("Consum luna curenta {0} {1}", list[i].ConsumActual, list[i].UnitateMasura);
-            nodes[3].InnerText = string.Format("Consum luna anterioara {0} {1}", list[i].ConsumLunaAnterioara, list[i].UnitateMasura);
-           
+            nodes[2].InnerText = string.Format("{2} {0} {1}", list[i].ConsumActual, list[i].UnitateMasura, loader.GetString("ConsumLunaCurentaMesaj"));
+            nodes[3].InnerText = string.Format("{2} {0} {1}", list[i].ConsumLunaAnterioara, list[i].UnitateMasura, loader.GetString("ConsumaLunaAnterioaraMesaj"));
             ShowUpTileNotification(document);
         }
 
