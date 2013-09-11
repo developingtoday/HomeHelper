@@ -227,15 +227,17 @@ namespace HomeHelper.ViewModel
                                         uc,
                                         () =>
                                             {
-
-                                                var id = _utilitateClicked.IdUtilitati;
-                                                if (id == 0) return;
+                                                //aci crapa
+                                                //var id = _utilitateClicked.IdUtilitati;
+                                                //if (id == 0) return;
                                                 var cast = uc.DataContext as ConsumUtilitateInputViewModel;
                                                 if (cast != null)
                                                 {
                                                     if (cast.ObiectInBinding != null)
                                                     {
                                                         var finder = _repositoryUtilitati.GetById(cast.ObiectInBinding.IdUtilitate);
+                                                        UtilitateSelectata = finder;
+                                                        LegendaUtilitateGrafic = UtilitateSelectata.DenumireUtilitate;
                                                         var consums = finder.Consums;
                                                       ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
                                                     }

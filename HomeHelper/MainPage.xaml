@@ -436,7 +436,6 @@
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
                             ></TextBlock>
                         <GridView x:Name="itemListUtilitati"
-                                  
                                   ItemsSource="{Binding ListaUtilitati}" 
                                   IsItemClickEnabled="True" 
                                   Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
@@ -576,14 +575,13 @@
                                     />
                         </StackPanel>
                         <TextBlock
-                            Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
+                            Visibility="{Binding AlerteUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
                             x:Uid="NuSuntInregistrariAdaugate"
                             Text=""
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
                             ></TextBlock>
                         <GridView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  
                                   SelectedItem="{Binding AlertaSelectata, Mode=TwoWay}"
-                                  
                                   Visibility="{Binding AlerteUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                   IsItemClickEnabled="True"
                                   common:GridViewClickCommand.Command="{Binding EditeazaAlertaCommand}"
