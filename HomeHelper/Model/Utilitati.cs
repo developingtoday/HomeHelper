@@ -33,11 +33,11 @@ namespace HomeHelper.Model
 
         public string InformatieLunaCurenta
         {
-            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, loader.GetString("LunaCurenta")); }
+            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, loader.GetString(resource: "LunaCurenta")); }
         }
         public string InformatieLunaAnterioara
         {
-            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, loader.GetString("LunaAnterioara")); }
+            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, loader.GetString(resource: "LunaAnterioara")); }
         }
 
         
@@ -218,7 +218,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "DenumireUtilitate",
-                                   Value = loader.GetString("DenumireUtilitateCampGol")
+                                   Value = loader.GetString(resource: "DenumireUtilitateCampGol")
                                });
             }
             if (string.IsNullOrEmpty(UnitateMasura))
@@ -226,7 +226,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "UnitateMasura",
-                                   Value = loader.GetString("UnitateMasuraCampGol")
+                                   Value = loader.GetString(resource: "UnitateMasuraCampGol")
                                });
             }
             if (IndexInitial < 0)
@@ -234,7 +234,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexInitial",
-                                   Value = loader.GetString("IndexInitialValoareInvalida")
+                                   Value = loader.GetString(resource: "IndexInitialValoareInvalida")
                                });
             }
             if (DataIndexInitial != DateTime.MinValue)
@@ -254,7 +254,7 @@ namespace HomeHelper.Model
                         _errors.Add(new StringKeyValue()
                                         {
                                             Key = "DataIndexInitial",
-                                            Value = loader.GetString("DataIndexInitialRespectareConsumInitial")
+                                            Value = loader.GetString(resource: "DataIndexInitialRespectareConsumInitial")
                                                                                                     
                                         });
                     }
