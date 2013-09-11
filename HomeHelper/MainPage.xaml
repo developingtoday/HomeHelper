@@ -427,7 +427,7 @@
                 <GridViewItem Padding="120 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center">
                     <StackPanel HorizontalAlignment="Left" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Utilitati" Padding="30" FontSize="20"/>
+                            <TextBlock x:Uid="lblUtitlitati" Text="" Padding="30" FontSize="20"/>
                             <Button x:Name="btnAdd" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddUtilitateCommand}" />
                         </StackPanel>
                         <TextBlock
@@ -495,7 +495,7 @@
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Consum" Padding="30" FontSize="20"/>
+                            <TextBlock x:Uid="lblConsum" Text="" Padding="30" FontSize="20"/>
                             <Button x:Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" 
                                     Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                     />
@@ -512,9 +512,9 @@
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <StackPanel Orientation="Horizontal"  Background="Black"  Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"  >
-                                <TextBlock Text="Data" Width="200"></TextBlock>
-                                <TextBlock Text="Index" Width="100"></TextBlock>
-                                <TextBlock Text="Consum"></TextBlock>
+                                    <TextBlock x:Uid="lblData" Text="" Width="200"></TextBlock>
+                                    <TextBlock x:Uid="lblIndex" Text="" Width="100"></TextBlock>
+                                <TextBlock x:Uid="lblConsum" Text=""></TextBlock>
                             </StackPanel>
                         <ListView
                             SelectedItem="{Binding ConsumSelectList, Mode=TwoWay}"
@@ -568,7 +568,7 @@
                 <GridViewItem Padding="10 0 0 0" VerticalContentAlignment="Stretch" HorizontalAlignment="Center" >
                     <StackPanel Orientation="Vertical" >
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Alerte" Padding="30" FontSize="20"/>
+                            <TextBlock x:Uid="lblAlerte" Text="" Padding="30" FontSize="20"/>
                             <Button x:Name="btnAddAlerta"
                                     Style="{StaticResource AddAppBarButtonStyle}" 
                                     Command="{Binding AdaugaAlertaCommand}"
@@ -577,7 +577,8 @@
                         </StackPanel>
                         <TextBlock
                             Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
-                            Text="Nu sunt inregistrari adaugate"
+                            x:Uid="NuSuntInregistrariAdaugate"
+                            Text=""
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
                             ></TextBlock>
                         <GridView x:Name="itemListAlerte" ItemsSource="{Binding AlerteUtilitati}"  

@@ -168,6 +168,15 @@
   <data name="UnitateMasuraCampGol" xml:space="preserve">
     <value>Unitate Masura: Campul este gol</value>
   </data>
+  <data name="lblAlerte.Text" xml:space="preserve">
+    <value>Alerte</value>
+  </data>
+  <data name="lblConsum.Text" xml:space="preserve">
+    <value>Consum</value>
+  </data>
+  <data name="lblData.Text" xml:space="preserve">
+    <value>Data</value>
+  </data>
   <data name="lblDataAlerta.Text" xml:space="preserve">
     <value>Data Alerta</value>
   </data>
@@ -180,6 +189,9 @@
   <data name="lblFrecventaAlerta.Text" xml:space="preserve">
     <value>Frecventa Alerta</value>
   </data>
+  <data name="lblIndex.Text" xml:space="preserve">
+    <value>Index</value>
+  </data>
   <data name="lblUnitateDeMasura.Text" xml:space="preserve">
     <value>Unitate masura</value>
   </data>
@@ -188,5 +200,11 @@
   </data>
   <data name="lblValoareInitiala.Text" xml:space="preserve">
     <value>Valoare initiala</value>
+  </data>
+  <data name="LunaAnterioara" xml:space="preserve">
+    <value>Luna Anterioara</value>
+  </data>
+  <data name="LunaCurenta" xml:space="preserve">
+    <value>Luna Curenta</value>
   </data>
 </root>
