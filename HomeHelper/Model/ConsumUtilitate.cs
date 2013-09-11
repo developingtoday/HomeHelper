@@ -40,7 +40,7 @@ namespace HomeHelper.Model
                 GetErrors().Add(new StringKeyValue()
                                {
                                    Key = "IdUtilitate",
-                                   Value = loader.GetString("IdUtilitateErrorValid")
+                                   Value = loader.GetString(resource: "IdUtilitateErrorValid")
                                });
             }
             if (IndexUtilitate < 0)
@@ -48,7 +48,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexUtilitate",
-                                   Value = loader.GetString("IndexInvalid")
+                                   Value = loader.GetString(resource: "IndexInvalid")
                                });
             }
             if (IdUtilitate != 0)
@@ -62,7 +62,7 @@ namespace HomeHelper.Model
                     _errors.Add(new StringKeyValue()
                                    {
                                        Key = "DataConsum",
-                                       Value = loader.GetString("DataConsumExistent")
+                                       Value = loader.GetString(resource: "DataConsumExistent")
                                    });
                 }
                 if (DataConsum < util.DataIndexInitial)
@@ -70,7 +70,7 @@ namespace HomeHelper.Model
                     _errors.Add(new StringKeyValue()
                                     {
                                         Key = "DataConsum",
-                                        Value = loader.GetString("DataConsumMicaDecatIndexInitial")
+                                        Value = loader.GetString(resource: "DataConsumMicaDecatIndexInitial")
                                     });
                 }
                 if (list.Any())
@@ -90,7 +90,7 @@ namespace HomeHelper.Model
                                                Key = "IndexUtilitate",
                                                Value =
                                                    string.Format("{2} {0}-{1}",
-                                                                 first.IndexUtilitate, last.IndexUtilitate, loader.GetString("IndexUtilitateInvalidInterval"))
+                                                                 first.IndexUtilitate, last.IndexUtilitate, loader.GetString(resource: "IndexUtilitateInvalidInterval"))
                                            });
                         }
                     }
@@ -104,7 +104,7 @@ namespace HomeHelper.Model
                                                Key = "IndexUtilitate",
                                                Value =
                                                    string.Format("{2} {0}-{1}",
-                                                                 util.IndexInitial, first.IndexUtilitate, loader.GetString("IndexUtilitateInvalidInterval"))
+                                                                 util.IndexInitial, first.IndexUtilitate, loader.GetString(resource: "IndexUtilitateInvalidInterval"))
                                            });
                         }
                     }
@@ -117,7 +117,7 @@ namespace HomeHelper.Model
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
-                                                   string.Format("{1} {0}", last.IndexUtilitate, loader.GetString("IndexMaiMicDecat"))
+                                                   string.Format("{1} {0}", last.IndexUtilitate, loader.GetString(resource: "IndexMaiMicDecat"))
                                            });
                         }
                     }
@@ -129,7 +129,7 @@ namespace HomeHelper.Model
                         _errors.Add(new StringKeyValue()
                                        {
                                            Key = "IndexUtilitate",
-                                           Value = string.Format("{1} {0}", util.IndexInitial, loader.GetString("IndexMaiMicDecat"))
+                                           Value = string.Format("{1} {0}", util.IndexInitial, loader.GetString(resource: "IndexMaiMicDecat"))
                                        });
                     }
                 }

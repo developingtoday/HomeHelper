@@ -151,6 +151,7 @@
     </AppxManifest>
     <None Include="HomeHelper_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\en\Resources.resw" />
     <PRIResource Include="Strings\ro-ro\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
