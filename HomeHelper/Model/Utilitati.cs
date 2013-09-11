@@ -8,12 +8,14 @@ using HomeHelper.Common;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Utils;
 using SQLite;
+using Windows.ApplicationModel.Resources;
 
 namespace HomeHelper.Model
 {
     public class Utilitati:BindableBase,IValidation 
     {
        
+        private readonly ResourceLoader loader=new ResourceLoader();
 
         [PrimaryKey,AutoIncrement]
         public int IdUtilitati { get; set; }
@@ -31,11 +33,11 @@ namespace HomeHelper.Model
 
         public string InformatieLunaCurenta
         {
-            get { return string.Format("Luna curenta: {0} {1}", ConsumActual, UnitateMasura); }
+            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, loader.GetString("LunaCurenta")); }
         }
         public string InformatieLunaAnterioara
         {
-            get { return string.Format("Luna anterioara: {0} {1}", ConsumLunaAnterioara, UnitateMasura); }
+            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, loader.GetString("LunaAnterioara")); }
         }
 
         
@@ -209,13 +211,14 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
+            
             _errors = new List<StringKeyValue>();
             if (string.IsNullOrEmpty(DenumireUtilitate))
             {
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "DenumireUtilitate",
-                                   Value = "Denumire: Campul este gol"
+                                   Value = loader.GetString("DenumireUtilitateCampGol")
                                });
             }
             if (string.IsNullOrEmpty(UnitateMasura))
@@ -223,7 +226,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "UnitateMasura",
-                                   Value = "Unitate Masura: Campul este gol"
+                                   Value = loader.GetString("UnitateMasuraCampGol")
                                });
             }
             if (IndexInitial < 0)
@@ -231,7 +234,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexInitial",
-                                   Value = "Indext Initial: Valoare invalida"
+                                   Value = loader.GetString("IndexInitialValoareInvalida")
                                });
             }
             if (DataIndexInitial != DateTime.MinValue)
@@ -251,7 +254,7 @@ namespace HomeHelper.Model
                         _errors.Add(new StringKeyValue()
                                         {
                                             Key = "DataIndexInitial",
-                                            Value ="Data invalida in respectarea intervalelor consumului"
+                                            Value = loader.GetString("DataIndexInitialRespectareConsumInitial")
                                                                                                     
                                         });
                     }

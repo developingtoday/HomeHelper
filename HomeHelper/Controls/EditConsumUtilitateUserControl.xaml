@@ -25,7 +25,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Text="Utilitate" Margin="10" Grid.Column="0" Grid.Row="0"></TextBlock>
+        <TextBlock x:Uid="lblUtitlitati" Text="" Margin="10" Grid.Column="0" Grid.Row="0"></TextBlock>
         <ComboBox  
             ItemsSource="{Binding ListaUtilitati}" 
             DisplayMemberPath="DenumireUtilitate"
@@ -35,7 +35,7 @@
                    Grid.Row="0" Margin="10" Grid.Column="1"></ComboBox>
         <TextBlock Text="Data Consum" Margin="10" Grid.Column="0" Grid.Row="1"></TextBlock>
         <Input:DatePicker Grid.Column="1" Grid.Row="1" Value="{Binding ObiectInBinding.DataConsum, Mode=TwoWay}" Margin="10" />
-        <TextBlock Text="Index utilitate" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
+        <TextBlock x:Uid="lblDataConsum" Text="" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
         <Input:NumericTextBox Grid.Row="2" Grid.Column="1" Margin="10" Text="{Binding ObiectInBinding.IndexUtilitate, Mode=TwoWay }"></Input:NumericTextBox>
         <ListView Grid.Row="3" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                   ItemsSource="{Binding Erori,Mode=TwoWay}" 
