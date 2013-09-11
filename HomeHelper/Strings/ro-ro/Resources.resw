@@ -168,4 +168,25 @@
   <data name="UnitateMasuraCampGol" xml:space="preserve">
     <value>Unitate Masura: Campul este gol</value>
   </data>
+  <data name="lblDataAlerta.Text" xml:space="preserve">
+    <value>Data Alerta</value>
+  </data>
+  <data name="lblDataConsum.Text" xml:space="preserve">
+    <value>Data consum</value>
+  </data>
+  <data name="lblDataIndexInitial.Text" xml:space="preserve">
+    <value>Data index initial</value>
+  </data>
+  <data name="lblFrecventaAlerta.Text" xml:space="preserve">
+    <value>Frecventa Alerta</value>
+  </data>
+  <data name="lblUnitateDeMasura.Text" xml:space="preserve">
+    <value>Unitate masura</value>
+  </data>
+  <data name="lblUtitlitati.Text" xml:space="preserve">
+    <value>Utilitate</value>
+  </data>
+  <data name="lblValoareInitiala.Text" xml:space="preserve">
+    <value>Valoare initiala</value>
+  </data>
 </root>
