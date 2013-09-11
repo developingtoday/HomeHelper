@@ -227,17 +227,14 @@ namespace HomeHelper.ViewModel
                                         uc,
                                         () =>
                                             {
-                                                //aci crapa
-                                                //var id = _utilitateClicked.IdUtilitati;
-                                                //if (id == 0) return;
                                                 var cast = uc.DataContext as ConsumUtilitateInputViewModel;
                                                 if (cast != null)
                                                 {
                                                     if (cast.ObiectInBinding != null)
                                                     {
                                                         var finder = _repositoryUtilitati.GetById(cast.ObiectInBinding.IdUtilitate);
-                                                        UtilitateSelectata = finder;
-                                                        LegendaUtilitateGrafic = UtilitateSelectata.DenumireUtilitate;
+                                                      
+                                                        LegendaUtilitateGrafic = finder.DenumireUtilitate;
                                                         var consums = finder.Consums;
                                                       ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
                                                     }
@@ -361,7 +358,7 @@ namespace HomeHelper.ViewModel
                                                                     var prevId = ConsumSelectList.IdUtilitate;
                                                                     _repositoryConsum.Delete(ConsumSelectList);
                                                                     ConsumUtilitates.Remove(ConsumSelectList);
-                                                                        
+                                                                    ListaUtilitati = _repositoryUtilitati.GetAll();
                                                                 }
                                                                 if (AlertaSelectata == null) return;
                                                                 
