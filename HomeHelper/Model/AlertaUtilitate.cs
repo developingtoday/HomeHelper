@@ -86,7 +86,9 @@ namespace HomeHelper.Model
             get
             {
                 if (IdUitlitate == 0) return string.Empty;
-                return new UtilitatiRepository().GetById(IdUitlitate).DenumireUtilitate;
+                var rep = new UtilitatiRepository().GetById(IdUitlitate);
+                if (rep != null) return rep.DenumireUtilitate;
+                return string.Empty;
             }
         }
         public string FrecventaAfisare

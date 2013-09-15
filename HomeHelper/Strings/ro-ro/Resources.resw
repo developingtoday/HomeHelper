@@ -222,4 +222,16 @@
   <data name="enumFrecventeAlerteZilnic" xml:space="preserve">
     <value>Zilnic</value>
   </data>
+  <data name="cntDeleteMbox" xml:space="preserve">
+    <value>Acest obiect are referinte inregistrate. Doriti sa stergeti?</value>
+  </data>
+  <data name="cntDeleteTitle" xml:space="preserve">
+    <value>Stergere</value>
+  </data>
+  <data name="cntNo" xml:space="preserve">
+    <value>Nu</value>
+  </data>
+  <data name="cntYes" xml:space="preserve">
+    <value>Da</value>
+  </data>
 </root>

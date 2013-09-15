@@ -11,8 +11,9 @@ using SQLite;
 
 namespace HomeHelper.Repository.Concret
 {
-    public class UtilitatiRepository:IRepository<Utilitati>
+    public class UtilitatiRepository:IRepositoryEnhancing<Utilitati>
     {
+        private readonly IEnhancedRepository<AlertaUtilitate> _repositoryAlerte=new AlertaUtilitateRepository(); 
         public UtilitatiRepository()
         {
             
@@ -45,7 +46,20 @@ namespace HomeHelper.Repository.Concret
             {
                 try
                 {
+                    sqlConn.BeginTransaction();
+                    
+                    var id = t.IdUtilitati;
+                    foreach (var consum in sqlConn.Table<ConsumUtilitate>().Where(a=>a.IdUtilitate==id).ToList())
+                    {
+                        sqlConn.Delete(consum);
+                    }
+                    foreach (var alerta in sqlConn.Table<AlertaUtilitate>().Where(a=>a.IdUitlitate==id).ToList())
+                    {
+                       AlertaUtilitateRepository.DeleteFromSchedule(alerta);
+                        sqlConn.Delete(alerta);
+                    }
                     sqlConn.Delete(t);
+                    sqlConn.Commit();
                     return new Tuple<string, bool>(ResurseMesaje.CrudSucces,true);
                 }
                 catch (Exception ex)
@@ -76,6 +90,16 @@ namespace HomeHelper.Repository.Concret
         public Utilitati GetById(int id)
         {
             return GetAll().FirstOrDefault(x => x.IdUtilitati == id);
+        }
+
+
+        public bool HasReferences(int id)
+        {
+            using (var sqlConn=new SQLiteConnection(DbUtils.DbPath))
+            {
+                return sqlConn.Table<ConsumUtilitate>().Any(a => a.IdUtilitate == id) ||
+                       sqlConn.Table<AlertaUtilitate>().Any(a => a.IdUitlitate == id);
+            }
         }
     }
 }

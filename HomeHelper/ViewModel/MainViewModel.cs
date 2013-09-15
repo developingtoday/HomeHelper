@@ -13,6 +13,7 @@ using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
 using Windows.ApplicationModel.Resources;
 using Windows.System.Threading;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -30,7 +31,7 @@ namespace HomeHelper.ViewModel
         private ConsumUtilitate _consumSelect,_consumSelectList;
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati=new ObservableCollection<AlertaUtilitate>(); 
         private ObservableCollection<ConsumUtilitate> _consumUtilitates=new ObservableCollection<ConsumUtilitate>();
-        private IRepository<Utilitati> _repositoryUtilitati;
+        private IRepositoryEnhancing<Utilitati> _repositoryUtilitati;
         private IRepository<ConsumUtilitate> _repositoryConsum;
         private IEnhancedRepository<AlertaUtilitate> _repositoryAlerta;
         private RelayCommand _adaugaUtilitatCommand, _adaugaConsumCommand, _adaugaAlertaCommand;
@@ -341,17 +342,39 @@ namespace HomeHelper.ViewModel
                   
                     if (_stergeCommand == null)
                     {
-                        _stergeCommand=new RelayCommand(o =>
+                        _stergeCommand=new RelayCommand(async(o)=>
                                                             {
                                                                 if (UtilitateSelectata != null)
                                                                 {
-                                                               
+                                                                     //are referinte     
+
+                                                                    var willDelete = true;
+                                                                    var hasRefs = false;
+                                                                    if (
+                                                                        _repositoryUtilitati.HasReferences(
+                                                                            UtilitateSelectata.IdUtilitati))
+                                                                    {
+                                                                        hasRefs = true;
+                                                                        willDelete = await DeleteMbox();
+                                                                    }
+
+                                                                    if (willDelete)
+                                                                    {
                                                                         _repositoryUtilitati.Delete(
                                                                             UtilitateSelectata);
-                                                                    _utilitateClicked = new Utilitati();
-                                                                    ListaUtilitati =
-                                                                        _repositoryUtilitati.GetAll();
-                                                                    ConsumUtilitates=new ObservableCollection<ConsumUtilitate>();
+                                                                        _utilitateClicked = new Utilitati();
+                                                                        ListaUtilitati =
+                                                                            _repositoryUtilitati.GetAll();
+                                                                        if (hasRefs)
+                                                                        {
+                                                                            ConsumUtilitates =
+                                                                                new ObservableCollection
+                                                                                    <ConsumUtilitate>();
+                                                                            AlerteUtilitati = _repositoryAlerta.GetAll();
+                                                                        }
+                                                                        MesajFaraInregistrariConsum =
+                                                                            SeteazaMesajInregistrari(null);
+                                                                    }
                                                                 }
                                                                 if (ConsumSelectList!=null)
                                                                 {
@@ -410,6 +433,19 @@ namespace HomeHelper.ViewModel
             }
 
             CurrentFrame.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => AlerteUtilitati = _repositoryAlerta.GetAll());
+        }
+
+
+        private async Task<bool> DeleteMbox()
+        {
+            //TODO in future release this should be refactor
+            var msg = new MessageDialog(_loader.GetString("cntDeleteMbox"), _loader.GetString("cntDeleteTitle"));
+            var result = false;
+            msg.Commands.Add(new UICommand(_loader.GetString("cntYes"),command =>
+                result=true));
+            msg.Commands.Add(new UICommand(_loader.GetString("cntNo"), command => result = false));
+           await msg.ShowAsync();
+            return result;
         }
 
         private void ShowInput<T>(UserControl control, Action refresData) where T : class, IValidation, new()

@@ -472,10 +472,10 @@
                                             </Canvas>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="5 0 0 0"  >
-                                            <TextBlock Text="{Binding InformatieLunaCurenta}" FontSize="20" TextAlignment="Right"></TextBlock>
+                                            <TextBlock Text="{Binding InformatieLunaCurenta}" FontSize="20" TextAlignment="Right" TextWrapping="Wrap"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="5 0 0 0" >
-                                            <TextBlock Text="{Binding InformatieLunaAnterioara}" FontSize="20" TextAlignment="Right"></TextBlock>
+                                            <TextBlock Text="{Binding InformatieLunaAnterioara}" FontSize="20" TextAlignment="Right" TextWrapping="Wrap"></TextBlock>
                                         </StackPanel>
                                     </StackPanel>
                                 </DataTemplate>

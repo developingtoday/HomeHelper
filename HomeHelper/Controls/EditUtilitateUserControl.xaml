@@ -29,7 +29,7 @@
         </Grid.RowDefinitions>
         <TextBlock x:Uid="lblUtitlitati" Text="" Margin="10"></TextBlock>
         <TextBox Name="txtUtilitate" Margin="10" Grid.Row="0" Grid.Column="1" Text="{Binding ObiectInBinding.DenumireUtilitate, Mode=TwoWay}"></TextBox>
-        <TextBlock  x:Uid="lblUtitlitati" Text="" Margin="10" Grid.Row="1" Grid.Column="0"></TextBlock>
+        <TextBlock  x:Uid="lblUnitateDeMasura" Text="" Margin="10" Grid.Row="1" Grid.Column="0"></TextBlock>
         <TextBox Name="txtUnitate" Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding  ObiectInBinding.UnitateMasura, Mode=TwoWay}"></TextBox>
         <TextBlock x:Uid="lblValoareInitiala" Text="" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
         <TextBox Name="txtValoareInitiala" Grid.Row="2" Grid.Column="1" Margin="10"  Text="{Binding ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>

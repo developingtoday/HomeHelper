@@ -103,14 +103,7 @@ namespace HomeHelper.Repository.Concret
                 {
                     sqlConn.BeginTransaction();
                     sqlConn.Delete(t);
-                    var found =
-                           ToastNotificationManager.CreateToastNotifier()
-                                                   .GetScheduledToastNotifications()
-                                                   .FirstOrDefault(x => x.Id == t.IdAlertaUilitate.ToString());
-                    if (found != null)
-                    {
-                        ToastNotificationManager.CreateToastNotifier().RemoveFromSchedule(found);
-                    }
+                    DeleteFromSchedule(t);
                     sqlConn.Commit();
                     return new Tuple<string, bool>(ResurseMesaje.CrudSucces, true);
                 }
@@ -119,6 +112,18 @@ namespace HomeHelper.Repository.Concret
                     sqlConn.Rollback();
                     return new Tuple<string, bool>(ex.Message, false);
                 }
+            }
+        }
+
+        public static void DeleteFromSchedule(AlertaUtilitate t)
+        {
+            var found =
+                ToastNotificationManager.CreateToastNotifier()
+                                        .GetScheduledToastNotifications()
+                                        .FirstOrDefault(x => x.Id == t.IdAlertaUilitate.ToString());
+            if (found != null)
+            {
+                ToastNotificationManager.CreateToastNotifier().RemoveFromSchedule(found);
             }
         }
 
