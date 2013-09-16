@@ -234,4 +234,7 @@
   <data name="cntYes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="AlertaIndexConsum" xml:space="preserve">
+    <value>Today is the index day for the utility:</value>
+  </data>
 </root>

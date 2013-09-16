@@ -234,4 +234,7 @@
   <data name="cntYes" xml:space="preserve">
     <value>Da</value>
   </data>
+  <data name="AlertaIndexConsum" xml:space="preserve">
+    <value>Indexul trebuie dat la utilitatea:</value>
+  </data>
 </root>

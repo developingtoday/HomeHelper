@@ -8,6 +8,7 @@ using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
 using SQLite;
+using Windows.ApplicationModel.Resources;
 using Windows.UI.Notifications;
 
 namespace HomeHelper.Repository.Concret
@@ -143,7 +144,8 @@ namespace HomeHelper.Repository.Concret
         public Tuple<string, bool, int> CreateOrUpdateEnhanced(AlertaUtilitate t)
         {
              using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
-            {
+             {
+                 var loader = new ResourceLoader();
                 try
                 {
                     sqlConn.BeginTransaction();
@@ -166,7 +168,7 @@ namespace HomeHelper.Repository.Concret
                     }
                     var toast = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
                     var elements = toast.GetElementsByTagName("text");
-                    elements[0].AppendChild(toast.CreateTextNode("Ba te bate vecina ca n-ai dat indexu"));
+                    elements[0].AppendChild(toast.CreateTextNode(string.Format("{0} {1}", loader.GetString(resource: "AlertaIndexConsum"),t.NumeUtilitate)));
                     var toastNou = new ScheduledToastNotification(toast,t.DataAlerta) { Id = t.IdAlertaUilitate.ToString() };
                     ToastNotificationManager.CreateToastNotifier().AddToSchedule(toastNou);
                     return new Tuple<string, bool,int>(ResurseMesaje.CrudSucces, true,t.IdAlertaUilitate);
