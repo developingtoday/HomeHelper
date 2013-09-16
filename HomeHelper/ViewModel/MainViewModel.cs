@@ -237,7 +237,8 @@ namespace HomeHelper.ViewModel
                                                       
                                                         LegendaUtilitateGrafic = finder.DenumireUtilitate;
                                                         var consums = finder.Consums;
-                                                      ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
+                                                       ConsumUtilitates=new ObservableCollection<ConsumUtilitate>(consums);
+                                                      //ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
                                                     }
                                                 }
                                                 ListaUtilitati = _repositoryUtilitati.GetAll();

@@ -98,7 +98,7 @@ namespace HomeHelper.Model
             var list =
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
-                       .LastOrDefault();
+                       .FirstOrDefault();
             if (list == null)
             {
                 firstDay = DataIndexInitial;
@@ -117,10 +117,12 @@ namespace HomeHelper.Model
             var firstDay = new DateTime(time.Year, time.Month, 1);
             var monthSearch = firstDay.AddDays(-1);
             if (!Consums.Any()) return 0;
+            var aux = Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
+                             .OrderByDescending(a => a.DataConsum);
             var list =
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
-                       .LastOrDefault();
+                       .FirstOrDefault();
             if (list == null)
             {
                 firstDay = DataIndexInitial;
@@ -149,7 +151,12 @@ namespace HomeHelper.Model
             }
             var source = list.Where(a => dataI.Date <=a.DataConsum.Date && a.DataConsum.Date <= dataF.Date).OrderBy(a=>a.DataConsum);
             if (!source.Any()) return 0;
-            return ConsumUtilitateLaData(source);
+            var indexOld=source.FirstOrDefault().IndexUtilitate;
+            if (dataI == DataIndexInitial)
+            {
+                indexOld = IndexInitial;
+            }
+            return Math.Abs(source.LastOrDefault().IndexUtilitate- indexOld);
         }
 
         private void ConsumUtilitateRefacereColectie(ref IOrderedEnumerable<ConsumUtilitate> source)
