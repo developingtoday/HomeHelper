@@ -9,8 +9,8 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-     Height="460"
-    Width="460"
+     Height="450"
+    Width="600"
     >
     <UserControl.Resources>
         
@@ -43,8 +43,8 @@
                   DisplayMemberPath="Value"
                   ></ComboBox>
         <TextBlock x:Uid="lblDataAlerta" Text="" Margin="10" Grid.Column="0" Grid.Row="2"></TextBlock>
-        <Input:DatePicker Grid.Column="1" Grid.Row="2" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
-        <Input:TimePicker Grid.Column="1" Grid.Row="3" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" ></Input:TimePicker>
+        <Input:DatePicker Grid.Column="1" Grid.Row="2"  Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></Input:DatePicker>
+        <Input:TimePicker Grid.Column="1" Grid.Row="3" Value="{Binding ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" Margin="10" ></Input:TimePicker>
         <ListView Grid.Row="4" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                   ItemsSource="{Binding Erori,Mode=TwoWay}" 
                   IsSwipeEnabled="False" IsDoubleTapEnabled="False" IsEnabled="False" Margin="0,20,0,0"

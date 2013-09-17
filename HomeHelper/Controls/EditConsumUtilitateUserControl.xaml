@@ -9,8 +9,8 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-         Height="400"
-    Width="400"     
+         Height="450"
+    Width="600"     
              >
 
     <Grid Background="#FF2B1926">
