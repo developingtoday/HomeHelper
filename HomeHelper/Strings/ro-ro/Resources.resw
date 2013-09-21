@@ -240,4 +240,10 @@
   <data name="IndexMaiMareDecat" xml:space="preserve">
     <value>Indexul este mai mare decat</value>
   </data>
+  <data name="lblFrom.Text" xml:space="preserve">
+    <value>De la</value>
+  </data>
+  <data name="lblTo.Text" xml:space="preserve">
+    <value>Pana la</value>
+  </data>
 </root>

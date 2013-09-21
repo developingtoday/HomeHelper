@@ -240,4 +240,10 @@
   <data name="IndexMaiMareDecat" xml:space="preserve">
     <value>The index is greater than</value>
   </data>
+  <data name="lblFrom.Text" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="lblTo.Text" xml:space="preserve">
+    <value>To</value>
+  </data>
 </root>

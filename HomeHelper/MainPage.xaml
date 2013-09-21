@@ -13,8 +13,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Chart="using:WinRTXamlToolkit.Controls.DataVisualization.Charting" xmlns:Syncfusion="using:Syncfusion.UI.Xaml.Charts"
-    xmlns:toolkit="using:WinRTXamlToolkit.Controls"
-    
+    xmlns:toolkit="using:WinRTXamlToolkit.Controls" xmlns:input="using:Syncfusion.UI.Xaml.Controls.Input"
+
     mc:Ignorable="d">
 
     <common:LayoutAwarePage.Resources>
@@ -490,7 +490,7 @@
 
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="100"></RowDefinition>
+                            <RowDefinition Height="91"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal">
@@ -498,6 +498,14 @@
                             <Button x:Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" 
                                     Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                     />
+                            <StackPanel Orientation="Horizontal" Height="91" Margin="130 0 0 0">
+                                <TextBlock x:Uid="lblFrom" Text="" Height="33" Margin="10,20,10,10" ></TextBlock>
+                                <input:DatePicker Height="33"></input:DatePicker>
+                                <TextBlock x:Uid="lblTo"  Text="" Height="33" Margin="10,20,10,10"></TextBlock>
+                                <input:DatePicker Height="33" ></input:DatePicker>
+                                <Button Style="{StaticResource FilterAppBarButtonStyle}"></Button>
+                                <Button Style="{StaticResource CancelAppBarButtonStyle}"></Button>
+                            </StackPanel>
                         </StackPanel>
                         
                             <Grid  Grid.Row="1">
@@ -545,7 +553,9 @@
                             Text="{Binding MesajFaraInregistrariConsum}"
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0" 
                             ></TextBlock>
+                            
                         <Viewbox Stretch="Fill" StretchDirection="Both" HorizontalAlignment="Stretch" Grid.Column="1">
+                
                         <Chart:Chart x:Name="LineChart" Margin="10,0,0,0"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="400" Width="800"
                                   Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}" Background="#FF743E44"
