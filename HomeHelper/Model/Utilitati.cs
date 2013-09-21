@@ -274,7 +274,7 @@ namespace HomeHelper.Model
                 {
                     var minDate = list.Min(a => a.DataConsum).Date;
                     var maxDate = list.Max(a => a.DataConsum).Date;
-                    var condInterval = DataIndexInitial > minDate || DataIndexInitial > maxDate;
+                    var condInterval = DataIndexInitial.Date > minDate || DataIndexInitial.Date > maxDate;
                     if (condInterval)
                     {
                         _errors.Add(new StringKeyValue()

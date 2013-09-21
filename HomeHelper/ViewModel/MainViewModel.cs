@@ -385,27 +385,32 @@ namespace HomeHelper.ViewModel
         {
             get
             {
-                if (UtilitateSelectata != null)
-                {
-
 
                     if (_editeazaUtilitateCommand == null)
                     {
                         _editeazaUtilitateCommand =
                             new RelayCommand(
-                                x => ShowInput<Utilitati>(new EditUtilitateUserControl(InputViewOperatiune.Modificare, UtilitateSelectata),
-                                    () =>
+                                x =>
+                                    {
+                                        if (UtilitateSelectata == null)
                                         {
-                                            ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(UtilitateSelectata.Consums);
-                                            ListaUtilitati = _repositoryUtilitati.GetAll();
+                                            return;
                                         }
-                                            
-                                            ));
+                                        ShowInput<Utilitati>(
+                                            new EditUtilitateUserControl(InputViewOperatiune.Modificare,
+                                                                         UtilitateSelectata),
+                                            () =>
+                                                {
+                                                    ConsumUtilitates =
+                                                        new ObservableCollection<ConsumUtilitate>(
+                                                            UtilitateSelectata.Consums);
+                                                    ListaUtilitati = _repositoryUtilitati.GetAll();
+                                                }
+
+                                            );
+                                    });
                     }
                     return _editeazaUtilitateCommand;
-                }
-           
-                return null;
             }
         }
 

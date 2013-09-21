@@ -190,10 +190,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="StoreAppLib, Version=1.1.2.0, Culture=neutral, PublicKeyToken=f3cd13981968e4ee, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\StoreAppLib.1.1.2.0\lib\NetCore45\StoreAppLib.dll</HintPath>
-    </Reference>
     <Reference Include="WinRTXamlToolkit, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\winrtxamltoolkit.1.4.2.0\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
@@ -201,10 +197,6 @@
     <Reference Include="WinRTXamlToolkit.Controls.DataVisualization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WinRTXamlToolkit.Controls.DataVisualization.1.4.2.0\lib\netcore45\WinRTXamlToolkit.Controls.DataVisualization.dll</HintPath>
-    </Reference>
-    <Reference Include="WinRTXamlToolkit.Debugging, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WinRTXamlToolkit.Debugging.1.4.2.0\lib\netcore45\WinRTXamlToolkit.Debugging.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
