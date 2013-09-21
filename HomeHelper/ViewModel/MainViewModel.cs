@@ -71,9 +71,7 @@ namespace HomeHelper.ViewModel
             get { return _utilitateSelectata; }
             set
             {
-                if (value == null && _alertaSelectata != null) ShowEdit = true;
-                if(value!=null && _alertaSelectata==null) ShowEdit = true;
-                if (value == null && _alertaSelectata == null) ShowEdit = false;
+                ShowEdit = value != null;
                 SetProperty(ref _utilitateSelectata, value, "UtilitateSelectata");
             }
         }
