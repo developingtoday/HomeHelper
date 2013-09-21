@@ -12,11 +12,13 @@
     <DefaultLanguage>ro-ro</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HomeHelper_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>HomeHelper_StoreKey.pfx</PackageCertificateKeyFile>
     <SccProjectName>Plastic SCM</SccProjectName>
     <SccLocalPath>Plastic SCM</SccLocalPath>
     <SccAuxPath>Plastic SCM</SccAuxPath>
     <SccProvider>Plastic SCM Source Control Service:{774e58ba-f1b9-40a7-b676-834fa2c220fe}</SccProvider>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <PackageCertificateThumbprint>37F41E8B0958C2B8DFFC331CAB50411C3D01A703</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -149,6 +151,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="HomeHelper_StoreKey.pfx" />
     <None Include="HomeHelper_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <PRIResource Include="Strings\en\Resources.resw" />
@@ -162,6 +165,7 @@
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\WideLog.png" />
     <Content Include="Common\ReadMe.txt" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
