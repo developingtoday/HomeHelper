@@ -237,4 +237,7 @@
   <data name="AlertaIndexConsum" xml:space="preserve">
     <value>Today is the index day for the utility:</value>
   </data>
+  <data name="IndexMaiMareDecat" xml:space="preserve">
+    <value>The index is greater than</value>
+  </data>
 </root>

@@ -237,4 +237,7 @@
   <data name="AlertaIndexConsum" xml:space="preserve">
     <value>Indexul trebuie dat la utilitatea:</value>
   </data>
+  <data name="IndexMaiMareDecat" xml:space="preserve">
+    <value>Indexul este mai mare decat</value>
+  </data>
 </root>

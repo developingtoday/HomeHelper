@@ -244,6 +244,25 @@ namespace HomeHelper.Model
                                    Value = loader.GetString(resource: "IndexInitialValoareInvalida")
                                });
             }
+            if (IndexInitial > 0)
+            {
+                var listConsum =
+                    FactoryRepository.GetInstanceRepositoryConsum()
+                                     .GetAll()
+                                     .Where(a => a.IdUtilitate == IdUtilitati)
+                                     .OrderBy(a => a.DataConsum)
+                                     .FirstOrDefault(a => DataIndexInitial.Date <= a.DataConsum.Date);
+                if (listConsum != null)
+                {
+                    if(IndexInitial>listConsum.IndexUtilitate)
+                    _errors.Add(new StringKeyValue()
+                                    {
+                                        
+                                        Key = "IndexInitial",
+                                        Value = string.Format("{0} {1}",loader.GetString(resource:"IndexMaiMareDecat"),IndexInitial)
+                                    });
+                }
+            }
             if (DataIndexInitial != DateTime.MinValue)
             {
                 var list =
