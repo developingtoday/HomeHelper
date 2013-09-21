@@ -576,7 +576,7 @@
                         </StackPanel>
                         <TextBlock
                             Visibility="{Binding AlerteUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}"
-                            x:Uid="NuSuntInregistrariAdaugate"
+                            x:Uid="InregistrariGoale"
                             Text=""
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0"
                             ></TextBlock>
