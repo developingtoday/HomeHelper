@@ -246,4 +246,10 @@
   <data name="lblTo.Text" xml:space="preserve">
     <value>Pana la</value>
   </data>
+  <data name="filtruDataInvalid" xml:space="preserve">
+    <value>In datele specificate nu au fost gasite consumuri</value>
+  </data>
+  <data name="filtruInvalid" xml:space="preserve">
+    <value>Filtru Invalid</value>
+  </data>
 </root>

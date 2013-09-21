@@ -31,19 +31,27 @@ namespace HomeHelper.ViewModel
         private ConsumUtilitate _consumSelect,_consumSelectList;
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati=new ObservableCollection<AlertaUtilitate>(); 
         private ObservableCollection<ConsumUtilitate> _consumUtilitates=new ObservableCollection<ConsumUtilitate>();
+
+        private ObservableCollection<ConsumUtilitate> _consumUtilitatesGrafica =
+            new ObservableCollection<ConsumUtilitate>(); 
         private IRepositoryEnhancing<Utilitati> _repositoryUtilitati;
         private IRepository<ConsumUtilitate> _repositoryConsum;
         private IEnhancedRepository<AlertaUtilitate> _repositoryAlerta;
         private RelayCommand _adaugaUtilitatCommand, _adaugaConsumCommand, _adaugaAlertaCommand;
         private RelayCommand _editeazaUtilitateCommand, _editeazaConsumCommand, _editeazaAlertaCommand;
         private RelayCommand _cmdListView,_stergeCommand;
+        private RelayCommand _filterCommand, _cancelFilterCommand;
+        private DateTime _dateFrom, _dateTo;
         private string _mesaj;
         private ThreadPoolTimer _timer;
         private ThreadPoolTimer _timeTile;
         private LiveTileCreator _tileCreator;
+        private bool _isFilter;
+        private bool _showNoFilterResults;
         private readonly Windows.ApplicationModel.Resources.ResourceLoader _loader;
         public MainViewModel()
         {
+            _isFilter = false;
             _loader = new ResourceLoader();
             MesajFaraInregistrariConsum = SeteazaMesajInregistrari(null);
             _repositoryConsum=new ConsumUtilitateRepository();
@@ -51,6 +59,8 @@ namespace HomeHelper.ViewModel
             _repositoryUtilitati = new UtilitatiRepository();
             _listaUtilitati = _repositoryUtilitati.GetAll();
             _alerteUtilitati = _repositoryAlerta.GetAll();
+            _dateFrom = DateTime.Now;
+            _dateTo = DateTime.Now;
             _tileCreator = new LiveTileCreator();
             _tileCreator.LiveTileTtl = 10;
 #if !DEBUG
@@ -59,7 +69,87 @@ namespace HomeHelper.ViewModel
             _timer = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => RefreshAlerte(), TimeSpan.FromSeconds(30));
 #endif   
         }
+        #region Filter
+        public DateTime DateFromFilter
+        {
+            get { return _dateFrom; }
+            set { SetProperty(ref _dateFrom, value, "DateFromFilter"); }
+        }
 
+        public DateTime DateToFilter
+        {
+            get { return _dateTo; }
+            set { SetProperty(ref _dateTo, value, "DateToFilter"); }
+        }
+
+       
+
+        public RelayCommand FilterCommand
+        {
+            get
+            {
+                if (_filterCommand == null)
+                {
+                    _filterCommand=new RelayCommand(async (o) =>
+                                                        {
+
+                                                            if (!ConsumUtilitates.Any()) return;
+                                                            if (
+                                                                ConsumUtilitates.All(
+                                                                    a =>
+                                                                    !(_dateFrom.Date <= a.DataConsum.Date &&
+                                                                      a.DataConsum.Date <= _dateTo.Date)))
+                                                            {
+                                                                //
+                                                                await Mbox(_loader.GetString("filtruDataInvalid"), _loader.GetString("filtruInvalid"));
+                                                                return;
+                                                            }
+                                                            ApplyFilter();
+                                                            _isFilter = true;
+                                                        });
+                }
+                return _filterCommand;
+            }
+        }
+
+        private void ApplyFilter()
+        {
+            foreach (
+                var consumUtilitate in
+                    ConsumUtilitates.Where(a => !(_dateFrom.Date <= a.DataConsum.Date && a.DataConsum.Date <= _dateTo.Date)))
+            {
+                ListaGraficConsum.Remove(consumUtilitate);
+            }
+            
+        }
+
+        public RelayCommand CancelFilterCommand
+        {
+            get
+            {
+                if (_cancelFilterCommand == null)
+                {
+                    _cancelFilterCommand=new RelayCommand(o =>
+                                                              {
+                                                                  ListaGraficConsum =
+                                                                      new ObservableCollection<ConsumUtilitate>(
+                                                                          ConsumUtilitates);
+                                                                  _isFilter = false;
+                                                                  DateFromFilter = DateTime.Now;
+                                                                  DateToFilter = DateFromFilter;
+                                                              });
+                }
+                return _cancelFilterCommand;
+            }
+        }
+
+        #endregion
+
+        public ObservableCollection<ConsumUtilitate> ListaGraficConsum
+        {
+            get { return _consumUtilitatesGrafica; }
+            set { SetProperty(ref _consumUtilitatesGrafica, value, "ListaGraficConsum"); }
+        } 
         public string LegendaUtilitateGrafic
         {
             get { return _legendaUtilitate; }
@@ -131,6 +221,9 @@ namespace HomeHelper.ViewModel
                             value,
                             "ConsumUtilitates");
                 LegendaUtilitateGrafic = (value.Any()) ? _repositoryUtilitati.GetById(value.FirstOrDefault().IdUtilitate).DenumireUtilitate : "Utilitate";
+                ListaGraficConsum = new ObservableCollection<ConsumUtilitate>(value);
+                if(_isFilter) ApplyFilter();
+
             }
         }  
         public ObservableCollection<AlertaUtilitate> AlerteUtilitati
@@ -445,6 +538,12 @@ namespace HomeHelper.ViewModel
             msg.Commands.Add(new UICommand(_loader.GetString("cntNo"), command => result = false));
            await msg.ShowAsync();
             return result;
+        }
+
+        private async Task Mbox(string msg,string title)
+        {
+            var msgd = new MessageDialog(msg, title);
+            await msgd.ShowAsync();
         }
 
         private void ShowInput<T>(UserControl control, Action refresData) where T : class, IValidation, new()

@@ -498,13 +498,15 @@
                             <Button x:Name="btnAddConsum" Style="{StaticResource AddAppBarButtonStyle}" Command="{Binding AddConsumCommand}" 
                                     Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                                     />
-                            <StackPanel Orientation="Horizontal" Height="91" Margin="130 0 0 0">
+                            <StackPanel Orientation="Horizontal" 
+                                        Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                        Height="91" Margin="130 0 0 0">
                                 <TextBlock x:Uid="lblFrom" Text="" Height="33" Margin="10,20,10,10" ></TextBlock>
-                                <input:DatePicker Height="33"></input:DatePicker>
+                                <input:DatePicker Height="33" Value="{Binding DateFromFilter, Mode=TwoWay}"></input:DatePicker>
                                 <TextBlock x:Uid="lblTo"  Text="" Height="33" Margin="10,20,10,10"></TextBlock>
-                                <input:DatePicker Height="33" ></input:DatePicker>
-                                <Button Style="{StaticResource FilterAppBarButtonStyle}"></Button>
-                                <Button Style="{StaticResource CancelAppBarButtonStyle}"></Button>
+                                <input:DatePicker Height="33" Value="{Binding DateToFilter, Mode=TwoWay}"></input:DatePicker>
+                                <Button Style="{StaticResource FilterAppBarButtonStyle}" Command="{Binding FilterCommand}"></Button>
+                                <Button Style="{StaticResource CancelAppBarButtonStyle}" Command="{Binding CancelFilterCommand}"></Button>
                             </StackPanel>
                         </StackPanel>
                         
@@ -553,19 +555,19 @@
                             Text="{Binding MesajFaraInregistrariConsum}"
                             Style="{StaticResource GroupHeaderTextStyle}" Padding="20,0,0,0" 
                             ></TextBlock>
-                            
-                        <Viewbox Stretch="Fill" StretchDirection="Both" HorizontalAlignment="Stretch" Grid.Column="1">
+                            <Viewbox Stretch="Fill" StretchDirection="Both" HorizontalAlignment="Stretch" Grid.Column="1">
                 
                         <Chart:Chart x:Name="LineChart" Margin="10,0,0,0"
                                  HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="400" Width="800"
-                                  Visibility="{Binding ConsumUtilitates.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}" Background="#FF743E44"
+                                  Visibility="{Binding ListaGraficConsum.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}" Background="#FF743E44"
                                      >
                             <Chart:LineSeries x:Name="lineSerii" DependentValuePath="Consum" IndependentValuePath="DataConsumGrafic"
-                                              ItemsSource="{Binding ConsumUtilitates, Mode=TwoWay}"
+                                              ItemsSource="{Binding ListaGraficConsum, Mode=TwoWay}"
                                               
                                               IsSelectionEnabled="True" SelectedItem="{Binding ConsumSelect, Mode=TwoWay}" Title="{Binding LegendaUtilitateGrafic, Mode=TwoWay}"/>
                                     
                                 </Chart:Chart>
+                                    
                             </Viewbox>
                         </Grid>
                     </Grid>

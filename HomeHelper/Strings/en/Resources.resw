@@ -246,4 +246,10 @@
   <data name="lblTo.Text" xml:space="preserve">
     <value>To</value>
   </data>
+  <data name="filtruDataInvalid" xml:space="preserve">
+    <value>There are no consumption in the dates specified</value>
+  </data>
+  <data name="filtruInvalid" xml:space="preserve">
+    <value>Invalid filter</value>
+  </data>
 </root>
