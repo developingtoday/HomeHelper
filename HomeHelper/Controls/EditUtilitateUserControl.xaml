@@ -6,11 +6,12 @@
     xmlns:local="using:HomeHelper.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+        xmlns:input="using:Syncfusion.UI.Xaml.Controls.Input"
+        mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Height="400"
-    Width="400"
+    Height="450"
+    Width="600"
     >
     <Grid Background="#FF2B1926">
         <Grid.ColumnDefinitions>
@@ -23,15 +24,18 @@
             <RowDefinition Height="50"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             
         </Grid.RowDefinitions>
-        <TextBlock Text="Utilitate" Margin="10"></TextBlock>
+        <TextBlock x:Uid="lblUtitlitati" Text="" Margin="10"></TextBlock>
         <TextBox Name="txtUtilitate" Margin="10" Grid.Row="0" Grid.Column="1" Text="{Binding ObiectInBinding.DenumireUtilitate, Mode=TwoWay}"></TextBox>
-        <TextBlock Text="Unitate Masura" Margin="10" Grid.Row="1" Grid.Column="0"></TextBlock>
+        <TextBlock  x:Uid="lblUnitateDeMasura" Text="" Margin="10" Grid.Row="1" Grid.Column="0"></TextBlock>
         <TextBox Name="txtUnitate" Margin="10" Grid.Row="1" Grid.Column="1" Text="{Binding  ObiectInBinding.UnitateMasura, Mode=TwoWay}"></TextBox>
-        <TextBlock Text="Valoare Initiala" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
+        <TextBlock x:Uid="lblValoareInitiala" Text="" Grid.Row="2" Grid.Column="0" Margin="10"></TextBlock>
         <TextBox Name="txtValoareInitiala" Grid.Row="2" Grid.Column="1" Margin="10"  Text="{Binding ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>
-        <ListView Grid.Row="3" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+        <TextBlock x:Uid="lblDataIndexInitial" Margin="10" Text="" Grid.Row="3" Grid.Column="0"></TextBlock>
+        <input:DatePicker Grid.Row="3" Grid.Column="1" Margin="10" Value="{Binding ObiectInBinding.DataIndexInitial, Mode=TwoWay}"></input:DatePicker>
+        <ListView Grid.Row="4" Grid.Column="1" Visibility="{Binding Erori.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
                   ItemsSource="{Binding Erori,Mode=TwoWay}" IsEnabled="False"
                   
                   >
@@ -46,7 +50,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
         <Button  Style="{StaticResource SaveAppBarButtonStyle}" Command="{Binding SaveCommand}"></Button>
         <Button  Style="{StaticResource DeleteAppBarButtonStyle}" Visibility="{Binding ShowDelete, Mode=TwoWay, Converter={StaticResource booleanToVisibilityConverter}}" Command="{Binding DeleteCommand}"></Button>
         <Button  Style="{StaticResource CancelAppBarButtonStyle}" Command="{Binding CancelCommand}"></Button>  

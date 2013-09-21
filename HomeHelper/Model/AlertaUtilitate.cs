@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Concret;
+using Windows.ApplicationModel.Resources;
 
 namespace HomeHelper.Model
 {
@@ -24,34 +25,36 @@ namespace HomeHelper.Model
     }
     public static class Util
     {
+
         public static List<StringIntKeyValue> FrecventeAlerte()
         {
+            var loader = new ResourceLoader();
             return new List<StringIntKeyValue>()
                        {
                            new StringIntKeyValue()
                                {
                                    Key = 1,
-                                   Value = "Fara Repetare"
+                                   Value = loader.GetString(resource: "enumFrecventeAlerteFaraRepetare")
                                },
                            new StringIntKeyValue()
                                {
                                    Key = 2,
-                                   Value = "Saptamanal"
+                                   Value = loader.GetString(resource: "enumFrecventeAlerteSaptamanal")
                                },
                            new StringIntKeyValue()
                                {
                                    Key = 3,
-                                   Value = "Lunar"
+                                   Value = loader.GetString(resource: "enumFrecventeAlerteLunar")
                                },
                            new StringIntKeyValue()
                                {
                                    Key = 4,
-                                   Value = "Anual"
+                                   Value = loader.GetString(resource: "enumFrecventeAlerteAnual")
                                },
                            new StringIntKeyValue()
                                {
                                    Key = 5,
-                                   Value = "Zilnic"
+                                   Value = loader.GetString(resource: "enumFrecventeAlerteZilnic")
                                }
                        };
         }
@@ -83,7 +86,9 @@ namespace HomeHelper.Model
             get
             {
                 if (IdUitlitate == 0) return string.Empty;
-                return new UtilitatiRepository().GetById(IdUitlitate).DenumireUtilitate;
+                var rep = new UtilitatiRepository().GetById(IdUitlitate);
+                if (rep != null) return rep.DenumireUtilitate;
+                return string.Empty;
             }
         }
         public string FrecventaAfisare
@@ -100,12 +105,14 @@ namespace HomeHelper.Model
         public void DoValidation()
         {
             _errors=new List<StringKeyValue>();
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+
             if (IdUitlitate == 0)
             {
                 _errors.Add(new StringKeyValue()
                                 {
                                     Key = "IdUtilitate",
-                                    Value = "Utilitatea nu a fost selectata"
+                                    Value = loader.GetString(resource: "IdUtilitateErrorValid")
                                 });
             }
             if (!AlertaActiva)
@@ -113,7 +120,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                 {
                                     Key = "DataAlerta",
-                                    Value = "Alerta nu va fi activa"
+                                    Value = loader.GetString(resource: "DataAlertaErrorValid")
                                 });
             }
         }

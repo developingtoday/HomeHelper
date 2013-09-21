@@ -13,8 +13,13 @@ namespace HomeHelper.Repository.Abstract
          Tuple<string, bool> Delete(T t);
         ObservableCollection<T> GetAll();
         T GetById(int id);
-
     }
+
+    public interface IRepositoryEnhancing<T>:IRepository<T>
+    {
+        bool HasReferences(int id);
+    }
+
     public interface IEnhancedRepository<T>:IRepository<T>
     {
         Tuple<string, bool, int> CreateOrUpdateEnhanced(T t);

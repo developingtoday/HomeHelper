@@ -11,7 +11,9 @@ using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
+using Windows.ApplicationModel.Resources;
 using Windows.System.Threading;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -29,32 +31,125 @@ namespace HomeHelper.ViewModel
         private ConsumUtilitate _consumSelect,_consumSelectList;
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati=new ObservableCollection<AlertaUtilitate>(); 
         private ObservableCollection<ConsumUtilitate> _consumUtilitates=new ObservableCollection<ConsumUtilitate>();
-        private IRepository<Utilitati> _repositoryUtilitati;
+
+        private ObservableCollection<ConsumUtilitate> _consumUtilitatesGrafica =
+            new ObservableCollection<ConsumUtilitate>(); 
+        private IRepositoryEnhancing<Utilitati> _repositoryUtilitati;
         private IRepository<ConsumUtilitate> _repositoryConsum;
         private IEnhancedRepository<AlertaUtilitate> _repositoryAlerta;
         private RelayCommand _adaugaUtilitatCommand, _adaugaConsumCommand, _adaugaAlertaCommand;
         private RelayCommand _editeazaUtilitateCommand, _editeazaConsumCommand, _editeazaAlertaCommand;
         private RelayCommand _cmdListView,_stergeCommand;
+        private RelayCommand _filterCommand, _cancelFilterCommand;
+        private DateTime _dateFrom, _dateTo;
         private string _mesaj;
         private ThreadPoolTimer _timer;
         private ThreadPoolTimer _timeTile;
         private LiveTileCreator _tileCreator;
+        private bool _isFilter;
+        private bool _showNoFilterResults;
+        private readonly Windows.ApplicationModel.Resources.ResourceLoader _loader;
         public MainViewModel()
         {
+            _isFilter = false;
+            _loader = new ResourceLoader();
             MesajFaraInregistrariConsum = SeteazaMesajInregistrari(null);
             _repositoryConsum=new ConsumUtilitateRepository();
             _repositoryAlerta = new AlertaUtilitateRepository();
             _repositoryUtilitati = new UtilitatiRepository();
             _listaUtilitati = _repositoryUtilitati.GetAll();
             _alerteUtilitati = _repositoryAlerta.GetAll();
+            _dateFrom = DateTime.Now;
+            _dateTo = DateTime.Now;
             _tileCreator = new LiveTileCreator();
             _tileCreator.LiveTileTtl = 10;
+#if !DEBUG
             _timeTile = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => _tileCreator.SetupTileNotificationWide(),
                                                             TimeSpan.FromSeconds(20));
             _timer = ThreadPoolTimer.CreatePeriodicTimer(poolTimer => RefreshAlerte(), TimeSpan.FromSeconds(30));
+#endif   
+        }
+        #region Filter
+        public DateTime DateFromFilter
+        {
+            get { return _dateFrom; }
+            set { SetProperty(ref _dateFrom, value, "DateFromFilter"); }
+        }
+
+        public DateTime DateToFilter
+        {
+            get { return _dateTo; }
+            set { SetProperty(ref _dateTo, value, "DateToFilter"); }
+        }
+
+       
+
+        public RelayCommand FilterCommand
+        {
+            get
+            {
+                if (_filterCommand == null)
+                {
+                    _filterCommand=new RelayCommand(async (o) =>
+                                                        {
+
+                                                            if (!ConsumUtilitates.Any()) return;
+                                                            if (
+                                                                ConsumUtilitates.All(
+                                                                    a =>
+                                                                    !(_dateFrom.Date <= a.DataConsum.Date &&
+                                                                      a.DataConsum.Date <= _dateTo.Date)))
+                                                            {
+                                                                //
+                                                                await Mbox(_loader.GetString("filtruDataInvalid"), _loader.GetString("filtruInvalid"));
+                                                                return;
+                                                            }
+                                                            ApplyFilter();
+                                                            _isFilter = true;
+                                                        });
+                }
+                return _filterCommand;
+            }
+        }
+
+        private void ApplyFilter()
+        {
+            foreach (
+                var consumUtilitate in
+                    ConsumUtilitates.Where(a => !(_dateFrom.Date <= a.DataConsum.Date && a.DataConsum.Date <= _dateTo.Date)))
+            {
+                ListaGraficConsum.Remove(consumUtilitate);
+            }
             
         }
 
+        public RelayCommand CancelFilterCommand
+        {
+            get
+            {
+                if (_cancelFilterCommand == null)
+                {
+                    _cancelFilterCommand=new RelayCommand(o =>
+                                                              {
+                                                                  ListaGraficConsum =
+                                                                      new ObservableCollection<ConsumUtilitate>(
+                                                                          ConsumUtilitates);
+                                                                  _isFilter = false;
+                                                                  DateFromFilter = DateTime.Now;
+                                                                  DateToFilter = DateFromFilter;
+                                                              });
+                }
+                return _cancelFilterCommand;
+            }
+        }
+
+        #endregion
+
+        public ObservableCollection<ConsumUtilitate> ListaGraficConsum
+        {
+            get { return _consumUtilitatesGrafica; }
+            set { SetProperty(ref _consumUtilitatesGrafica, value, "ListaGraficConsum"); }
+        } 
         public string LegendaUtilitateGrafic
         {
             get { return _legendaUtilitate; }
@@ -66,9 +161,7 @@ namespace HomeHelper.ViewModel
             get { return _utilitateSelectata; }
             set
             {
-                if (value == null && _alertaSelectata != null) ShowEdit = true;
-                if(value!=null && _alertaSelectata==null) ShowEdit = true;
-                if (value == null && _alertaSelectata == null) ShowEdit = false;
+                ShowEdit = value != null;
                 SetProperty(ref _utilitateSelectata, value, "UtilitateSelectata");
             }
         }
@@ -128,6 +221,9 @@ namespace HomeHelper.ViewModel
                             value,
                             "ConsumUtilitates");
                 LegendaUtilitateGrafic = (value.Any()) ? _repositoryUtilitati.GetById(value.FirstOrDefault().IdUtilitate).DenumireUtilitate : "Utilitate";
+                ListaGraficConsum = new ObservableCollection<ConsumUtilitate>(value);
+                if(_isFilter) ApplyFilter();
+
             }
         }  
         public ObservableCollection<AlertaUtilitate> AlerteUtilitati
@@ -155,10 +251,10 @@ namespace HomeHelper.ViewModel
         {
             if (u == null)
             {
-                return "Nu sunt inregistrari adaugate";
+                return _loader.GetString("NuSuntInregistrariAdaugate");
             }
-            return string.Format("Nu sunt inregistrari adaugate pentru utilitatea: {0}",
-                                 u.DenumireUtilitate);
+            return string.Format("{1} {0}",
+                                 u.DenumireUtilitate, _loader.GetString("NuSuntInregistrariAdaugateUtilitatea"));
         }
 
         public RelayCommand AddUtilitateCommand
@@ -223,28 +319,19 @@ namespace HomeHelper.ViewModel
                                         uc,
                                         () =>
                                             {
-
-                                                var id = _utilitateClicked.IdUtilitati;
-                                                if (id == 0) return;
                                                 var cast = uc.DataContext as ConsumUtilitateInputViewModel;
                                                 if (cast != null)
                                                 {
                                                     if (cast.ObiectInBinding != null)
                                                     {
                                                         var finder = _repositoryUtilitati.GetById(cast.ObiectInBinding.IdUtilitate);
+                                                      
+                                                        LegendaUtilitateGrafic = finder.DenumireUtilitate;
                                                         var consums = finder.Consums;
-
-         //                                               ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(consums);
-       
-                                                      ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
+                                                       ConsumUtilitates=new ObservableCollection<ConsumUtilitate>(consums);
+                                                      //ConsumUtilitates.Add(finder.Consums.FirstOrDefault(a=>a.IdConsumUtilitate==cast.ObiectInBinding.IdConsumUtilitate));
                                                     }
                                                 }
-                                                //ConsumUtilitates =
-                                                //    new ObservableCollection<ConsumUtilitate>(
-                                                //        _repositoryConsum.GetAll()
-                                                //                         .Where(
-                                                //                             a =>
-                                                //                             a.IdUtilitate == id));
                                                 ListaUtilitati = _repositoryUtilitati.GetAll();
                                             }
                                         );
@@ -309,15 +396,7 @@ namespace HomeHelper.ViewModel
                                 x => ShowInput<Utilitati>(new EditUtilitateUserControl(InputViewOperatiune.Modificare, UtilitateSelectata),
                                     () =>
                                         {
-                                            
-                                            ConsumUtilitates =
-                                                new ObservableCollection<ConsumUtilitate>(_repositoryConsum.GetAll().
-                                                                                                            Where(
-                                                                                                                a =>
-                                                                                                                a
-                                                                                                                    .IdUtilitate ==
-                                                                                                                UtilitateSelectata.IdUtilitati
-                                                                                                                   ));
+                                            ConsumUtilitates = new ObservableCollection<ConsumUtilitate>(UtilitateSelectata.Consums);
                                             ListaUtilitati = _repositoryUtilitati.GetAll();
                                         }
                                             
@@ -330,9 +409,6 @@ namespace HomeHelper.ViewModel
             }
         }
 
-   
-
-        
         public RelayCommand EditeazaAlertaCommand
         {
             get
@@ -358,24 +434,46 @@ namespace HomeHelper.ViewModel
                   
                     if (_stergeCommand == null)
                     {
-                        _stergeCommand=new RelayCommand(o =>
+                        _stergeCommand=new RelayCommand(async(o)=>
                                                             {
                                                                 if (UtilitateSelectata != null)
                                                                 {
-                                                               
+                                                                     //are referinte     
+
+                                                                    var willDelete = true;
+                                                                    var hasRefs = false;
+                                                                    if (
+                                                                        _repositoryUtilitati.HasReferences(
+                                                                            UtilitateSelectata.IdUtilitati))
+                                                                    {
+                                                                        hasRefs = true;
+                                                                        willDelete = await DeleteMbox();
+                                                                    }
+
+                                                                    if (willDelete)
+                                                                    {
                                                                         _repositoryUtilitati.Delete(
                                                                             UtilitateSelectata);
-                                                                    _utilitateClicked = new Utilitati();
-                                                                    ListaUtilitati =
-                                                                        _repositoryUtilitati.GetAll();
-                                                                    ConsumUtilitates=new ObservableCollection<ConsumUtilitate>();
+                                                                        _utilitateClicked = new Utilitati();
+                                                                        ListaUtilitati =
+                                                                            _repositoryUtilitati.GetAll();
+                                                                        if (hasRefs)
+                                                                        {
+                                                                            ConsumUtilitates =
+                                                                                new ObservableCollection
+                                                                                    <ConsumUtilitate>();
+                                                                            AlerteUtilitati = _repositoryAlerta.GetAll();
+                                                                        }
+                                                                        MesajFaraInregistrariConsum =
+                                                                            SeteazaMesajInregistrari(null);
+                                                                    }
                                                                 }
                                                                 if (ConsumSelectList!=null)
                                                                 {
                                                                     var prevId = ConsumSelectList.IdUtilitate;
                                                                     _repositoryConsum.Delete(ConsumSelectList);
                                                                     ConsumUtilitates.Remove(ConsumSelectList);
-                                                                        
+                                                                    ListaUtilitati = _repositoryUtilitati.GetAll();
                                                                 }
                                                                 if (AlertaSelectata == null) return;
                                                                 
@@ -427,6 +525,25 @@ namespace HomeHelper.ViewModel
             }
 
             CurrentFrame.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => AlerteUtilitati = _repositoryAlerta.GetAll());
+        }
+
+
+        private async Task<bool> DeleteMbox()
+        {
+            //TODO in future release this should be refactor
+            var msg = new MessageDialog(_loader.GetString("cntDeleteMbox"), _loader.GetString("cntDeleteTitle"));
+            var result = false;
+            msg.Commands.Add(new UICommand(_loader.GetString("cntYes"),command =>
+                result=true));
+            msg.Commands.Add(new UICommand(_loader.GetString("cntNo"), command => result = false));
+           await msg.ShowAsync();
+            return result;
+        }
+
+        private async Task Mbox(string msg,string title)
+        {
+            var msgd = new MessageDialog(msg, title);
+            await msgd.ShowAsync();
         }
 
         private void ShowInput<T>(UserControl control, Action refresData) where T : class, IValidation, new()

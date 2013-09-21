@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HomeHelper</RootNamespace>
     <AssemblyName>HomeHelper</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>ro-ro</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>HomeHelper_TemporaryKey.pfx</PackageCertificateKeyFile>
@@ -151,6 +151,8 @@
     </AppxManifest>
     <None Include="HomeHelper_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\en\Resources.resw" />
+    <PRIResource Include="Strings\ro-ro\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BadgeLogo.png" />

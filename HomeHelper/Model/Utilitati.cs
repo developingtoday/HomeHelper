@@ -8,12 +8,14 @@ using HomeHelper.Common;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Utils;
 using SQLite;
+using Windows.ApplicationModel.Resources;
 
 namespace HomeHelper.Model
 {
     public class Utilitati:BindableBase,IValidation 
     {
        
+        private readonly ResourceLoader loader=new ResourceLoader();
 
         [PrimaryKey,AutoIncrement]
         public int IdUtilitati { get; set; }
@@ -27,13 +29,15 @@ namespace HomeHelper.Model
   
         public float IndexInitial { get; set; }
 
+        public DateTime DataIndexInitial { get; set; }
+
         public string InformatieLunaCurenta
         {
-            get { return string.Format("Luna curenta: {0} {1}", ConsumActual, UnitateMasura); }
+            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, loader.GetString(resource: "LunaCurenta")); }
         }
         public string InformatieLunaAnterioara
         {
-            get { return string.Format("Luna anterioara: {0} {1}", ConsumLunaAnterioara, UnitateMasura); }
+            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, loader.GetString(resource: "LunaAnterioara")); }
         }
 
         
@@ -66,6 +70,11 @@ namespace HomeHelper.Model
             }
         }
 
+        public Utilitati()
+        {
+            DataIndexInitial = DateTime.Now;
+        }
+
 
         public float GetConsumUtilitateLaData(DateTime data)
         {
@@ -89,9 +98,16 @@ namespace HomeHelper.Model
             var list =
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
-                       .LastOrDefault();
-            if (list == null) return 0;
-            firstDay = list.DataConsum;
+                       .FirstOrDefault();
+            if (list == null)
+            {
+                firstDay = DataIndexInitial;
+            }
+            else
+            {
+
+                firstDay = list.DataConsum;   
+            }
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
 
@@ -101,12 +117,21 @@ namespace HomeHelper.Model
             var firstDay = new DateTime(time.Year, time.Month, 1);
             var monthSearch = firstDay.AddDays(-1);
             if (!Consums.Any()) return 0;
+            var aux = Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
+                             .OrderByDescending(a => a.DataConsum);
             var list =
                 Consums.Where(a => a.DataConsum.Month == monthSearch.Month)
                        .OrderByDescending(a => a.DataConsum)
-                       .LastOrDefault();
-            if (list == null) return 0;
-            firstDay = list.DataConsum; 
+                       .FirstOrDefault();
+            if (list == null)
+            {
+                firstDay = DataIndexInitial;
+            }
+            else
+            {
+
+                firstDay = list.DataConsum;
+            }
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
 
@@ -124,9 +149,14 @@ namespace HomeHelper.Model
                 dataI = dataF;
                 dataF = aux;
             }
-            var source = list.Where(a => dataI <=a.DataConsum && a.DataConsum <= dataF).OrderBy(a=>a.DataConsum);
+            var source = list.Where(a => dataI.Date <=a.DataConsum.Date && a.DataConsum.Date <= dataF.Date).OrderBy(a=>a.DataConsum);
             if (!source.Any()) return 0;
-            return ConsumUtilitateLaData(source);
+            var indexOld=source.FirstOrDefault().IndexUtilitate;
+            if (dataI == DataIndexInitial)
+            {
+                indexOld = IndexInitial;
+            }
+            return Math.Abs(source.LastOrDefault().IndexUtilitate- indexOld);
         }
 
         private void ConsumUtilitateRefacereColectie(ref IOrderedEnumerable<ConsumUtilitate> source)
@@ -188,13 +218,14 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
+            
             _errors = new List<StringKeyValue>();
             if (string.IsNullOrEmpty(DenumireUtilitate))
             {
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "DenumireUtilitate",
-                                   Value = "Denumire: Campul este gol"
+                                   Value = loader.GetString(resource: "DenumireUtilitateCampGol")
                                });
             }
             if (string.IsNullOrEmpty(UnitateMasura))
@@ -202,7 +233,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "UnitateMasura",
-                                   Value = "Unitate Masura: Campul este gol"
+                                   Value = loader.GetString(resource: "UnitateMasuraCampGol")
                                });
             }
             if (IndexInitial < 0)
@@ -210,8 +241,50 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexInitial",
-                                   Value = "Indext Initial: Valoare invalida"
+                                   Value = loader.GetString(resource: "IndexInitialValoareInvalida")
                                });
+            }
+            if (IndexInitial > 0)
+            {
+                var listConsum =
+                    FactoryRepository.GetInstanceRepositoryConsum()
+                                     .GetAll()
+                                     .Where(a => a.IdUtilitate == IdUtilitati)
+                                     .OrderBy(a => a.DataConsum)
+                                     .FirstOrDefault(a => DataIndexInitial.Date <= a.DataConsum.Date);
+                if (listConsum != null)
+                {
+                    if(IndexInitial>listConsum.IndexUtilitate)
+                    _errors.Add(new StringKeyValue()
+                                    {
+                                        
+                                        Key = "IndexInitial",
+                                        Value = string.Format("{0} {1}",loader.GetString(resource:"IndexMaiMareDecat"),IndexInitial)
+                                    });
+                }
+            }
+            if (DataIndexInitial != DateTime.MinValue)
+            {
+                var list =
+                    FactoryRepository.GetInstanceRepositoryConsum()
+                                     .GetAll()
+                                     .Where(a => a.IdUtilitate == IdUtilitati).OrderBy(a=>a.DataConsum)
+                                     .ToList();
+                if (list.Any())
+                {
+                    var minDate = list.Min(a => a.DataConsum).Date;
+                    var maxDate = list.Max(a => a.DataConsum).Date;
+                    var condInterval = DataIndexInitial > minDate || DataIndexInitial > maxDate;
+                    if (condInterval)
+                    {
+                        _errors.Add(new StringKeyValue()
+                                        {
+                                            Key = "DataIndexInitial",
+                                            Value = loader.GetString(resource: "DataIndexInitialRespectareConsumInitial")
+                                                                                                    
+                                        });
+                    }
+                }
             }
 
         }

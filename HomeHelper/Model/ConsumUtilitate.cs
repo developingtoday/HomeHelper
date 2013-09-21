@@ -33,13 +33,14 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
+            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
             _errors = new List<StringKeyValue>();
             if (IdUtilitate == 0)
             {
                 GetErrors().Add(new StringKeyValue()
                                {
                                    Key = "IdUtilitate",
-                                   Value = "Utilitatea n-a fost selectata"
+                                   Value = loader.GetString(resource: "IdUtilitateErrorValid")
                                });
             }
             if (IndexUtilitate < 0)
@@ -47,7 +48,7 @@ namespace HomeHelper.Model
                 _errors.Add(new StringKeyValue()
                                {
                                    Key = "IndexUtilitate",
-                                   Value = "Valoare invalida la index"
+                                   Value = loader.GetString(resource: "IndexInvalid")
                                });
             }
             if (IdUtilitate != 0)
@@ -61,8 +62,16 @@ namespace HomeHelper.Model
                     _errors.Add(new StringKeyValue()
                                    {
                                        Key = "DataConsum",
-                                       Value = "Pe aceasta data mai exista adaugat un consum"
+                                       Value = loader.GetString(resource: "DataConsumExistent")
                                    });
+                }
+                if (DataConsum < util.DataIndexInitial)
+                {
+                    _errors.Add(new StringKeyValue()
+                                    {
+                                        Key = "DataConsum",
+                                        Value = loader.GetString(resource: "DataConsumMicaDecatIndexInitial")
+                                    });
                 }
                 if (list.Any())
                 {
@@ -80,8 +89,8 @@ namespace HomeHelper.Model
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
-                                                   string.Format("Indexul nu se afla in intervalul {0}-{1}",
-                                                                 first.IndexUtilitate, last.IndexUtilitate)
+                                                   string.Format("{2} {0}-{1}",
+                                                                 first.IndexUtilitate, last.IndexUtilitate, loader.GetString(resource: "IndexUtilitateInvalidInterval"))
                                            });
                         }
                     }
@@ -94,8 +103,8 @@ namespace HomeHelper.Model
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
-                                                   string.Format("Indexul nu se afla in intervalul {0}-{1}",
-                                                                 util.IndexInitial, first.IndexUtilitate)
+                                                   string.Format("{2} {0}-{1}",
+                                                                 util.IndexInitial, first.IndexUtilitate, loader.GetString(resource: "IndexUtilitateInvalidInterval"))
                                            });
                         }
                     }
@@ -108,7 +117,7 @@ namespace HomeHelper.Model
                                            {
                                                Key = "IndexUtilitate",
                                                Value =
-                                                   string.Format("Indexul este mai mic decat {0}", last.IndexUtilitate)
+                                                   string.Format("{1} {0}", last.IndexUtilitate, loader.GetString(resource: "IndexMaiMicDecat"))
                                            });
                         }
                     }
@@ -120,7 +129,7 @@ namespace HomeHelper.Model
                         _errors.Add(new StringKeyValue()
                                        {
                                            Key = "IndexUtilitate",
-                                           Value = string.Format("Indexul este mai mic decat {0}",util.IndexInitial)
+                                           Value = string.Format("{1} {0}", util.IndexInitial, loader.GetString(resource: "IndexMaiMicDecat"))
                                        });
                     }
                 }
