@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="46367UsefulThings.HomeHelper" Publisher="CN=3541B5B7-38B2-4CF1-9F1C-959501C54A49" Version="1.0.0.0" />
+  <Identity Name="46367UsefulThings.HomeHelper" Publisher="CN=3541B5B7-38B2-4CF1-9F1C-959501C54A49" Version="1.0.0.1" />
   <Properties>
     <DisplayName>HomeHelper</DisplayName>
     <PublisherDisplayName>Stelian.Popa</PublisherDisplayName>
@@ -21,7 +21,4 @@
       </VisualElements>
     </Application>
   </Applications>
-  <Capabilities>
-    <Capability Name="internetClient" />
-  </Capabilities>
 </Package>
