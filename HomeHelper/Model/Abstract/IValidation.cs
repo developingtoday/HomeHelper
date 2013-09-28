@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace HomeHelper.Model.Abstract
 {
+    public interface IResources
+    {
+        string GetString(string resource);
+    }
+
     public interface IValidation
     {
         void DoValidation();

@@ -6,11 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Concret;
+using HomeHelper.Utils;
 
 namespace HomeHelper.Model
 {
     public class ConsumUtilitate:IValidation
     {
+       
+
         public ConsumUtilitate()
         {
             DataConsum = DateTime.Now;
@@ -33,7 +36,7 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var loader = DbUtils.Loader;
             _errors = new List<StringKeyValue>();
             if (IdUtilitate == 0)
             {

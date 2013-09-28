@@ -137,9 +137,14 @@
     <Compile Include="Repository\Abstract\IRepository.cs" />
     <Compile Include="Repository\Concret\ConsumUtilitateRepository.cs" />
     <Compile Include="Repository\Concret\FakeUtilitatiRepository.cs" />
+    <Compile Include="Repository\Concret\ScheduleWindows8.cs" />
     <Compile Include="Repository\Concret\UtilitatiRepository.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="SQLite.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SQLiteAsync.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utils\DbUtils.cs" />
     <Compile Include="Utils\FactoryRepository.cs" />
     <Compile Include="Utils\LiveTileCreator.cs" />
@@ -216,6 +221,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

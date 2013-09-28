@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -43,6 +44,8 @@ namespace HomeHelper
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             Frame rootFrame = Window.Current.Content as Frame;
+            AlertaUtilitateRepository.ScheduleRepository = new ScheduleWindows8();
+            DbUtils.Loader=new WindowsResources();
             DbUtils.InitializeDb();
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active

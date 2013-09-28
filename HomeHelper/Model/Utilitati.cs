@@ -4,18 +4,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HomeHelper.Common;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Utils;
 using SQLite;
-using Windows.ApplicationModel.Resources;
 
 namespace HomeHelper.Model
 {
-    public class Utilitati:BindableBase,IValidation 
+    public class Utilitati:IValidation 
     {
+
        
-        private readonly ResourceLoader loader=new ResourceLoader();
 
         [PrimaryKey,AutoIncrement]
         public int IdUtilitati { get; set; }
@@ -33,11 +31,11 @@ namespace HomeHelper.Model
 
         public string InformatieLunaCurenta
         {
-            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, loader.GetString(resource: "LunaCurenta")); }
+            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, DbUtils.Loader.GetString(resource: "LunaCurenta")); }
         }
         public string InformatieLunaAnterioara
         {
-            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, loader.GetString(resource: "LunaAnterioara")); }
+            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, DbUtils.Loader.GetString(resource: "LunaAnterioara")); }
         }
 
         
@@ -218,7 +216,7 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
-            
+            var loader = DbUtils.Loader;
             _errors = new List<StringKeyValue>();
             if (string.IsNullOrEmpty(DenumireUtilitate))
             {

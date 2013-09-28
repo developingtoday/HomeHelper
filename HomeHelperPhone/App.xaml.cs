@@ -4,6 +4,7 @@ using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
+using HomeHelper.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HomeHelperPhone.Resources;
@@ -54,6 +55,7 @@ namespace HomeHelperPhone
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
+            DbUtils.InitializeDb();
 
         }
 

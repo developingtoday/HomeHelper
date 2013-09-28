@@ -5,25 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HomeHelper.Model;
+using HomeHelper.Model.Abstract;
 using SQLite;
 
 namespace HomeHelper.Utils
 {
     public static class DbUtils
     {
+        public static IResources Loader { get; set; }
 
-        public static string DbPath{get
+        public static string DbPath
         {
-            return Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "homehelper.sqlite");
-        }}
+            get { return Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "homehelper.sqlite"); }
+        }
+
         public static string InitializeDb()
         {
-           
-            using (var sqlConn=new SQLiteConnection(DbPath))
+
+            using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
             {
                 try
                 {
-                   sqlConn.CreateTable<Utilitati>();
+                    sqlConn.CreateTable<Utilitati>();
                     sqlConn.CreateTable<ConsumUtilitate>();
                     sqlConn.CreateTable<AlertaUtilitate>();
                     return "Succes";
@@ -35,7 +38,9 @@ namespace HomeHelper.Utils
                     return ex.Message;
                 }
             }
-
         }
+
+
+
     }
 }

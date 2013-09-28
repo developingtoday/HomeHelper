@@ -56,7 +56,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\x86\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;USE_WP8_NATIVE_SQLITE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -66,7 +66,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Bin\x86\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;USE_WP8_NATIVE_SQLITE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -106,6 +106,24 @@
     <Compile Include="..\HomeHelper\Model\Utilitati.cs">
       <Link>Shared\Model\Utilitati.cs</Link>
     </Compile>
+    <Compile Include="..\HomeHelper\Repository\Abstract\IRepository.cs">
+      <Link>Shared\Data\IRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\HomeHelper\Repository\Concret\ConsumUtilitateRepository.cs">
+      <Link>Shared\Data\ConsumUtilitateRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\HomeHelper\Repository\Concret\UtilitatiRepository.cs">
+      <Link>Shared\Data\UtilitatiRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\HomeHelper\Utils\DbUtils.cs">
+      <Link>Shared\Data\DbUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\HomeHelper\Utils\FactoryRepository.cs">
+      <Link>Shared\Data\FactoryRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\HomeHelper\Utils\ResurseMesaje.cs">
+      <Link>Shared\Data\ResurseMesaje.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -119,6 +137,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SQLite.cs" />
+    <Compile Include="SQLiteAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -165,7 +185,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Shared\Data\" />
+    <ProjectReference Include="..\sqlite-net-wp8-master\Sqlite.vcxproj">
+      <Project>{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}</Project>
+      <Name>Sqlite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

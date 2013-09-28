@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Concret;
-using Windows.ApplicationModel.Resources;
+using HomeHelper.Utils;
 
 namespace HomeHelper.Model
 {
     public enum RepetareAlerta:int
-    {
-        [Display(Name = "Fara Repetare")]
+    {   
         FaraRepetare=1,
         Saptamanal=2,
         Lunar=3,
@@ -28,7 +26,7 @@ namespace HomeHelper.Model
 
         public static List<StringIntKeyValue> FrecventeAlerte()
         {
-            var loader = new ResourceLoader();
+            var loader = DbUtils.Loader;
             return new List<StringIntKeyValue>()
                        {
                            new StringIntKeyValue()
@@ -61,6 +59,9 @@ namespace HomeHelper.Model
     }
     public class AlertaUtilitate:IValidation 
     {
+
+        
+
         public AlertaUtilitate()
         {
             DataAlerta = DateTime.Now;
@@ -105,7 +106,7 @@ namespace HomeHelper.Model
         public void DoValidation()
         {
             _errors=new List<StringKeyValue>();
-            var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
+            var loader = DbUtils.Loader;
 
             if (IdUitlitate == 0)
             {
