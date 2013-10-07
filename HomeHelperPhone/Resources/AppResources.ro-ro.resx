@@ -118,139 +118,139 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConsumaLunaAnterioaraMesaj" xml:space="preserve">
-    <value>Previous month consumption</value>
+    <value>Consum luna anterioara</value>
   </data>
   <data name="ConsumLstUtilitatiText" xml:space="preserve">
-    <value>Consumption</value>
+    <value>Consum</value>
   </data>
   <data name="ConsumLunaCurentaMesaj" xml:space="preserve">
-    <value>This month consumption</value>
+    <value>Consum luna curenta</value>
   </data>
   <data name="DataAlertaErrorValid" xml:space="preserve">
-    <value>The alert is not going to be active</value>
+    <value>Alerta nu va fi activa</value>
   </data>
   <data name="DataConsumExistent" xml:space="preserve">
-    <value>On this date there was added consumption</value>
+    <value>Pe aceasta data mai exista adaugat un consum</value>
   </data>
   <data name="DataConsumMicaDecatIndexInitial" xml:space="preserve">
-    <value>The data of this consumption is earlier than the initial index date</value>
+    <value>Data consumului nu poate fi mai mica decat data indexului initial</value>
   </data>
   <data name="DataIndexInitialRespectareConsumInitial" xml:space="preserve">
-    <value>Invalid date regarding the consumption range</value>
+    <value>Data invalida in respectarea intervalelor consumului</value>
   </data>
   <data name="DenumireUtilitateCampGol" xml:space="preserve">
-    <value>Name: This field is empty</value>
+    <value>Denumire: Campul este gol</value>
   </data>
   <data name="IdUtilitateErrorValid" xml:space="preserve">
-    <value>The utility was not selected</value>
+    <value>Utilitatea nu a fost selectata</value>
   </data>
   <data name="IndexInitialValoareInvalida" xml:space="preserve">
-    <value>Initial Index:Invalid value</value>
+    <value>Index Initial: Valoare invalida</value>
   </data>
   <data name="IndexInvalid" xml:space="preserve">
-    <value>Invalid value in index</value>
+    <value>Valoare invalida la index</value>
   </data>
   <data name="IndexMaiMicDecat" xml:space="preserve">
-    <value>Index is less than</value>
+    <value>Indexul este mai mic decat</value>
   </data>
   <data name="IndexUtilitateInvalidInterval" xml:space="preserve">
-    <value>The index is not in range</value>
+    <value>Indexul nu se afla in intervalul</value>
   </data>
   <data name="InregistrariGoaleText" xml:space="preserve">
-    <value>The are no records added</value>
+    <value>Nu sunt inregistrari adaugate</value>
   </data>
   <data name="NuSuntInregistrariAdaugate" xml:space="preserve">
-    <value>The are no records added</value>
+    <value>Nu sunt inregistrari adaugate</value>
   </data>
   <data name="NuSuntInregistrariAdaugateUtilitatea" xml:space="preserve">
-    <value>The are no records added for the utility</value>
+    <value>Nu sunt inregistrari adaugate pentru utilitatea:</value>
   </data>
   <data name="UnitateMasuraCampGol" xml:space="preserve">
-    <value>Unit of measurement:The field is empty</value>
+    <value>Unitate Masura: Campul este gol</value>
   </data>
   <data name="lblAlerteText" xml:space="preserve">
-    <value>Alerts</value>
+    <value>Alerte</value>
   </data>
   <data name="lblConsumText" xml:space="preserve">
-    <value>Consumption</value>
+    <value>Consum</value>
   </data>
   <data name="lblDataText" xml:space="preserve">
-    <value>Date</value>
+    <value>Data</value>
   </data>
   <data name="lblDataAlertaText" xml:space="preserve">
-    <value>Alert Date</value>
+    <value>Data Alerta</value>
   </data>
   <data name="lblDataConsumText" xml:space="preserve">
-    <value>Consumption Date</value>
+    <value>Data consum</value>
   </data>
   <data name="lblDataIndexInitialText" xml:space="preserve">
-    <value>Initial Index Date</value>
+    <value>Data index initial</value>
   </data>
   <data name="lblFrecventaAlertaText" xml:space="preserve">
-    <value>Alert frequency</value>
+    <value>Frecventa Alerta</value>
   </data>
   <data name="lblIndexText" xml:space="preserve">
     <value>Index</value>
   </data>
   <data name="lblUnitateDeMasuraText" xml:space="preserve">
-    <value>Unit of measurement</value>
+    <value>Unitate masura</value>
   </data>
   <data name="lblUtitlitatiText" xml:space="preserve">
-    <value>Utility</value>
+    <value>Utilitate</value>
   </data>
   <data name="lblValoareInitialaText" xml:space="preserve">
-    <value>Initial value</value>
+    <value>Valoare initiala</value>
   </data>
   <data name="LunaAnterioara" xml:space="preserve">
-    <value>Previous month</value>
+    <value>Luna Anterioara</value>
   </data>
   <data name="LunaCurenta" xml:space="preserve">
-    <value>This month</value>
+    <value>Luna Curenta</value>
   </data>
   <data name="enumFrecventeAlerteAnual" xml:space="preserve">
-    <value>Yearly</value>
+    <value>Anual</value>
   </data>
   <data name="enumFrecventeAlerteFaraRepetare" xml:space="preserve">
-    <value>Without repeat</value>
+    <value>Fara repetare</value>
   </data>
   <data name="enumFrecventeAlerteLunar" xml:space="preserve">
-    <value>Monthly</value>
+    <value>Lunar</value>
   </data>
   <data name="enumFrecventeAlerteSaptamanal" xml:space="preserve">
-    <value>Weekly</value>
+    <value>Saptamanal</value>
   </data>
   <data name="enumFrecventeAlerteZilnic" xml:space="preserve">
-    <value>Daily</value>
+    <value>Zilnic</value>
   </data>
   <data name="cntDeleteMbox" xml:space="preserve">
-    <value>This object has references.Do you want to delete?</value>
+    <value>Acest obiect are referinte inregistrate. Doriti sa stergeti?</value>
   </data>
   <data name="cntDeleteTitle" xml:space="preserve">
-    <value>Delete</value>
+    <value>Stergere</value>
   </data>
   <data name="cntNo" xml:space="preserve">
-    <value>No</value>
+    <value>Nu</value>
   </data>
   <data name="cntYes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Da</value>
   </data>
   <data name="AlertaIndexConsum" xml:space="preserve">
-    <value>Today is the index day for the utility:</value>
+    <value>Indexul trebuie dat la utilitatea:</value>
   </data>
   <data name="IndexMaiMareDecat" xml:space="preserve">
-    <value>The index is greater than</value>
+    <value>Indexul este mai mare decat</value>
   </data>
   <data name="lblFromText" xml:space="preserve">
-    <value>From</value>
+    <value>De la</value>
   </data>
   <data name="lblToText" xml:space="preserve">
-    <value>To</value>
+    <value>Pana la</value>
   </data>
   <data name="filtruDataInvalid" xml:space="preserve">
-    <value>There are no consumption in the dates specified</value>
+    <value>In datele specificate nu au fost gasite consumuri</value>
   </data>
   <data name="filtruInvalid" xml:space="preserve">
-    <value>Invalid filter</value>
+    <value>Filtru Invalid</value>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
     <value>HomeHelper</value>
@@ -259,6 +259,6 @@
     <value>LeftToRight</value>
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
-    <value>en-US</value>
+    <value>ro-ro</value>
   </data>
 </root>
