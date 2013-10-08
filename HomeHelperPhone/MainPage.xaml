@@ -13,7 +13,15 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
-
+    
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/ApplicationBar.Add.png" Text="Add" Click="ApplicationBarIconButton_OnClick"></shell:ApplicationBarIconButton>
+            <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/ApplicationBar.Delete.png" IsEnabled="False" Text="Delete"></shell:ApplicationBarIconButton>
+            <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/ApplicationBar.Select.png" Text="Select"></shell:ApplicationBarIconButton>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -42,28 +50,46 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
-            <TextBlock Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.lblUtitlitatiText, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <sparrow:SparrowChart>
-                <sparrow:SparrowChart.XAxis>
-                    <sparrow:LinearXAxis/>
-                </sparrow:SparrowChart.XAxis>
-                <sparrow:SparrowChart.YAxis>
-                    <sparrow:LinearYAxis/>
-                </sparrow:SparrowChart.YAxis>
-                <sparrow:LineSeries>
-                    <sparrow:LineSeries.Points>
-                        <sparrow:DoublePoint Data="0" Value="1"/>
-                        <sparrow:DoublePoint Data="1" Value="2"/>
-                        <sparrow:DoublePoint Data="2" Value="3"/>
-                        <sparrow:DoublePoint Data="3" Value="4"/>
-                    </sparrow:LineSeries.Points>
-                </sparrow:LineSeries>
-            </sparrow:SparrowChart>
+
+            <phone:LongListSelector Name="lstUtilitati" ItemsSource="{Binding Path=ListaUtilitati, Mode=TwoWay}" Tap="LstUtilitati_OnTap"  LayoutMode="List">
+             <phone:LongListSelector.ItemTemplate>
+                 <DataTemplate>
+                     <StackPanel>
+                            <TextBlock Text="{Binding DenumireUtilitate}" FontSize="40"></TextBlock>
+                            <StackPanel Orientation="Horizontal" Margin="40 0 0 0">
+                                <TextBlock Text= "{Binding Path=LocalizedResources.ConsumLstUtilitatiText, Source={StaticResource LocalizedStrings}}"  FontSize="28"></TextBlock>
+                                <Polygon Points="0,24 15,0 -15,0" Stroke="Black" Fill="White" Name="crestere"  RenderTransformOrigin="0.5,0.5" Visibility="{Binding IsCrestere, Converter={StaticResource booleanToVisibilityConverter}}">
+                                    <Polygon.RenderTransform>
+                                        <RotateTransform  Angle="180"></RotateTransform>
+                                    </Polygon.RenderTransform>
+                                </Polygon>
+                                <Polygon  Points="0,24 15,0 -15,0"  Stroke="Black" Fill="White" Name="scadere"  Visibility="{Binding IsScadere, Converter={StaticResource booleanToVisibilityConverter}}">
+                                    <Polygon.RenderTransform>
+                                        <TranslateTransform X="15"></TranslateTransform>
+                                    </Polygon.RenderTransform>
+                                </Polygon>
+                                <Canvas Width="30" Height="10" Margin="5,5,0,0" Name="stagnare" Visibility="{Binding IsStagnare, Converter={StaticResource booleanToVisibilityConverter}}">
+                                    <Rectangle RadiusX="0" RadiusY="0" Fill="White" Width="15" Height="3" Canvas.Left="0" Canvas.Top="0" />
+                                    <Rectangle RadiusX="0" RadiusY="0" Fill="White" Width="15" Height="3" Canvas.Left="0" Canvas.Top="5" />
+                                </Canvas>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5 0 0 0"  >
+                                <TextBlock Text="{Binding InformatieLunaCurenta}" FontSize="30" TextAlignment="Right" TextWrapping="Wrap"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5 0 0 0" >
+                                <TextBlock Text="{Binding InformatieLunaAnterioara}" FontSize="30" TextAlignment="Right" TextWrapping="Wrap"></TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                 </DataTemplate>
+             </phone:LongListSelector.ItemTemplate>   
+                
+            </phone:LongListSelector> 
         </Grid>
 
         <!--Uncomment to see an alignment grid to help ensure your controls are

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
 using HomeHelper.Utils;
+using HomeHelperPhone.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HomeHelperPhone.Resources;
@@ -56,6 +57,7 @@ namespace HomeHelperPhone
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
             DbUtils.InitializeDb();
+            DbUtils.Loader = new PhoneResources();
 
         }
 

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
+#if NETFX_CORE
 using WinRTXamlToolkit.Controls.DataVisualization.Charting;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
-
+#endif 
 namespace HomeHelper.Common
 {
     /// <summary>
@@ -88,7 +90,7 @@ namespace HomeHelper.Common
         public event EventHandler CanExecuteChanged;
 
     }
-
+#if NETFX_CORE
     public class ChartLineClickCommand
     {
         public static readonly DependencyProperty CommandProperty = DependencyProperty.RegisterAttached("Command",
@@ -126,6 +128,7 @@ namespace HomeHelper.Common
             return (ICommand)d.GetValue(CommandProperty);
         }
     }
+
 
     public class ListViewClickCommand
     {
@@ -188,4 +191,5 @@ namespace HomeHelper.Common
             };
         }
     }
+#endif 
 }
