@@ -158,6 +158,7 @@
     <Compile Include="Views\EditViewUtilitate.xaml.cs">
       <DependentUpon>EditViewUtilitate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PhoneViewBaseForViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
