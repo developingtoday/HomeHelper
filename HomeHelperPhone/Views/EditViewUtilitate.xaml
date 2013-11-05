@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage
+﻿<views:EditViewUtilitateGeneric
     x:Class="HomeHelperPhone.Views.EditViewUtilitate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,20 +7,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:t="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:views="clr-namespace:HomeHelperPhone.Views"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
-
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/save.png" Text="Save" Click="SaveUtilitate" ></shell:ApplicationBarIconButton>
-            <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/ApplicationBar.Delete.png" Text="Delete" Click="DeleteUtilitate"></shell:ApplicationBarIconButton>
-            <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/ApplicationBar.Cancel.png" Text="Cancel" Click="Cancel" ></shell:ApplicationBarIconButton>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -52,7 +45,7 @@
             <TextBlock Grid.Row="3" Margin="10" Text="{Binding Path=LocalizedResources.lblDataIndexInitialText,Source={StaticResource LocalizedStrings}}"></TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding  Path=ObiectInBinding.DenumireUtilitate, Mode=TwoWay}"></TextBox>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding  Path=ObiectInBinding.UnitateMasura, Mode=TwoWay}" ></TextBox>
-            <TextBox Grid.Row="2" Grid.Column="1" InputScope="Number" Text="{Binding Path=ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>
+            <TextBox Grid.Row="2" Name="txt" Grid.Column="1" InputScope="Number" Text="{Binding Path=ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>
             <t:DatePicker Grid.Row="3" Grid.Column="1" Value="{Binding Path=ObiectInBinding.DataIndexInitial, Mode=TwoWay}" ></t:DatePicker>
             <ListBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Erori}">
                 <ListBox.ItemTemplate>
@@ -69,4 +62,4 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
     </Grid>
 
-</phone:PhoneApplicationPage>
+</views:EditViewUtilitateGeneric>

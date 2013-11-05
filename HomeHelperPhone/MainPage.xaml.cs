@@ -61,6 +61,7 @@ namespace HomeHelperPhone
         private void LstUtilitati_OnTap(object sender, GestureEventArgs e)
         {
             var item = (e.OriginalSource as FrameworkElement).DataContext as Utilitati;
+            if (item == null) return;
             if (e == null) return;
             NavigationService.Navigate(new Uri(string.Format("/Views/EditViewUtilitate.xaml?Id={0}",item.IdUtilitati), UriKind.Relative));
             
