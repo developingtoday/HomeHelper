@@ -159,6 +159,9 @@
       <DependentUpon>EditViewUtilitate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PhoneViewBaseForViewModel.cs" />
+    <Compile Include="Views\ViewConsumuri.xaml.cs">
+      <DependentUpon>ViewConsumuri.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -170,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditViewUtilitate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewConsumuri.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

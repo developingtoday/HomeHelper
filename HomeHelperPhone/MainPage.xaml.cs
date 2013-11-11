@@ -58,13 +58,22 @@ namespace HomeHelperPhone
         }
 
 
+
+        private void EditItemClick(object sender, RoutedEventArgs e)
+        {
+            var item = lstUtilitati.SelectedItem as Utilitati;
+            if (item == null) return;
+            if (e == null) return;
+            NavigationService.Navigate(new Uri(string.Format("/Views/EditViewUtilitate.xaml?Id={0}",item.IdUtilitati), UriKind.Relative));
+        }
+
         private void LstUtilitati_OnTap(object sender, GestureEventArgs e)
         {
             var item = (e.OriginalSource as FrameworkElement).DataContext as Utilitati;
             if (item == null) return;
             if (e == null) return;
-            NavigationService.Navigate(new Uri(string.Format("/Views/EditViewUtilitate.xaml?Id={0}",item.IdUtilitati), UriKind.Relative));
-            
+            NavigationService.Navigate(new Uri(string.Format("/Views/ViewConsumuri.xaml?Id={0}", item.IdUtilitati), UriKind.Relative));
+
         }
     }
 }
