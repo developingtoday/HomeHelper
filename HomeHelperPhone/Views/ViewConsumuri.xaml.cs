@@ -43,5 +43,9 @@ namespace HomeHelperPhone.Views
 
         }
 
+        private void AddConsumptionButton(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Views/EditViewConsumUtilitate.xaml", UriKind.Relative));
+        }
     }
 }

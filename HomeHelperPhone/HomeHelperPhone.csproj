@@ -155,6 +155,9 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utils\PhoneResources.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\EditViewConsumUtilitate.xaml.cs">
+      <DependentUpon>EditViewConsumUtilitate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditViewUtilitate.xaml.cs">
       <DependentUpon>EditViewUtilitate.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditViewConsumUtilitate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
