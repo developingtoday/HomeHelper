@@ -35,7 +35,17 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
              <phone:Pivot>
                 <phone:PivotItem  Header="{Binding Path=LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
-                     
+                    <phone:LongListSelector ItemsSource="{Binding Path=ListaConsumuri}" Tap="UIElement_OnTap" >
+                         <phone:LongListSelector.ItemTemplate>
+                             <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Height="40">
+                                    <TextBlock Text="{Binding Path=DataConsum}" Width="200"></TextBlock>
+                                    <TextBlock Text="{Binding Path=IndexUtilitate}" Width="100"></TextBlock>
+                                    <TextBlock Text="{Binding Path=Consum}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                         </phone:LongListSelector.ItemTemplate>
+                     </phone:LongListSelector>
                  </phone:PivotItem>
                 <phone:PivotItem  Header="Evolutie Consum">
 

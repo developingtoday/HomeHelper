@@ -67,6 +67,10 @@ namespace HomeHelper.Model
                 return list;
             }
         }
+        public IList<ConsumUtilitate> ListaConsumuri
+        {
+            get { return Consums.ToList(); }
+        } 
 
         public Utilitati()
         {
@@ -293,6 +297,18 @@ namespace HomeHelper.Model
         public List<StringKeyValue> GetErrors()
         {
             return _errors;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var target = obj as Utilitati;
+            if (target == null)
+                return false;
+
+            if (this.IdUtilitati == target.IdUtilitati)
+                return true;
+
+            return false;
         }
     }
 }

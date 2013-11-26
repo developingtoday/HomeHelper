@@ -20,6 +20,11 @@ namespace HomeHelperPhone.Views
             InitStuff();
         }
 
+        protected InputViewModelBase<T> ViewModelBase
+        {
+            get { return _viewModelBase; }
+        } 
+
         private void InitStuff()
         {
             DataContext = _viewModelBase;
@@ -73,6 +78,7 @@ namespace HomeHelperPhone.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+            if (e.NavigationMode == NavigationMode.Back) return;
             var param = string.Empty;
             if (NavigationContext.QueryString.TryGetValue("Id", out param))
             {

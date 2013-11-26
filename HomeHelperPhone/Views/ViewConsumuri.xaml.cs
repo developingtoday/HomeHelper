@@ -11,6 +11,7 @@ using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace HomeHelperPhone.Views
 {
@@ -33,7 +34,6 @@ namespace HomeHelperPhone.Views
             if (NavigationContext.QueryString.TryGetValue("Id", out param))
             {
                 _utilitati = _repository.GetAll().FirstOrDefault(a => a.IdUtilitati == int.Parse(param));
-               
             }
             else
             {
@@ -41,11 +41,23 @@ namespace HomeHelperPhone.Views
             }
             DataContext = _utilitati;
 
+
         }
+
 
         private void AddConsumptionButton(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/Views/EditViewConsumUtilitate.xaml", UriKind.Relative));
+        }
+
+        private void UIElement_OnTap(object sender, GestureEventArgs e)
+        {
+            if (e == null) return;
+            var item = (e.OriginalSource as FrameworkElement).DataContext;
+            if (item == null) return;
+            var cast = item as ConsumUtilitate;
+            if (cast == null) return;
+            NavigationService.Navigate(new Uri(string.Format("/Views/EditViewConsumUtilitate.xaml?Id={0}",cast.IdConsumUtilitate), UriKind.Relative));
         }
     }
 }
