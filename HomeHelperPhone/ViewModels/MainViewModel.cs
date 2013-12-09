@@ -17,7 +17,9 @@ namespace HomeHelperPhone.ViewModels
     {
         private ObservableCollection<Utilitati> _listUtilitati;
         private RelayCommand _commandAdd;
-        private IRepository<Utilitati> _repositoryUtilitati;  
+        private IRepository<Utilitati> _repositoryUtilitati;
+        private ObservableCollection<AlertaUtilitate> _alerteUtilitati;
+
         public MainViewModel()
         {
             _repositoryUtilitati = FactoryRepository.GetInstanceRepositoryUtilitati();
@@ -29,6 +31,12 @@ namespace HomeHelperPhone.ViewModels
             get { return _listUtilitati; }
             set { SetProperty(ref _listUtilitati, value, "ListaUtilitati"); }
         }
+
+        public ObservableCollection<AlertaUtilitate> AlerteUtilitati
+        {
+            get { return _alerteUtilitati; }
+            set { SetProperty(ref _alerteUtilitati, value, "AlerteUtilitati"); }
+        } 
         public RelayCommand AddCommand
         {
             get

@@ -75,5 +75,10 @@ namespace HomeHelperPhone
             NavigationService.Navigate(new Uri(string.Format("/Views/ViewConsumuri.xaml?Id={0}", item.IdUtilitati), UriKind.Relative));
 
         }
+
+        private void LstAerte_OnTap(object sender, GestureEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

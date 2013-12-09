@@ -81,7 +81,7 @@
                 <phone:PivotItem Header="{Binding Path=LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
                 </phone:PivotItem>
                 <phone:PivotItem Header="{Binding Path=LocalizedResources.lblAlerteText, Source={StaticResource LocalizedStrings}}">
-                   
+                   <phone:LongListSelector Name="lstAerte" ItemsSource="{Binding Path=AlerteUtilitati, Mode=TwoWay}" Tap="LstAerte_OnTap"></phone:LongListSelector>
                </phone:PivotItem>
             </phone:Pivot>
         </Grid>
