@@ -53,6 +53,15 @@ namespace HomeHelperPhone
 
         private void ApplicationBarIconButton_OnClick(object sender, EventArgs e)
         {
+            var name = pvt.SelectedItem;
+            if (name == null) return;
+            var cast = name as PivotItem;
+            if (cast == null) return;
+            if (cast.Name.Equals("pvtItmAlerte"))
+            {
+                NavigationService.Navigate(new Uri("/Views/EditViewAlertaUtilitate.xaml", UriKind.Relative));
+                return;
+            }
             var dc = DataContext as MainViewModel;
             dc.AddCommand.Execute(null);
         }

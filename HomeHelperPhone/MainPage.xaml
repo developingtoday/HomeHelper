@@ -36,8 +36,8 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:Pivot>
-                <phone:PivotItem Header="{Binding Path=LocalizedResources.lblUtitlitatiText, Source={StaticResource LocalizedStrings}}">
+            <phone:Pivot Name="pvt">
+                <phone:PivotItem Name="pvtItmUtilitati" Header="{Binding Path=LocalizedResources.lblUtitlitatiText, Source={StaticResource LocalizedStrings}}">
                     <phone:LongListSelector Name="lstUtilitati" ItemsSource="{Binding Path=ListaUtilitati, Mode=TwoWay}" Tap="LstUtilitati_OnTap" SelectedItem="{Binding Path=SelectedUtilitate, Mode=TwoWay}"  LayoutMode="List">
              <phone:LongListSelector.ItemTemplate>
                  <DataTemplate>
@@ -78,9 +78,9 @@
                 
             </phone:LongListSelector>
                 </phone:PivotItem>
-                <phone:PivotItem Header="{Binding Path=LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
+                <phone:PivotItem Name="pvtItmConsum" Header="{Binding Path=LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
                 </phone:PivotItem>
-                <phone:PivotItem Header="{Binding Path=LocalizedResources.lblAlerteText, Source={StaticResource LocalizedStrings}}">
+                <phone:PivotItem Name="pvtItmAlerte" Header="{Binding Path=LocalizedResources.lblAlerteText, Source={StaticResource LocalizedStrings}}">
                    <phone:LongListSelector Name="lstAerte" ItemsSource="{Binding Path=AlerteUtilitati, Mode=TwoWay}" Tap="LstAerte_OnTap"></phone:LongListSelector>
                </phone:PivotItem>
             </phone:Pivot>
