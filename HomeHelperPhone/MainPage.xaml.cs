@@ -87,7 +87,10 @@ namespace HomeHelperPhone
 
         private void LstAerte_OnTap(object sender, GestureEventArgs e)
         {
-            throw new NotImplementedException();
+            var item = (e.OriginalSource as FrameworkElement).DataContext as AlertaUtilitate;
+            if (item == null) return;
+            if (e == null) return;
+            NavigationService.Navigate(new Uri(string.Format("/Views/EditViewAlertaUtilitate.xaml?Id={0}", item.IdAlertaUilitate), UriKind.Relative));
         }
     }
 }

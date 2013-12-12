@@ -18,12 +18,14 @@ namespace HomeHelperPhone.ViewModels
         private ObservableCollection<Utilitati> _listUtilitati;
         private RelayCommand _commandAdd;
         private IRepository<Utilitati> _repositoryUtilitati;
+        private IRepository<AlertaUtilitate> _repositoryAlerte; 
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati;
 
         public MainViewModel()
         {
             _repositoryUtilitati = FactoryRepository.GetInstanceRepositoryUtilitati();
-            
+            _repositoryAlerte = FactoryRepository.GetInstanceAlertaUtilitate();
+
         }
 
         public ObservableCollection<Utilitati> ListaUtilitati
@@ -54,6 +56,7 @@ namespace HomeHelperPhone.ViewModels
         public void RefreshUtilitati()
         {
             ListaUtilitati = _repositoryUtilitati.GetAll();
+            AlerteUtilitati = _repositoryAlerte.GetAll();
         }
     }
 }

@@ -45,7 +45,7 @@ namespace HomeHelper.Common
         public T ObiectInBinding { get; set; }
 #else
         private T _obiect;
-        public T ObiectInBinding
+        public virtual T ObiectInBinding
         {
             get { return _obiect; }
             set { SetProperty(ref _obiect, value, "ObiectInBinding"); }

@@ -67,7 +67,7 @@ namespace HomeHelperPhone.Views
             NavigationService.GoBack();
         }
 
-        private void BtnSaveClick(object sender, EventArgs e)
+        private  void BtnSaveClick(object sender, EventArgs e)
         {
             Extension.FocusUpdateLastElement();
             _viewModelBase.SaveCommand.Execute(_viewModelBase.ObiectInBinding);

@@ -19,21 +19,23 @@ namespace HomeHelperPhone.Views
     public partial class EditViewConsumUtilitate : EditViewConsumUtilitateGeneric
     {
         private readonly IRepository<Utilitati> _repository = FactoryRepository.GetInstanceRepositoryUtilitati();
+        private Utilitati utilPicker;
+        
         public EditViewConsumUtilitate()
         {
             InitializeComponent();
-
             
+
         }
 
         private void ListPicker_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var cast = sender as ListPicker;
+            //var cast = sender as ListPicker;
             
-            if (cast == null) return;
-            var select = cast.SelectedItem as Utilitati;
-            if (select == null) return;
-            ViewModelBase.ObiectInBinding.IdUtilitate = select.IdUtilitati;
+            //if (cast == null) return;
+            //var select = cast.SelectedItem as Utilitati;
+            //if (select == null) return;
+            //ViewModelBase.ObiectInBinding.IdUtilitate = select.IdUtilitati;
     
 
         }
@@ -49,12 +51,17 @@ namespace HomeHelperPhone.Views
             var prevSel = lstUtils.SelectedItem as Utilitati;
             var prev = ViewModelBase.ObiectInBinding.IndexUtilitate;
             base.OnNavigatedTo(e);
+           // lstUtils.SelectedItem = _repository.GetById(ViewModelBase.ObiectInBinding.IdUtilitate);
             //dtpIndex.Value = data;
             //ViewModelBase.ObiectInBinding.IndexUtilitate = prev;
             //lstUtils.SelectedItem = prevSel;
             //ViewModelBase.ObiectInBinding.IdUtilitate = prevSel.IdUtilitati;
             //txtIndexUtil.Text = prev.ToString();
         }
+
+
+
+       
 
     
     }
