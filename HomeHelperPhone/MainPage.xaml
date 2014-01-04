@@ -14,7 +14,123 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
-    
+    <phone:PhoneApplicationPage.Resources>
+        <Style x:Key="ExpanderViewStyle1" TargetType="toolkit:ExpanderView">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <StackPanel/>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="toolkit:ExpanderView">
+                        <Grid>
+                            <Grid.Resources>
+                                <QuadraticEase x:Key="QuadraticEaseOut" EasingMode="EaseOut"/>
+                                <QuadraticEase x:Key="QuadraticEaseInOut" EasingMode="EaseInOut"/>
+                            </Grid.Resources>
+                            <Grid.ColumnDefinitions>
+                                <!--<ColumnDefinition Width="41"/>-->
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="ExpansionStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="Collapsed" GeneratedDuration="0:0:0.15" To="Expanded">
+                                            <Storyboard>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ItemsCanvas">
+                                                    <EasingDoubleKeyFrame EasingFunction="{StaticResource QuadraticEaseOut}" KeyTime="0:0:0.00" Value="0"/>
+                                                    <EasingDoubleKeyFrame x:Name="CollapsedToExpandedKeyFrame" EasingFunction="{StaticResource QuadraticEaseOut}" KeyTime="0:0:0.15" Value="1"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimation Duration="0" To="1.0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ItemsCanvas"/>
+                                            </Storyboard>
+                                        </VisualTransition>
+                                        <VisualTransition From="Expanded" GeneratedDuration="0:0:0.15" To="Collapsed">
+                                            <Storyboard>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ItemsCanvas">
+                                                    <EasingDoubleKeyFrame x:Name="ExpandedToCollapsedKeyFrame" EasingFunction="{StaticResource QuadraticEaseInOut}" KeyTime="0:0:0.00" Value="1"/>
+                                                    <EasingDoubleKeyFrame EasingFunction="{StaticResource QuadraticEaseInOut}" KeyTime="0:0:0.15" Value="0"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ItemsCanvas">
+                                                    <EasingDoubleKeyFrame EasingFunction="{StaticResource QuadraticEaseInOut}" KeyTime="0:0:0.00" Value="1.0"/>
+                                                    <EasingDoubleKeyFrame EasingFunction="{StaticResource QuadraticEaseInOut}" KeyTime="0:0:0.15" Value="0.0"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ItemsCanvas">
+                                                    <EasingDoubleKeyFrame EasingFunction="{StaticResource QuadraticEaseInOut}" KeyTime="0:0:0.00" Value="0.0"/>
+                                                    <EasingDoubleKeyFrame EasingFunction="{StaticResource QuadraticEaseInOut}" KeyTime="0:0:0.15" Value="-35"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualTransition>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Collapsed">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ItemsCanvas"/>
+                                            <DoubleAnimation Duration="0" To="0.0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ItemsCanvas"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Expanded">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="ItemsCanvas"/>
+                                            <DoubleAnimation Duration="0" To="1.0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ItemsCanvas"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ExpandabilityStates">
+                                    <VisualState x:Name="Expandable"/>
+                                    <VisualState x:Name="NonExpandable">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandableContent">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Line">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Collapsed"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="NonExpandableContent">
+                                                <DiscreteObjectKeyFrame KeyTime="0:0:0.0" Value="Visible"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ListBoxItem x:Name="ExpandableContent" Grid.ColumnSpan="2" Grid.Column="0" toolkit:TiltEffect.IsTiltEnabled="True" Grid.Row="0" Grid.RowSpan="2">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <ContentControl x:Name="Header" Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="0"/>
+                                    <!--<ContentControl x:Name="Expander" ContentTemplate="{TemplateBinding ExpanderTemplate}" Content="{TemplateBinding Expander}" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="1"/>-->
+                                    <Grid x:Name="ExpanderPanel" Background="Transparent" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"/>
+                                </Grid>
+                            </ListBoxItem>
+                            <!--<Line x:Name="Line" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" Grid.RowSpan="2" Stretch="Fill" Stroke="{StaticResource PhoneSubtleBrush}" StrokeThickness="3" X1="0" X2="0" Y1="0" Y2="1"/>-->
+                            <ContentControl x:Name="NonExpandableContent" Grid.ColumnSpan="2" ContentTemplate="{TemplateBinding NonExpandableHeaderTemplate}" Content="{TemplateBinding NonExpandableHeader}" Grid.Column="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed"/>
+                            <Canvas x:Name="ItemsCanvas" Grid.Column="1"  Opacity="0.0" Grid.Row="2">
+                                <Canvas.RenderTransform>
+                                    <CompositeTransform TranslateY="0.0"/>
+                                </Canvas.RenderTransform>
+                                <ItemsPresenter x:Name="Presenter"/>
+                            </Canvas>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/ApplicationBar.Add.png" Text="Add" Click="ApplicationBarIconButton_OnClick"></shell:ApplicationBarIconButton>
@@ -79,12 +195,62 @@
             </phone:LongListSelector>
                 </phone:PivotItem>
                 <phone:PivotItem Name="pvtItmConsum" Header="{Binding Path=LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
+                 <Grid>
+                     <Grid.RowDefinitions>
+                         <RowDefinition Height="Auto"></RowDefinition>
+                         <RowDefinition Height="*"></RowDefinition>
+                     </Grid.RowDefinitions>
+                    <toolkit:ExpanderView Header="Fara numar" Style="{StaticResource ExpanderViewStyle1}">
+                        <toolkit:ExpanderView.Items>
+                            <StackPanel Orientation="Horizontal">
+                                <toolkit:DatePicker Value="{Binding Path=From}"></toolkit:DatePicker>
+                                    <toolkit:DatePicker  Value="{Binding Path=To}"></toolkit:DatePicker>
+                                    <Button Content="Filter" Command="{Binding FilterCommand}"></Button>
+                            </StackPanel>
+                        </toolkit:ExpanderView.Items>
+                    </toolkit:ExpanderView>
+ 
+                        <sparrow:SparrowChart Grid.Row="1" >
+                            <sparrow:SparrowChart.Legend>
+                                <sparrow:Legend  Header="Legenda Mea" LegendPosition="Outside" HorizontalAlignment="Right" VerticalAlignment="Top"></sparrow:Legend>
+                            </sparrow:SparrowChart.Legend>
+                            <sparrow:SparrowChart.XAxis>
+                                <sparrow:DateTimeXAxis  LabelAngle="45" StringFormat="d"/>
+                            </sparrow:SparrowChart.XAxis>
+                            <sparrow:SparrowChart.YAxis>
+                                <sparrow:LinearYAxis />
+                            </sparrow:SparrowChart.YAxis>
+                            <sparrow:LineSeries PointsSource="{Binding Path=Consums}"
+                                                XPath="DataConsum"
+                                                YPath="Consum"
+                                                
+                                                >
+                            </sparrow:LineSeries>
+                        </sparrow:SparrowChart>
+                     
+                     
+                     
+                    </Grid>
                 </phone:PivotItem>
                 <phone:PivotItem Name="pvtItmAlerte" Header="{Binding Path=LocalizedResources.lblAlerteText, Source={StaticResource LocalizedStrings}}">
-                   <phone:LongListSelector Name="lstAerte" ItemsSource="{Binding Path=AlerteUtilitati, Mode=TwoWay}" Tap="LstAerte_OnTap"></phone:LongListSelector>
-               </phone:PivotItem>
+                   <phone:LongListSelector Name="lstAerte" ItemsSource="{Binding Path=AlerteUtilitati, Mode=TwoWay}" Tap="LstAerte_OnTap">
+                       <phone:LongListSelector.ItemTemplate>
+                           <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding Path=NumeUtilitate}" FontSize="35"/>
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding Path=DataAlerta}" FontSize="28"/>
+                                    <TextBlock Margin="10,0,0,0" Text="{Binding Path=FrecventaAfisare}" FontSize="25"></TextBlock>
+<!--                                    <TextBlock Margin="10,0,0,0" Text="{Binding Path=AlertaActiva,  Converter={StaticResource BooleanToActiv}}" FontSize="20"></TextBlock>-->
+                                </StackPanel>
+                            </DataTemplate>
+                       </phone:LongListSelector.ItemTemplate>
+                   </phone:LongListSelector>
+                   
+                </phone:PivotItem>
             </phone:Pivot>
         </Grid>
     </Grid>
 
+    
 </phone:PhoneApplicationPage>
+    

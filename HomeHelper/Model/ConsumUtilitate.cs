@@ -23,8 +23,9 @@ namespace HomeHelper.Model
         [SQLite.Indexed]
         public int IdUtilitate { get; set; }
         public DateTime DataConsum { get; set; }
-        public float IndexUtilitate { get; set; }
-        public float Consum { get; set; }
+        public double IndexUtilitate { get; set; }
+
+        public double Consum { get; set; }
         public string DataConsumGrafic
         {
             get { return DataConsum.ToString("d"); }
