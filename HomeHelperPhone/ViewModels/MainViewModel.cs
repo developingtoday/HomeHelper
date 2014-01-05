@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using HomeHelper.Common;
@@ -13,8 +14,6 @@ using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
 using Microsoft.Phone.Controls;
-using Sparrow.Chart;
-
 namespace HomeHelperPhone.ViewModels
 {
     public class MainViewModel:BindableBase
@@ -25,7 +24,7 @@ namespace HomeHelperPhone.ViewModels
         private IRepository<Utilitati> _repositoryUtilitati;
         private IRepository<AlertaUtilitate> _repositoryAlerte; 
         private ObservableCollection<AlertaUtilitate> _alerteUtilitati;
-        private SeriesCollection _seriesCollection;
+        private Collection<ISeries> _series; 
         private DateTime _from, _to;
 
         public MainViewModel()
@@ -34,9 +33,8 @@ namespace HomeHelperPhone.ViewModels
             _repositoryAlerte = FactoryRepository.GetInstanceAlertaUtilitate();
             _to = DateTime.Now;
             _from = _to.AddMonths(-1);
-            _seriesCollection = new SeriesCollection();
             Consums = new ObservableCollection<ConsumUtilitate>();
-
+            Grafice = new Collection<ISeries>();
         }
 
 
@@ -75,19 +73,28 @@ namespace HomeHelperPhone.ViewModels
             {
                 if (_filterGraphDataCommand == null)
                 {
-                    _filterGraphDataCommand = new RelayCommand(o =>
-                                                                 {
-                                                                     Consums =
-                                                                         new ObservableCollection<ConsumUtilitate>(
-                                                                             _repositoryUtilitati.GetAll()
-                                                                                                 .FirstOrDefault()
-                                                                                                 .Consums);
-                                                                 });
+                    _filterGraphDataCommand=new RelayCommand(FilterGraph);
                 }
                 return _filterGraphDataCommand;
             }
         }
 
+        private void FilterGraph(object o)
+        {
+
+            var g = new ObservableCollection<ISeries>();
+            var util = _repositoryUtilitati.GetAll();
+            foreach (var utilitati in util)
+            {
+                var l = new LineSeries();
+                l.Title = utilitati.DenumireUtilitate;
+                l.ItemsSource = utilitati.Consums.ToList();
+                l.DependentValuePath = "Consum";
+                l.IndependentValuePath = "DataConsumGrafic";
+               g.Add(l);
+            }
+            Grafice = g;
+        }
 
 
         public PhoneApplicationPage CurrentFrame { get; set; }
@@ -110,6 +117,11 @@ namespace HomeHelperPhone.ViewModels
             set { SetProperty(ref _to, value, "To"); }
         }
 
+        public Collection<ISeries> Grafice
+        {
+            get { return _series; }
+            set { SetProperty(ref _series, value, "Grafice"); }
+        } 
 
 
     }

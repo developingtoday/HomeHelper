@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:utils="clr-namespace:HomeHelperPhone.Utils"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:sparrow="clr-namespace:Sparrow.Chart;assembly=Sparrow.Chart.WP8.45"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:chartToolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+    xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -205,28 +207,14 @@
                             <StackPanel Orientation="Horizontal">
                                 <toolkit:DatePicker Value="{Binding Path=From}"></toolkit:DatePicker>
                                     <toolkit:DatePicker  Value="{Binding Path=To}"></toolkit:DatePicker>
-                                    <Button Content="Filter" Command="{Binding FilterCommand}"></Button>
+                                    <Button Content="Filter" Command="{Binding Path=FilterCommand}"></Button>
                             </StackPanel>
                         </toolkit:ExpanderView.Items>
                     </toolkit:ExpanderView>
  
-                        <sparrow:SparrowChart Grid.Row="1" >
-                            <sparrow:SparrowChart.Legend>
-                                <sparrow:Legend  Header="Legenda Mea" LegendPosition="Outside" HorizontalAlignment="Right" VerticalAlignment="Top"></sparrow:Legend>
-                            </sparrow:SparrowChart.Legend>
-                            <sparrow:SparrowChart.XAxis>
-                                <sparrow:DateTimeXAxis  LabelAngle="45" StringFormat="d"/>
-                            </sparrow:SparrowChart.XAxis>
-                            <sparrow:SparrowChart.YAxis>
-                                <sparrow:LinearYAxis />
-                            </sparrow:SparrowChart.YAxis>
-                            <sparrow:LineSeries PointsSource="{Binding Path=Consums}"
-                                                XPath="DataConsum"
-                                                YPath="Consum"
-                                                
-                                                >
-                            </sparrow:LineSeries>
-                        </sparrow:SparrowChart>
+                        <chartingToolkit:Chart Grid.Row="1" utils:Extension.MultiSeries="{Binding Path=Grafice}" Background="DarkCyan">
+                          
+                        </chartingToolkit:Chart>
                      
                      
                      

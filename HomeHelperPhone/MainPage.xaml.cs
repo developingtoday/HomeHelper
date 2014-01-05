@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Navigation;
 using HomeHelper.Model;
+using HomeHelper.Repository.Concret;
 using HomeHelperPhone.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -92,5 +94,7 @@ namespace HomeHelperPhone
             if (e == null) return;
             NavigationService.Navigate(new Uri(string.Format("/Views/EditViewAlertaUtilitate.xaml?Id={0}", item.IdAlertaUilitate), UriKind.Relative));
         }
+
+      
     }
 }
