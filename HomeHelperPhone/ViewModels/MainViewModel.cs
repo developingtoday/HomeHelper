@@ -82,13 +82,23 @@ namespace HomeHelperPhone.ViewModels
         private void FilterGraph(object o)
         {
 
+            if (From > To) return;
             var g = new ObservableCollection<ISeries>();
             var util = _repositoryUtilitati.GetAll();
             foreach (var utilitati in util)
             {
                 var l = new LineSeries();
                 l.Title = utilitati.DenumireUtilitate;
-                l.ItemsSource = utilitati.Consums.ToList();
+                if(!utilitati.Consums.Any()) continue;
+                if (
+                    utilitati.Consums.All(
+                        a =>
+                        !(From.Date <= a.DataConsum.Date &&
+                          a.DataConsum.Date <= To.Date)))
+                {
+                    continue;
+                }
+                l.ItemsSource = utilitati.Consums.Where(a=>From<=a.DataConsum.Date && a.DataConsum.Date<=To).ToList();
                 l.DependentValuePath = "Consum";
                 l.IndependentValuePath = "DataConsumGrafic";
                g.Add(l);

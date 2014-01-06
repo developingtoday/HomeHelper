@@ -525,8 +525,8 @@
                         </Grid.RowDefinitions>
                         <toolkit:ExpanderView Header="Fara numar" Style="{StaticResource ExpanderViewStyle1}">
                             <StackPanel Orientation="Horizontal">
-                                <toolkit:DatePicker Value="{Binding From}"/>
-                                <toolkit:DatePicker  Value="{Binding To}"/>
+                                <toolkit:DatePicker Value="{Binding From, Mode=TwoWay}"/>
+                                <toolkit:DatePicker  Value="{Binding To, Mode=TwoWay}"/>
                                 <Button Content="Filter" Command="{Binding FilterCommand}"/>
                             </StackPanel>
                         </toolkit:ExpanderView>
