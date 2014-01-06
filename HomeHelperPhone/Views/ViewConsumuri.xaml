@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     xmlns:visualizationToolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit" xmlns:Primitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+    xmlns:homeHelperPhone="clr-namespace:HomeHelperPhone"
     x:Class="HomeHelperPhone.Views.ViewConsumuri"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
@@ -370,12 +371,19 @@
                     </phone:LongListSelector>
                 </phone:PivotItem>
                 <phone:PivotItem  Header="Evolutie Consum">
-                    <chartingToolkit:Chart Style="{StaticResource ChartStyleConsumUtilitate}">
+                   <Grid>
+                       <Grid.RowDefinitions>
+                           <RowDefinition Height="Auto"></RowDefinition>
+                           <RowDefinition Height="*"></RowDefinition>
+                       </Grid.RowDefinitions>
+                        <homeHelperPhone:FilterDataGrafic Grid.Row="0" Name="fltGrafic"> </homeHelperPhone:FilterDataGrafic>
+                            <chartingToolkit:Chart Style="{StaticResource ChartStyleConsumUtilitate}" Grid.Row="1">
                         <chartingToolkit:LineSeries
                 			ItemsSource="{Binding ListaConsumuri, Mode=TwoWay}"
                 			DependentValuePath="Consum" IndependentValuePath="DataConsumGrafic"
                             />
                     </chartingToolkit:Chart>
+                    </Grid>
                 </phone:PivotItem>
             </phone:Pivot>
         </Grid>

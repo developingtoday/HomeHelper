@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Navigation;
+using HomeHelper.Common;
 using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
@@ -25,6 +27,15 @@ namespace HomeHelperPhone.Views
         public ViewConsumuri()
         {
             InitializeComponent();
+            fltGrafic.FromDate = DateTime.Now.AddMonths(-1).Date;
+            fltGrafic.ToDate = DateTime.Now.Date;
+            fltGrafic.FilterCommand = new RelayCommand(FiltertGraph);
+        }
+
+        private void FiltertGraph(object o)
+        {
+            if (!_utilitati.Consums.Any()) return;
+            if()
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -40,9 +51,13 @@ namespace HomeHelperPhone.Views
                 _utilitati = new Utilitati();
             }
             DataContext = _utilitati;
-
-
+            //var prevDat = fltGrafic.FromDate;
+            //fltGrafic.FromDate = prevDat;
+            //var prevTo = fltGrafic.ToDate;
+            //var prevCmd = fltGrafic.FilterCommand;
+            //fltGrafic.FilterCommand = prevCmd;
         }
+
 
 
         private void AddConsumptionButton(object sender, EventArgs e)
