@@ -112,6 +112,41 @@ namespace HomeHelperPhone.ViewModels
         public void RefreshUtilitati()
         {
             ListaUtilitati = _repositoryUtilitati.GetAll();
+            //here check the reminders;
+            foreach (var alertaUtilitate in _repositoryAlerte.GetAll())
+            {
+                if (DateTime.Now > alertaUtilitate.DataAlerta)
+                {
+
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Anual)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddYears(1);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Lunar)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddMonths(1);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Saptamanal)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddDays(7);
+                    }
+                    if (alertaUtilitate.FrecventaAlerta == (int)RepetareAlerta.Zilnic)
+                    {
+                        alertaUtilitate.DataAlerta = alertaUtilitate.DataAlerta.AddDays(1);
+                    }
+
+                    if (alertaUtilitate.FrecventaAlerta != (int)RepetareAlerta.FaraRepetare)
+                    {
+                        _repositoryAlerte.CreateOrUpdate(alertaUtilitate);
+                    }
+                    else
+                    {
+                        _repositoryAlerte.Delete(alertaUtilitate);
+                    }
+
+
+                }
+            }
             AlerteUtilitati = _repositoryAlerte.GetAll();
         }
 

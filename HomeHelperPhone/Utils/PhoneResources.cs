@@ -9,8 +9,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Input;
+using HomeHelper.Model;
 using HomeHelper.Model.Abstract;
+using HomeHelper.Repository.Abstract;
+using HomeHelper.Utils;
 using HomeHelperPhone.Resources;
+using Microsoft.Phone.Scheduler;
 using DatePicker = Microsoft.Phone.Controls.DatePicker;
 
 namespace HomeHelperPhone.Utils
@@ -72,4 +76,46 @@ namespace HomeHelperPhone.Utils
      
     }
 
+    public class WindowsPhoneSchedulerAlert:IScheduleRepository
+    {
+        
+ 
+        public void AddAlertToSchedule(AlertaUtilitate t)
+        {
+            if (t.IdAlertaUilitate != 0)
+            {
+                DeleteFromSchedule(t);
+            }
+            var recurence = RecurrenceInterval.None;
+            switch (t.FrecventaAlerta)
+            {
+                case (int)RepetareAlerta.Anual:
+                    recurence=RecurrenceInterval.Yearly;
+                    break;
+                case (int)RepetareAlerta.Lunar:
+                    recurence=RecurrenceInterval.Monthly;
+                    break;
+                case (int)RepetareAlerta.Saptamanal:
+                    recurence=RecurrenceInterval.Weekly;
+                    break;
+                case (int)RepetareAlerta.Zilnic:
+                    recurence=RecurrenceInterval.Daily;
+                    break;
+            }
+            var alarm = new Reminder(t.IdAlertaUilitate.ToString());
+            alarm.Content = string.Format(DbUtils.Loader.GetString("AlertaIndexConsum"), t.NumeUtilitate);
+            alarm.BeginTime = t.DataAlerta;
+            alarm.RecurrenceType = recurence;
+            alarm.NavigationUri = new Uri("/Views/EditViewConsumUtilitate.xaml", UriKind.Relative);
+            
+            ScheduledActionService.Add(alarm);
+        }
+
+        public void DeleteFromSchedule(AlertaUtilitate t)
+        {
+            var found = ScheduledActionService.Find(t.IdAlertaUilitate.ToString());
+            if (found==null) return;
+            ScheduledActionService.Remove(t.IdAlertaUilitate.ToString());
+        }
+    }
 }

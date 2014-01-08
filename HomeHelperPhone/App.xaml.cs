@@ -4,6 +4,7 @@ using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
+using HomeHelper.Repository.Concret;
 using HomeHelper.Utils;
 using HomeHelperPhone.Utils;
 using Microsoft.Phone.Controls;
@@ -58,6 +59,7 @@ namespace HomeHelperPhone
             }
             DbUtils.InitializeDb();
             DbUtils.Loader = new PhoneResources();
+            AlertaUtilitateRepository.ScheduleRepository=new WindowsPhoneSchedulerAlert();
 
         }
 

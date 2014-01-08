@@ -35,7 +35,7 @@ namespace HomeHelperPhone.Views
         private void FiltertGraph(object o)
         {
             if (!_utilitati.Consums.Any()) return;
-            if()
+            
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
