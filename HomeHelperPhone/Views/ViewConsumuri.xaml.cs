@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Data;
 using System.Windows.Navigation;
 using HomeHelper.Common;
@@ -35,7 +36,23 @@ namespace HomeHelperPhone.Views
         private void FiltertGraph(object o)
         {
             if (!_utilitati.Consums.Any()) return;
-            
+            if (
+                  _utilitati.Consums.All(
+                      a =>
+                      !(fltGrafic.FromDate.Date <= a.DataConsum.Date &&
+                        a.DataConsum.Date <= fltGrafic.ToDate.Date)))
+            {
+                return;
+            }
+            var l = _utilitati.Consums.Where(
+                    a => fltGrafic.FromDate.Date <= a.DataConsum.Date && a.DataConsum.Date <= fltGrafic.ToDate.Date)
+                          .ToList();
+            chrt.Series.Clear();
+            var serie = new LineSeries();
+            serie.ItemsSource = l;
+            serie.DependentValuePath = "Consum";
+            serie.IndependentValuePath = "DataConsumGrafic";
+            chrt.Series.Add(serie);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

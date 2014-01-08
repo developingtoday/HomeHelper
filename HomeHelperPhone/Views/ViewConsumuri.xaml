@@ -265,6 +265,8 @@
                         <Setter Property="Margin" Value="15,0,15,0"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="BorderBrush" Value="#FFDBDBDB"/>
+
+                        <Setter Property="Width" Value="0"></Setter>
                         <Setter Property="Background">
                             <Setter.Value>
                                 <LinearGradientBrush EndPoint="0.442,0.005" StartPoint="0.558,0.995">
@@ -377,12 +379,8 @@
                            <RowDefinition Height="*"></RowDefinition>
                        </Grid.RowDefinitions>
                         <homeHelperPhone:FilterDataGrafic Grid.Row="0" Name="fltGrafic"> </homeHelperPhone:FilterDataGrafic>
-                            <chartingToolkit:Chart Style="{StaticResource ChartStyleConsumUtilitate}" Grid.Row="1">
-                        <chartingToolkit:LineSeries
-                			ItemsSource="{Binding ListaConsumuri, Mode=TwoWay}"
-                			DependentValuePath="Consum" IndependentValuePath="DataConsumGrafic"
-                            />
-                    </chartingToolkit:Chart>
+                            <chartingToolkit:Chart Style="{StaticResource ChartStyleConsumUtilitate}" Grid.Row="1" Name="chrt"></chartingToolkit:Chart>
+                     
                     </Grid>
                 </phone:PivotItem>
             </phone:Pivot>
