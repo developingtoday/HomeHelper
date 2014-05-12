@@ -171,6 +171,9 @@
     <Compile Include="Views\ViewConsumuri.xaml.cs">
       <DependentUpon>ViewConsumuri.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ViewPhoto.xaml.cs">
+      <DependentUpon>ViewPhoto.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -198,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewConsumuri.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewPhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
