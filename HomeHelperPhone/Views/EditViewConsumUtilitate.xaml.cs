@@ -16,6 +16,7 @@ using HomeHelperPhone.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
+using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace HomeHelperPhone.Views
 {
@@ -53,6 +54,7 @@ namespace HomeHelperPhone.Views
 
         public void LoadImage()
         {
+            if (string.IsNullOrEmpty(ViewModelConsum.ObiectInBinding.ImagePath)) return;
             ImagePath = new Uri(ViewModelConsum.ObiectInBinding.ImagePath,UriKind.Absolute);
             img.Source = new BitmapImage(ImagePath) { DecodePixelWidth = 150, DecodePixelHeight = 150 };
         }
@@ -82,18 +84,17 @@ namespace HomeHelperPhone.Views
             var prevSel = lstUtils.SelectedItem as Utilitati;
             var prev = ViewModelBase.ObiectInBinding.IndexUtilitate;
             base.OnNavigatedTo(e);
-            // lstUtils.SelectedItem = _repository.GetById(ViewModelBase.ObiectInBinding.IdUtilitate);
-            //dtpIndex.Value = data;
-            //ViewModelBase.ObiectInBinding.IndexUtilitate = prev;
-            //lstUtils.SelectedItem = prevSel;
-            //ViewModelBase.ObiectInBinding.IdUtilitate = prevSel.IdUtilitati;
-            //txtIndexUtil.Text = prev.ToString();
         }
 
 
         private void CaptureClick(object sender, RoutedEventArgs e)
         {
             _task.Show();
+        }
+
+        private void Img_OnTap(object sender, GestureEventArgs e)
+        {
+            NavigationService.Navigate("/Views/ViewPhoto.xaml", ImagePath);
         }
     }
 

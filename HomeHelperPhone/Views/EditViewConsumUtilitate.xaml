@@ -62,7 +62,7 @@
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel Height="150" Width="150" Margin="20" Background="AliceBlue">
-                <Image Name="img" Source="{Binding Path=ImagePath, Mode=TwoWay}" Width="150" Height="150" Stretch="UniformToFill" >
+                <Image Name="img" Source="{Binding Path=ImagePath, Mode=TwoWay}" Width="150" Height="150" Stretch="UniformToFill" Tap="Img_OnTap" >
                 </Image>
             </StackPanel>
         </Grid>
