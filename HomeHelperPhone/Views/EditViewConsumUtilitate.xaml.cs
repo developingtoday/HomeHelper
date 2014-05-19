@@ -12,6 +12,7 @@ using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
 using HomeHelper.ViewModel;
+using HomeHelperPhone.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
@@ -30,9 +31,10 @@ namespace HomeHelperPhone.Views
             InitializeComponent();
             _task = new CameraCaptureTask();
             _task.Completed += CameraCaptureTaskCompleted;
+            Loaded += (s, e) => LoadImage();
             if (ViewModelConsum.ObiectInBinding != null && ViewModelConsum.ObiectInBinding.IdConsumUtilitate != 0)
             {
-               ImagePath=new Uri(ViewModelConsum.ObiectInBinding.ImagePath);
+               LoadImage();
             }
         }
 
@@ -41,13 +43,18 @@ namespace HomeHelperPhone.Views
             get { return DataContext as ConsumUtilitateInputViewModel; }
         }
 
-        void CameraCaptureTaskCompleted(object sender, PhotoResult e)
+        async void CameraCaptureTaskCompleted(object sender, PhotoResult e)
         {
             if (e.TaskResult != TaskResult.OK) return;
-            (DataContext as ConsumUtilitateInputViewModel).ObiectInBinding.ImagePath = e.OriginalFileName;
-            
-            ImagePath=new Uri(ViewModelConsum.ObiectInBinding.ImagePath);
-            img.Source=new BitmapImage(ImagePath);
+            var fileName = await IoUtils.SaveImage(e);
+            (DataContext as ConsumUtilitateInputViewModel).ObiectInBinding.ImagePath = fileName;
+            LoadImage();
+        }
+
+        public void LoadImage()
+        {
+            ImagePath = new Uri(ViewModelConsum.ObiectInBinding.ImagePath,UriKind.Absolute);
+            img.Source = new BitmapImage(ImagePath) { DecodePixelWidth = 150, DecodePixelHeight = 150 };
         }
 
         public Uri ImagePath { get; set; }
@@ -75,7 +82,7 @@ namespace HomeHelperPhone.Views
             var prevSel = lstUtils.SelectedItem as Utilitati;
             var prev = ViewModelBase.ObiectInBinding.IndexUtilitate;
             base.OnNavigatedTo(e);
-           // lstUtils.SelectedItem = _repository.GetById(ViewModelBase.ObiectInBinding.IdUtilitate);
+            // lstUtils.SelectedItem = _repository.GetById(ViewModelBase.ObiectInBinding.IdUtilitate);
             //dtpIndex.Value = data;
             //ViewModelBase.ObiectInBinding.IndexUtilitate = prev;
             //lstUtils.SelectedItem = prevSel;

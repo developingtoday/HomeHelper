@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="Utils\IoUtils.cs" />
     <Compile Include="Utils\PhoneResources.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\EditViewAlertaUtilitate.xaml.cs">
