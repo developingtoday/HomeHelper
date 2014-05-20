@@ -54,7 +54,11 @@ namespace HomeHelperPhone.Views
 
         public void LoadImage()
         {
-            if (string.IsNullOrEmpty(ViewModelConsum.ObiectInBinding.ImagePath)) return;
+            if (string.IsNullOrEmpty(ViewModelConsum.ObiectInBinding.ImagePath))
+            {
+                img.Source = new BitmapImage();
+                return;
+            }
             ImagePath = new Uri(ViewModelConsum.ObiectInBinding.ImagePath,UriKind.Absolute);
             img.Source = new BitmapImage(ImagePath) { DecodePixelWidth = 150, DecodePixelHeight = 150 };
         }
@@ -84,6 +88,7 @@ namespace HomeHelperPhone.Views
             var prevSel = lstUtils.SelectedItem as Utilitati;
             var prev = ViewModelBase.ObiectInBinding.IndexUtilitate;
             base.OnNavigatedTo(e);
+            LoadImage();
         }
 
 
@@ -94,7 +99,7 @@ namespace HomeHelperPhone.Views
 
         private void Img_OnTap(object sender, GestureEventArgs e)
         {
-            NavigationService.Navigate("/Views/ViewPhoto.xaml", ImagePath);
+            NavigationService.Navigate("/Views/ViewPhoto.xaml", ViewModelConsum.ObiectInBinding);
         }
     }
 

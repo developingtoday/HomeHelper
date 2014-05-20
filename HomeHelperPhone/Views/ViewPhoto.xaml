@@ -27,5 +27,11 @@
             <Image x:Name="img" Stretch="Fill"></Image>
         </Grid>
     </Grid>
+<phone:PhoneApplicationPage.ApplicationBar>
+<shell:ApplicationBar IsVisible="True" >
+    <shell:ApplicationBarIconButton IconUri="/Toolkit.Content/ApplicationBar.Delete.png" Text="Delete" Click="DeleteImageClick">
+    </shell:ApplicationBarIconButton>
+</shell:ApplicationBar>    
+</phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
