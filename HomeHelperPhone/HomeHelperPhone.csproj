@@ -76,7 +76,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\ARM\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;USE_WP8_NATIVE_SQLITE;WP8</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -156,6 +156,7 @@
     </Compile>
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="Utils\IoUtils.cs" />
     <Compile Include="Utils\PhoneResources.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\EditViewAlertaUtilitate.xaml.cs">
@@ -170,6 +171,9 @@
     <Compile Include="Views\PhoneViewBaseForViewModel.cs" />
     <Compile Include="Views\ViewConsumuri.xaml.cs">
       <DependentUpon>ViewConsumuri.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewPhoto.xaml.cs">
+      <DependentUpon>ViewPhoto.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ViewConsumuri.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewPhoto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

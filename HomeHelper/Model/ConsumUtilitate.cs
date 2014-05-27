@@ -26,6 +26,10 @@ namespace HomeHelper.Model
         public double IndexUtilitate { get; set; }
 
         public double Consum { get; set; }
+
+#if WP8
+        public string ImagePath { get; set; }  
+#endif 
         public string DataConsumGrafic
         {
             get { return DataConsum.ToString("d"); }

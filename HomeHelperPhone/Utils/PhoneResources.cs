@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using HomeHelper.Model;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
@@ -71,6 +72,21 @@ namespace HomeHelperPhone.Utils
         public static ObservableCollection<ISeries> GetMultiSeries(DependencyObject d)
         {
             return (ObservableCollection<ISeries>) d.GetValue(MultiSeriesProperty);
+        }
+
+        private static object _navigationData = null;
+
+        public static void Navigate(this NavigationService service, string page, object data)
+        {
+            _navigationData = data;
+            service.Navigate(new Uri(page, UriKind.Relative));
+        }
+
+        public static object GetLastNavigationData(this NavigationService service)
+        {
+            object data = _navigationData;
+            _navigationData = null;
+            return data;
         }
 
      
