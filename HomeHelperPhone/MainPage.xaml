@@ -364,7 +364,17 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:Pivot x:Name="pvt">
                 <phone:PivotItem x:Name="pvtItmUtilitati" Header="{Binding LocalizedResources.lblUtitlitatiText, Source={StaticResource LocalizedStrings}}">
-                    <phone:LongListSelector x:Name="lstUtilitati" ItemsSource="{Binding ListaUtilitati, Mode=TwoWay}" Tap="LstUtilitati_OnTap" SelectedItem="{Binding SelectedUtilitate, Mode=TwoWay}"  LayoutMode="List">
+                    
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
+                        Source={StaticResource LocalizedStrings}}"
+                               Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}" >
+                        </TextBlock>
+                        
+                        <phone:LongListSelector x:Name="lstUtilitati" ItemsSource="{Binding ListaUtilitati, Mode=TwoWay}" 
+                                            Tap="LstUtilitati_OnTap" 
+                                            SelectedItem="{Binding SelectedUtilitate, Mode=TwoWay}"  
+                                            LayoutMode="List" Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -401,8 +411,8 @@
                                 </StackPanel>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
-
                     </phone:LongListSelector>
+                    </StackPanel>
                 </phone:PivotItem>
                 <phone:PivotItem x:Name="pvtItmConsum" Header="{Binding LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
                     <Grid>
@@ -415,17 +425,30 @@
                             FromDateBinding="{Binding Path=From, Mode=TwoWay}"
                             ToDateBinding="{Binding Path=To, Mode=TwoWay}"
                             FilterCommandBinding="{Binding Path=FilterCommand}"
+                            
                             >
                         </homeHelperPhone:FilterDataGrafic>
 
-                        <chartingToolkit:Chart Grid.Row="1" utils:Extension.MultiSeries="{Binding Grafice}" Background="Black" Style="{StaticResource ChartStylePivot}"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
+                        Source={StaticResource LocalizedStrings}}"
+                               Visibility="{Binding Grafice.Count, Converter={StaticResource ItemCountToEmptyShow}}" Grid.Row="1"></TextBlock>
+                        <chartingToolkit:Chart Grid.Row="1" utils:Extension.MultiSeries="{Binding Grafice}" Background="Black" Style="{StaticResource ChartStylePivot}"
+                                               Visibility="{Binding Grafice.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                               />
 
 
 
                     </Grid>
                 </phone:PivotItem>
                 <phone:PivotItem x:Name="pvtItmAlerte" Header="{Binding LocalizedResources.lblAlerteText, Source={StaticResource LocalizedStrings}}">
-                    <phone:LongListSelector x:Name="lstAerte" ItemsSource="{Binding AlerteUtilitati, Mode=TwoWay}" Tap="LstAerte_OnTap">
+                    <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
+                        Source={StaticResource LocalizedStrings}}"
+                               Visibility="{Binding AlerteUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}" ></TextBlock>
+                    
+                    <phone:LongListSelector x:Name="lstAerte" ItemsSource="{Binding AlerteUtilitati, Mode=TwoWay}" Tap="LstAerte_OnTap"
+                                            Visibility="{Binding AlerteUtilitati.Count,Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                            >
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical">
@@ -437,7 +460,7 @@
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
-
+                    </StackPanel>
                 </phone:PivotItem>
             </phone:Pivot>
         </Grid>
