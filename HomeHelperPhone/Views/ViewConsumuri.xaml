@@ -360,7 +360,15 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:Pivot>
                 <phone:PivotItem  Header="{Binding LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
-                    <phone:LongListSelector ItemsSource="{Binding ListaConsumuri}" Tap="UIElement_OnTap" >
+                    <StackPanel>
+                        <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
+                        Source={StaticResource LocalizedStrings}}"
+                                   Visibility="{Binding ListaConsumuri.Count,Converter={StaticResource ItemCountToEmptyShow}}"
+                                   ></TextBlock>  
+                    <phone:LongListSelector ItemsSource="{Binding ListaConsumuri}"
+                                            Tap="UIElement_OnTap"
+                                            Visibility="{Binding ListaConsumuri.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                            >
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Height="40">
@@ -371,15 +379,19 @@
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
+                    </StackPanel>
                 </phone:PivotItem>
+                
                 <phone:PivotItem  Header="Evolutie Consum">
                    <Grid>
                        <Grid.RowDefinitions>
                            <RowDefinition Height="Auto"></RowDefinition>
                            <RowDefinition Height="*"></RowDefinition>
-                       </Grid.RowDefinitions>
-                        <homeHelperPhone:FilterDataGrafic Grid.Row="0" Name="fltGrafic"> </homeHelperPhone:FilterDataGrafic>
-                            <chartingToolkit:Chart Style="{StaticResource ChartStyleConsumUtilitate}" Grid.Row="1" Name="chrt"></chartingToolkit:Chart>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
+                        Source={StaticResource LocalizedStrings}}" Visibility="Visible" Name="txtEmpty" Grid.Row="1"></TextBlock>
+                        <homeHelperPhone:FilterDataGrafic Grid.Row="0" Name="fltGrafic" > </homeHelperPhone:FilterDataGrafic>
+                        <chartingToolkit:Chart Style="{StaticResource ChartStyleConsumUtilitate}" Visibility="Collapsed" Grid.Row="1" Name="chrt"></chartingToolkit:Chart>
                      
                     </Grid>
                 </phone:PivotItem>
