@@ -56,10 +56,12 @@ namespace HomeHelperPhone.Views
         {
             if (string.IsNullOrEmpty(ViewModelConsum.ObiectInBinding.ImagePath))
             {
-                img.Source = new BitmapImage();
-                return;
+               ImagePath = new Uri("/Assets/no_photo.png",UriKind.Relative);
             }
-            ImagePath = new Uri(ViewModelConsum.ObiectInBinding.ImagePath,UriKind.Absolute);
+            else
+            {
+                ImagePath = new Uri(ViewModelConsum.ObiectInBinding.ImagePath, UriKind.Absolute);
+            }
             img.Source = new BitmapImage(ImagePath) { DecodePixelWidth = 150, DecodePixelHeight = 150 };
         }
 
