@@ -81,6 +81,10 @@ namespace HomeHelperPhone.Utils
         {
             using (var isolatedStorage=IsolatedStorageFile.GetUserStoreForApplication())
             {
+                if (!isolatedStorage.DirectoryExists("Photos"))
+                {
+                    isolatedStorage.CreateDirectory("Photos");
+                }
                 return isolatedStorage.GetFileNames(@"Photos\*");
             }
         }
