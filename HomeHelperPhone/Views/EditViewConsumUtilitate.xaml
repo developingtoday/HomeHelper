@@ -48,17 +48,21 @@
             IsEnabled="True"></toolkit:ListPicker>
             <toolkit:DatePicker Grid.Row="1" Grid.Column="1" Value="{Binding Path=ObiectInBinding.DataConsum, Mode=TwoWay }" Name="dtpIndex"  ></toolkit:DatePicker>
             <TextBox InputScope="Number" Name="txtIndexUtil"  Grid.Row="2" Grid.Column="1" Text="{Binding Path=ObiectInBinding.IndexUtilitate, Mode=TwoWay}"></TextBox>
-            <Button Grid.Row="3" Click="CaptureClick">
+            <Button Width="100" Height="100" Grid.Row="3" Click="CaptureClick">
                 <Image
                     Stretch="None"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Source="/Assets/feature.camera.png"
-                    >
-                    
+                    >   
                 </Image>
-                
             </Button>
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Height="150" Width="150" Margin="20" Background="Transparent">
+                <Image Name="img" Source="{Binding Path=ImagePath, Mode=TwoWay}" Width="150" Height="150" Stretch="UniformToFill" Tap="Img_OnTap" >
+                </Image>
+            </StackPanel>
+            
             <ListBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Erori}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -71,10 +75,7 @@
            
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel Height="150" Width="150" Margin="20" Background="AliceBlue">
-                <Image Name="img" Source="{Binding Path=ImagePath, Mode=TwoWay}" Width="150" Height="150" Stretch="UniformToFill" Tap="Img_OnTap" >
-                </Image>
-            </StackPanel>
+            
         </Grid>
     </Grid>
 
