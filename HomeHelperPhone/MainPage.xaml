@@ -381,7 +381,6 @@
                                     <toolkit:ContextMenuService.ContextMenu>
                                         <toolkit:ContextMenu IsZoomEnabled="False">
                                             <toolkit:MenuItem Header="Edit" Click="EditItemClick" />
-                                            <toolkit:MenuItem Header="Delete"/>
                                         </toolkit:ContextMenu>
                                     </toolkit:ContextMenuService.ContextMenu>
                                     <TextBlock Text="{Binding DenumireUtilitate}" FontSize="40"/>

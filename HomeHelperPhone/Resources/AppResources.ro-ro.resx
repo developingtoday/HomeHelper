@@ -223,7 +223,7 @@
     <value>Zilnic</value>
   </data>
   <data name="cntDeleteMbox" xml:space="preserve">
-    <value>Acest obiect are referinte inregistrate. Doriti sa stergeti?</value>
+    <value>Doriti sa stergeti?</value>
   </data>
   <data name="cntDeleteTitle" xml:space="preserve">
     <value>Stergere</value>

@@ -223,7 +223,7 @@
     <value>Daily</value>
   </data>
   <data name="cntDeleteMbox" xml:space="preserve">
-    <value>This object has references.Do you want to delete?</value>
+    <value>Do you want to delete?</value>
   </data>
   <data name="cntDeleteTitle" xml:space="preserve">
     <value>Delete</value>
