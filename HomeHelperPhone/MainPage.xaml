@@ -379,9 +379,9 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <toolkit:ContextMenuService.ContextMenu>
-                                        <toolkit:ContextMenu IsZoomEnabled="False">
-                                            <toolkit:MenuItem Header="Edit" Click="EditItemClick" />
-                                                <toolkit:MenuItem Header="{Binding LocalizedResources.cntDeleteTitle}"  Click="DeleteUtilitateItemOnClick"></toolkit:MenuItem>
+                                        <toolkit:ContextMenu IsZoomEnabled="False" >
+                                                <toolkit:MenuItem Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.mnuEdit}" Click="EditItemClick" />
+                                                <toolkit:MenuItem Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.mnuDelete}"  Click="DeleteUtilitateItemOnClick"></toolkit:MenuItem>
                                         </toolkit:ContextMenu>
                                     </toolkit:ContextMenuService.ContextMenu>
                                     <TextBlock Text="{Binding DenumireUtilitate}" FontSize="40"/>

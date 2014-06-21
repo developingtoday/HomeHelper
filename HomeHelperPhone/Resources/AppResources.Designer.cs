@@ -448,6 +448,24 @@ namespace HomeHelperPhone.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string mnuDelete {
+            get {
+                return ResourceManager.GetString("mnuDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string mnuEdit {
+            get {
+                return ResourceManager.GetString("mnuEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The are no records added.
         /// </summary>
         public static string NuSuntInregistrariAdaugate {
