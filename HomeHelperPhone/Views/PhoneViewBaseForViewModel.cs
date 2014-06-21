@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows;
 using System.Windows.Navigation;
 using HomeHelper.Common;
 using HomeHelper.Model.Abstract;
@@ -57,6 +58,8 @@ namespace HomeHelperPhone.Views
 
         private void BtnDeleteClick(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Do you want to delete this?", "Delete", MessageBoxButton.OKCancel) !=
+                MessageBoxResult.OK) return;
             _viewModelBase.DeleteCommand.Execute(_viewModelBase.ObiectInBinding);
             NavigationService.GoBack();
         }
