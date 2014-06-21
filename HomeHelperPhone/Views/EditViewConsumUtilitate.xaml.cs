@@ -56,10 +56,15 @@ namespace HomeHelperPhone.Views
         {
             if (string.IsNullOrEmpty(ViewModelConsum.ObiectInBinding.ImagePath))
             {
-                img.Source = new BitmapImage();
-                return;
+                rtEmpty.Visibility = Visibility.Visible;
+                img.Visibility = Visibility.Collapsed;
             }
-            ImagePath = new Uri(ViewModelConsum.ObiectInBinding.ImagePath,UriKind.Absolute);
+            else
+            {
+                img.Visibility = Visibility.Visible;
+                rtEmpty.Visibility = Visibility.Collapsed;
+                ImagePath = new Uri(ViewModelConsum.ObiectInBinding.ImagePath, UriKind.Absolute);
+            }
             img.Source = new BitmapImage(ImagePath) { DecodePixelWidth = 150, DecodePixelHeight = 150 };
         }
 

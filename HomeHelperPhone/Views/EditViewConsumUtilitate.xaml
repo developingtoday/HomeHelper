@@ -14,9 +14,65 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
+    <views:EditViewConsumUtilitateGeneric.Resources>
+        <Style x:Key="IconButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="BorderThickness" Value="{StaticResource PhoneBorderThickness}"/>
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilySemiBold}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
+            <Setter Property="Padding" Value="10,3,10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ContentContainer">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneBackgroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneForegroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ContentContainer">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ButtonBackground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="ButtonBackground" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="0" Margin="{StaticResource PhoneTouchTargetOverhang}">
+                                <Grid x:Name="ContentContainer" OpacityMask="{TemplateBinding Content}" Background="{TemplateBinding Foreground}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </views:EditViewConsumUtilitateGeneric.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
+
     <Grid x:Name="LayoutRoot" Background="Transparent">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -48,7 +104,24 @@
             IsEnabled="True"></toolkit:ListPicker>
             <toolkit:DatePicker Grid.Row="1" Grid.Column="1" Value="{Binding Path=ObiectInBinding.DataConsum, Mode=TwoWay }" Name="dtpIndex"  ></toolkit:DatePicker>
             <TextBox InputScope="Number" Name="txtIndexUtil"  Grid.Row="2" Grid.Column="1" Text="{Binding Path=ObiectInBinding.IndexUtilitate, Mode=TwoWay}"></TextBox>
-            <Button Content="Capture" Grid.Row="3" Click="CaptureClick"></Button>
+            <Button  Width="100" Height="100" Grid.Row="3" Click="CaptureClick" Style="{StaticResource IconButton}">
+                    <ImageBrush
+                    Stretch="None"
+                    ImageSource="/Assets/feature.camera.png"
+                    >
+                    </ImageBrush>
+            </Button>
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Height="150" Width="150" Margin="20" Background="Transparent">
+                <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="150" Height="150" Stretch="UniformToFill" Name="rtEmpty" Visibility="Visible" >
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="/Assets/no_photo.png"></ImageBrush>
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+                <Image Name="img" Source="{Binding Path=ImagePath, Mode=TwoWay}" Width="150" Height="150" Stretch="UniformToFill" Visibility="Collapsed" Tap="Img_OnTap" >
+                </Image>
+            </StackPanel>
+            
             <ListBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Erori}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -61,10 +134,7 @@
            
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel Height="150" Width="150" Margin="20" Background="AliceBlue">
-                <Image Name="img" Source="{Binding Path=ImagePath, Mode=TwoWay}" Width="150" Height="150" Stretch="UniformToFill" Tap="Img_OnTap" >
-                </Image>
-            </StackPanel>
+            
         </Grid>
     </Grid>
 

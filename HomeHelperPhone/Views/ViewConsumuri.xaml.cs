@@ -35,13 +35,20 @@ namespace HomeHelperPhone.Views
 
         private void FiltertGraph(object o)
         {
-            if (!_utilitati.Consums.Any()) return;
+            if (!_utilitati.Consums.Any())
+            {
+                txtEmpty.Visibility = Visibility.Visible; 
+                chrt.Visibility = Visibility.Collapsed;
+                return;
+            }
             if (
                   _utilitati.Consums.All(
                       a =>
                       !(fltGrafic.FromDate.Date <= a.DataConsum.Date &&
                         a.DataConsum.Date <= fltGrafic.ToDate.Date)))
             {
+                txtEmpty.Visibility = Visibility.Visible; 
+                chrt.Visibility = Visibility.Collapsed;
                 return;
             }
             var l = _utilitati.Consums.Where(
@@ -53,6 +60,8 @@ namespace HomeHelperPhone.Views
             serie.DependentValuePath = "Consum";
             serie.IndependentValuePath = "DataConsumGrafic";
             chrt.Series.Add(serie);
+            txtEmpty.Visibility = Visibility.Collapsed; 
+            chrt.Visibility = Visibility.Visible;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

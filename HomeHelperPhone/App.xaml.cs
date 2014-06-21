@@ -35,6 +35,8 @@ namespace HomeHelperPhone
             // Phone-specific initialization
             InitializePhoneApplication();
 
+            ThemeManager.ToDarkTheme();
+
             // Language display initialization
             InitializeLanguage();
 
