@@ -97,6 +97,19 @@ namespace HomeHelperPhone
         }
 
 
-      
+        private void DeleteUtilitateItemOnClick(object sender, RoutedEventArgs e)
+        {
+            var item = lstUtilitati.SelectedItem as Utilitati;
+            if (item == null) return;
+            if (e == null) return;
+            if (MessageBox.Show(AppResources.ResourceManager.GetString("cntDeleteMbox"), AppResources.ResourceManager.GetString("cntDeleteTitle"), MessageBoxButton.OKCancel) !=
+              MessageBoxResult.OK) return;
+            var rep = new UtilitatiRepository();
+            rep.Delete(item);
+            (DataContext as MainViewModel).RefreshUtilitati();
+
+        }
+
+        
     }
 }

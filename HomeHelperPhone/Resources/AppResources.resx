@@ -223,7 +223,7 @@
     <value>Daily</value>
   </data>
   <data name="cntDeleteMbox" xml:space="preserve">
-    <value>This object has references.Do you want to delete?</value>
+    <value>Do you want to delete?</value>
   </data>
   <data name="cntDeleteTitle" xml:space="preserve">
     <value>Delete</value>
@@ -260,5 +260,11 @@
   </data>
   <data name="ResourceLanguage" xml:space="preserve">
     <value>en-US</value>
+  </data>
+  <data name="mnuDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="mnuEdit" xml:space="preserve">
+    <value>Edit</value>
   </data>
 </root>
