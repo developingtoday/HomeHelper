@@ -382,7 +382,7 @@
                     </StackPanel>
                 </phone:PivotItem>
                 
-                <phone:PivotItem  Header="Evolutie Consum">
+                <phone:PivotItem  Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.viewConsumuriTitlu}">
                    <Grid>
                        <Grid.RowDefinitions>
                            <RowDefinition Height="Auto"></RowDefinition>

@@ -270,4 +270,7 @@
   <data name="chrShowFilter" xml:space="preserve">
     <value>Filter</value>
   </data>
+  <data name="viewConsumuriTitlu" xml:space="preserve">
+    <value>Evolution</value>
+  </data>
 </root>
