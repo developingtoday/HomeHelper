@@ -128,7 +128,7 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
-        <toolkit:ExpanderView Header="Fara numar" Style="{StaticResource ExpanderViewStyle1}">
+        <toolkit:ExpanderView Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.chrShowFilter}" Style="{StaticResource ExpanderViewStyle1}">
             <StackPanel Orientation="Horizontal">
                 <toolkit:DatePicker Name="dtpFrom"/>
                 <toolkit:DatePicker  Name="dtpTo"/>

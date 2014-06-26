@@ -267,4 +267,7 @@
   <data name="mnuEdit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="chrShowFilter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
 </root>

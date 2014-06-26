@@ -79,6 +79,15 @@ namespace HomeHelperPhone.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string chrShowFilter {
+            get {
+                return ResourceManager.GetString("chrShowFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete?.
         /// </summary>
         public static string cntDeleteMbox {
