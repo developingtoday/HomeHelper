@@ -60,7 +60,7 @@ namespace HomeHelperPhone
             if (name == null) return;
             var cast = name as PivotItem;
             if (cast == null) return;
-            if (cast.Name.Equals("pvtItmAlerte"))
+            if (cast.Name.Equals("pvtItmAlerte") && lstUtilitati.ItemsSource.Count>0)
             {
                 NavigationService.Navigate(new Uri("/Views/EditViewAlertaUtilitate.xaml", UriKind.Relative));
                 return;
