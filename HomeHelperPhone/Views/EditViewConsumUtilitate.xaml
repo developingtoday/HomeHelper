@@ -75,6 +75,7 @@
         
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -121,8 +122,9 @@
                 <Image Name="img" Source="{Binding Path=ImagePath, Mode=TwoWay}" Width="150" Height="150" Stretch="UniformToFill" Visibility="Collapsed" Tap="Img_OnTap" >
                 </Image>
             </StackPanel>
-            
-            <ListBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Erori}">
+        </Grid>
+        <StackPanel Grid.Row="2">
+            <ListBox Padding="10" ItemsSource="{Binding Path=Erori}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -131,8 +133,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-           
-        </Grid>
+        </StackPanel>
         <Grid Grid.Row="1">
             
         </Grid>

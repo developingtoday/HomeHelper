@@ -19,6 +19,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -49,7 +50,9 @@
             <TextBlock Margin="10" Grid.Row="2" Text="{Binding Path=LocalizedResources.lblDataAlertaText, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"></TextBlock>
             <toolkit:DatePicker  Grid.Column="1" Grid.Row="2"  Value="{Binding Path=ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></toolkit:DatePicker>
             <toolkit:TimePicker  Grid.Column="1" Grid.Row="3" Value="{Binding Path=ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" Margin="10" ></toolkit:TimePicker>
-            <ListBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Erori}">
+        </Grid>
+        <StackPanel Grid.Row="2">
+            <ListBox Padding="10" ItemsSource="{Binding Path=Erori}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -58,7 +61,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </Grid>
+        </StackPanel>
     </Grid>
 
 </views:EditViewAlertaUtilitateGeneric>

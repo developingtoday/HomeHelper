@@ -18,6 +18,7 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -47,7 +48,10 @@
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding  Path=ObiectInBinding.UnitateMasura, Mode=TwoWay}" ></TextBox>
             <TextBox Grid.Row="2" Name="txt" Grid.Column="1" InputScope="Number" Text="{Binding Path=ObiectInBinding.IndexInitial, Mode=TwoWay}"></TextBox>
             <t:DatePicker Grid.Row="3" Grid.Column="1" Value="{Binding Path=ObiectInBinding.DataIndexInitial, Mode=TwoWay}" ></t:DatePicker>
-            <ListBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Erori}">
+            
+        </Grid>
+        <StackPanel Grid.Row="2">
+            <ListBox Padding="10" Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Path=Erori}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -56,7 +60,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </Grid>
+        </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"/>
