@@ -21,6 +21,13 @@ namespace HomeHelperPhone.Views
         public EditViewAlertaUtilitate()
         {
             InitializeComponent();
+            Loaded += (s, e) =>
+                          {
+                              if (lstUtils.SelectedItem == null && lstUtils.Items.Any())
+                              {
+                                  lstUtils.SelectedIndex = 0;
+                              }
+                          };
         }
 
         private void LstUtilitati_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

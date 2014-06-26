@@ -25,14 +25,22 @@ namespace HomeHelperPhone.Views
         private readonly IRepository<Utilitati> _repository = FactoryRepository.GetInstanceRepositoryUtilitati();
         private Utilitati utilPicker;
         private readonly CameraCaptureTask _task;
-       
 
+        private Utilitati _prevUtilitate;
         public EditViewConsumUtilitate()
         {
             InitializeComponent();
             _task = new CameraCaptureTask();
             _task.Completed += CameraCaptureTaskCompleted;
-            Loaded += (s, e) => LoadImage();
+            Loaded += (s, e) =>
+                          {
+                              if (ViewModelConsum.ObiectInBinding.IdConsumUtilitate == 0 && lstUtils.SelectedItem==null && lstUtils.Items.Any())
+                              {
+                                  lstUtils.SelectedIndex = 0;
+                                  _prevUtilitate = lstUtils.SelectedItem as Utilitati;
+                              }
+                              LoadImage();
+                          };
             if (ViewModelConsum.ObiectInBinding != null && ViewModelConsum.ObiectInBinding.IdConsumUtilitate != 0)
             {
                LoadImage();
