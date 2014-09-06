@@ -38,19 +38,25 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Margin="10" Text="{Binding Path=LocalizedResources.lblUtitlitatiText,Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"></TextBlock>
-            <toolkit:ListPicker  Margin="10" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=ListaUtilitati}" DisplayMemberPath="DenumireUtilitate" 
+            <StackPanel Grid.Row="0" Orientation="Vertical">
+                <TextBlock Margin="10" Text="{Binding Path=LocalizedResources.lblUtitlitatiText,Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"></TextBlock>
+                <toolkit:ListPicker  Margin="10" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=ListaUtilitati}" DisplayMemberPath="DenumireUtilitate" 
             SelectionChanged="LstUtilitati_OnSelectionChanged" Name="lstUtils" SelectedItem="{Binding Path=UtilitateSelectata, Mode=TwoWay}"
             IsEnabled="True" ></toolkit:ListPicker>
-            <TextBlock Margin="10" Grid.Row="1" Text="{Binding Path=LocalizedResources.lblFrecventaAlertaText, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"/>
-            <toolkit:ListPicker Margin="10" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Path=Frecvente}" SelectionChanged="FrecventeTap" DisplayMemberPath="Value"></toolkit:ListPicker>
-            <TextBlock Margin="10" Grid.Row="2" Text="{Binding Path=LocalizedResources.lblDataAlertaText, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"></TextBlock>
-            <toolkit:DatePicker  Grid.Column="1" Grid.Row="2"  Value="{Binding Path=ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></toolkit:DatePicker>
-            <toolkit:TimePicker  Grid.Column="1" Grid.Row="3" Value="{Binding Path=ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" Margin="10" ></toolkit:TimePicker>
-        </Grid>
+            </StackPanel>
+           
+            <StackPanel Orientation="Vertical" Grid.Row="1">
+                <TextBlock Margin="10"  Text="{Binding Path=LocalizedResources.lblFrecventaAlertaText, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"/>
+                <toolkit:ListPicker Margin="10" ItemsSource="{Binding Path=Frecvente}" SelectionChanged="FrecventeTap" DisplayMemberPath="Value"></toolkit:ListPicker>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="2">
+                <TextBlock Margin="10" Text="{Binding Path=LocalizedResources.lblDataAlertaText, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"></TextBlock>
+                <toolkit:DatePicker   Value="{Binding Path=ObiectInBinding.DataAlerta, Mode=TwoWay}" x:Name="dtpLocal" Margin="10" ></toolkit:DatePicker>
+                <toolkit:TimePicker   Value="{Binding Path=ObiectInBinding.DataAlerta, Mode=TwoWay}" Name="tmLoca" Margin="10" ></toolkit:TimePicker>
+            </StackPanel>            
+            </Grid>
         <StackPanel Grid.Row="2">
             <ListBox Padding="10" ItemsSource="{Binding Path=Erori}">
                 <ListBox.ItemTemplate>
