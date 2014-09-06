@@ -13,7 +13,7 @@
     xmlns:homeHelperPhone="clr-namespace:HomeHelperPhone"
     x:Class="HomeHelperPhone.MainPage"
     mc:Ignorable="d"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="ChartStylePivot" TargetType="chartingToolkit:Chart">
