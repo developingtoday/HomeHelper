@@ -42,14 +42,28 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" Orientation="Vertical">
                 <TextBlock Margin="10" Text="{Binding Path=LocalizedResources.lblUtitlitatiText,Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"></TextBlock>
-                <toolkit:ListPicker  Margin="10" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding Path=ListaUtilitati}" DisplayMemberPath="DenumireUtilitate" 
+                <toolkit:ListPicker  Margin="10"  ItemsSource="{Binding Path=ListaUtilitati}" DisplayMemberPath="DenumireUtilitate" 
             SelectionChanged="LstUtilitati_OnSelectionChanged" Name="lstUtils" SelectedItem="{Binding Path=UtilitateSelectata, Mode=TwoWay}"
-            IsEnabled="True" ></toolkit:ListPicker>
+            IsEnabled="True" >
+                 <toolkit:ListPicker.FullModeItemTemplate>
+                     <DataTemplate>
+                         <TextBlock Text="{Binding DenumireUtilitate}"></TextBlock>
+                     </DataTemplate>
+                 </toolkit:ListPicker.FullModeItemTemplate>   
+                    
+                    
+                </toolkit:ListPicker>
             </StackPanel>
            
             <StackPanel Orientation="Vertical" Grid.Row="1">
                 <TextBlock Margin="10"  Text="{Binding Path=LocalizedResources.lblFrecventaAlertaText, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"/>
-                <toolkit:ListPicker Margin="10" ItemsSource="{Binding Path=Frecvente}" SelectionChanged="FrecventeTap" DisplayMemberPath="Value"></toolkit:ListPicker>
+                <toolkit:ListPicker Margin="10" ItemsSource="{Binding Path=Frecvente}" SelectionChanged="FrecventeTap" DisplayMemberPath="Value" ExpansionMode="ExpansionAllowed">
+                    <toolkit:ListPicker.FullModeItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Value}"></TextBlock>
+                        </DataTemplate>
+                    </toolkit:ListPicker.FullModeItemTemplate>
+                </toolkit:ListPicker>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="2">
                 <TextBlock Margin="10" Text="{Binding Path=LocalizedResources.lblDataAlertaText, Source={StaticResource LocalizedStrings}}" VerticalAlignment="Center"></TextBlock>
