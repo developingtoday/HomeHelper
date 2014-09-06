@@ -360,6 +360,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:Pivot>
                 <phone:PivotItem  Header="{Binding LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
+                   <ScrollViewer VerticalScrollBarVisibility="Auto">    
                     <StackPanel>
                         <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
                         Source={StaticResource LocalizedStrings}}"
@@ -380,6 +381,8 @@
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
                     </StackPanel>
+                    </ScrollViewer>
+
                 </phone:PivotItem>
                 
                 <phone:PivotItem  Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.viewConsumuriTitlu}">

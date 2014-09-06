@@ -365,7 +365,8 @@
             <phone:Pivot x:Name="pvt">
                 <phone:PivotItem x:Name="pvtItmUtilitati" Header="{Binding LocalizedResources.lblUtitlitatiText, Source={StaticResource LocalizedStrings}}">
                     
-                    <StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">                    
+                        <StackPanel>
                         <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
                         Source={StaticResource LocalizedStrings}}"
                                Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyShow}}" >
@@ -373,7 +374,7 @@
                         
                         <phone:LongListSelector x:Name="lstUtilitati" ItemsSource="{Binding ListaUtilitati, Mode=TwoWay}" 
                                             Tap="LstUtilitati_OnTap" 
-                                            SelectedItem="{Binding SelectedUtilitate, Mode=TwoWay}"  
+                                            SelectedItem="{Binding SelectedUtilitate, Mode=TwoWay}" 
                                             LayoutMode="List" Visibility="{Binding ListaUtilitati.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}">
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
@@ -413,6 +414,8 @@
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
                     </StackPanel>
+                    </ScrollViewer>
+
                 </phone:PivotItem>
                 <phone:PivotItem x:Name="pvtItmConsum" Header="{Binding LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
                     <Grid>
@@ -441,6 +444,7 @@
                     </Grid>
                 </phone:PivotItem>
                 <phone:PivotItem x:Name="pvtItmAlerte" Header="{Binding LocalizedResources.lblAlerteText, Source={StaticResource LocalizedStrings}}">
+                   <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel Orientation="Vertical">
                     <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
                         Source={StaticResource LocalizedStrings}}"
@@ -461,6 +465,7 @@
                         </phone:LongListSelector.ItemTemplate>
                     </phone:LongListSelector>
                     </StackPanel>
+                    </ScrollViewer>
                 </phone:PivotItem>
             </phone:Pivot>
         </Grid>
