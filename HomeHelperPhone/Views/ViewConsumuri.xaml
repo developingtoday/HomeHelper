@@ -8,6 +8,7 @@
     xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     xmlns:visualizationToolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit" xmlns:Primitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     xmlns:homeHelperPhone="clr-namespace:HomeHelperPhone"
+    xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives" 
     x:Class="HomeHelperPhone.Views.ViewConsumuri"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
@@ -360,17 +361,24 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:Pivot>
                 <phone:PivotItem  Header="{Binding LocalizedResources.lblConsumText, Source={StaticResource LocalizedStrings}}">
-                   <ScrollViewer VerticalScrollBarVisibility="Auto">    
-                    <StackPanel>
-                        <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
-                        Source={StaticResource LocalizedStrings}}"
-                                   Visibility="{Binding ListaConsumuri.Count,Converter={StaticResource ItemCountToEmptyShow}}"
-                                   ></TextBlock>  
-                    <phone:LongListSelector ItemsSource="{Binding ListaConsumuri}"
+                            <telerikPrimitives:RadDataBoundListBox ItemsSource="{Binding ListaConsumuri}" 
                                             Tap="UIElement_OnTap"
-                                            Visibility="{Binding ListaConsumuri.Count, Converter={StaticResource ItemCountToEmptyVisibilityConverter}}"
+                                         IsPullToRefreshEnabled="False"
+                                         DataVirtualizationMode="None" ListHeaderDisplayMode="WithDataItems"
                                             >
-                        <phone:LongListSelector.ItemTemplate>
+                                
+                                <telerikPrimitives:RadDataBoundListBox.ListHeaderTemplate>
+                                    <DataTemplate>
+                                       <StackPanel Orientation="Horizontal" Height="40">
+                                           <TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.lblDataConsumText}" Width="200"></TextBlock>
+                                    <TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.lblIndexText}" Width="100"></TextBlock>
+                                    <TextBlock Text="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.lblConsumText}"></TextBlock>
+
+                                </StackPanel>
+                                        
+                                    </DataTemplate>
+                                </telerikPrimitives:RadDataBoundListBox.ListHeaderTemplate>
+                                <telerikPrimitives:RadDataBoundListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Height="40">
                                     <TextBlock Text="{Binding DataConsum}" Width="200"/>
@@ -378,11 +386,18 @@
                                     <TextBlock Text="{Binding Consum}"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </phone:LongListSelector.ItemTemplate>
-                    </phone:LongListSelector>
-                    </StackPanel>
-                    </ScrollViewer>
-
+                        </telerikPrimitives:RadDataBoundListBox.ItemTemplate>
+                                
+                                <telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
+                                    <DataTemplate>
+                                    <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
+                        Source={StaticResource LocalizedStrings}}"
+                                  
+                                   ></TextBlock>
+                                    </DataTemplate>
+                                </telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
+                                
+                            </telerikPrimitives:RadDataBoundListBox>  
                 </phone:PivotItem>
                 
                 <phone:PivotItem  Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.viewConsumuriTitlu}">
