@@ -101,6 +101,17 @@ namespace HomeHelperPhone.Views
             var prevSel = lstUtils.SelectedItem as Utilitati;
             var prev = ViewModelBase.ObiectInBinding.IndexUtilitate;
             base.OnNavigatedTo(e);
+            if (NavigationContext.QueryString.ContainsKey("Utilitate"))
+            {
+                var parser = NavigationContext.QueryString["Utilitate"];
+                int parse = 0;
+                if (int.TryParse(parser, out parse))
+                {
+
+                    (ViewModelBase as ConsumUtilitateInputViewModel).UtilitateSelectata = _repository.GetById(parse);
+                }
+                NavigationContext.QueryString.Clear();
+            }
             LoadImage();
         }
 
