@@ -3,8 +3,9 @@
   <DefaultLanguage xmlns="" code="en-US" />
   <Languages xmlns="">
     <Language code="ro-RO" />
+    <Language code="en" />
   </Languages>
-  <App xmlns="" ProductID="{b6ce6166-9e2d-46d1-b766-ff120d149f41}" Title="HomeHelperPhone" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="HomeHelperPhone author" Description="Sample description" Publisher="HomeHelperPhone" PublisherID="{d592fe73-6217-4d6a-a8db-16cbc54dc958}">
+  <App xmlns="" ProductID="{b6ce6166-9e2d-46d1-b766-ff120d149f41}" Title="HomeHelper" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="HomeHelperPhone author" Description="Sample description" Publisher="HomeHelperPhone" PublisherID="{d592fe73-6217-4d6a-a8db-16cbc54dc958}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -23,11 +24,16 @@
           <Count>0</Count>
           <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
           <Title>HomeHelperPhone</Title>
-          <BackContent></BackContent>
-          <BackBackgroundImageURI></BackBackgroundImageURI>
-          <BackTitle></BackTitle>
-          <DeviceLockImageURI></DeviceLockImageURI>
-          <HasLarge></HasLarge>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI>
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
+          <HasLarge>
+          </HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
