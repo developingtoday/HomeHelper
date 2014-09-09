@@ -12,6 +12,10 @@
     xmlns:Primitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit"
     xmlns:homeHelperPhone="clr-namespace:HomeHelperPhone" 
     xmlns:telerikPrimitives="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Primitives" 
+    xmlns:telerikCore="clr-namespace:Telerik;assembly=Telerik.Windows.Core"
+    xmlns:telerikData="clr-namespace:Telerik;assembly=Telerik.Windows.Data"
+    xmlns:telerikControlsData="clr-namespace:Telerik;assembly=Telerik.Windows.Controls.Data"
+    xmlns:telerikDataControls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Data"
     x:Class="HomeHelperPhone.MainPage"
     mc:Ignorable="d"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -365,20 +369,29 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <phone:Pivot x:Name="pvt">
                 <phone:PivotItem x:Name="pvtItmUtilitati" Header="{Binding LocalizedResources.lblUtitlitatiText, Source={StaticResource LocalizedStrings}}">
-  
-                        <telerikPrimitives:RadDataBoundListBox x:Name="lstUtilitati" ItemsSource="{Binding ListaUtilitati, Mode=TwoWay}" 
+
+                    <telerikDataControls:RadJumpList
+                        x:Name="lstUtilitati" ItemsSource="{Binding ListaUtilitati, Mode=TwoWay}" 
                                             Tap="LstUtilitati_OnTap" 
                                             SelectedItem="{Binding SelectedUtilitate, Mode=TwoWay}" 
                                             >
-                            <telerikPrimitives:RadDataBoundListBox.ItemTemplate>
+                    <telerikPrimitives:RadContextMenu.ContextMenu>
+                       <telerikPrimitives:RadContextMenu Opening="OnOpeningContextMenu">
+                                <telerikPrimitives:RadContextMenuItem Content="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.mnuEdit}" Tap="EditItemClick"></telerikPrimitives:RadContextMenuItem>
+                                <telerikPrimitives:RadContextMenuItem Content="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.mnuDelete}" Tap="DeleteUtilitateItemOnClick"></telerikPrimitives:RadContextMenuItem>
+                       </telerikPrimitives:RadContextMenu>
+                        
+                    </telerikPrimitives:RadContextMenu.ContextMenu>
+
+                        <telerikDataControls:RadJumpList.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <toolkit:ContextMenuService.ContextMenu>
+                                    <!--<toolkit:ContextMenuService.ContextMenu>
                                         <toolkit:ContextMenu IsZoomEnabled="False" >
                                                 <toolkit:MenuItem Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.mnuEdit}" Click="EditItemClick" />
                                                 <toolkit:MenuItem Header="{Binding Source={StaticResource LocalizedStrings}, Path=LocalizedResources.mnuDelete}"  Click="DeleteUtilitateItemOnClick"></toolkit:MenuItem>
                                         </toolkit:ContextMenu>
-                                    </toolkit:ContextMenuService.ContextMenu>
+                                    </toolkit:ContextMenuService.ContextMenu>-->
                                     <TextBlock Text="{Binding DenumireUtilitate}" FontSize="40"/>
                                     <StackPanel Orientation="Horizontal" Margin="40 0 0 0">
                                         <TextBlock Text= "{Binding LocalizedResources.ConsumLstUtilitatiText, Source={StaticResource LocalizedStrings}}"  FontSize="28"/>
@@ -405,17 +418,17 @@
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
-                        </telerikPrimitives:RadDataBoundListBox.ItemTemplate>
-                            
-                            <telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
+                        </telerikDataControls:RadJumpList.ItemTemplate>
+
+                        <telerikDataControls:RadJumpList.EmptyContentTemplate>
                                 <DataTemplate>
                                      <TextBlock Text="{Binding Path=LocalizedResources.NuSuntInregistrariAdaugate, 
                         Source={StaticResource LocalizedStrings}}"
                                    />
                                 </DataTemplate>
-                            </telerikPrimitives:RadDataBoundListBox.EmptyContentTemplate>
-                            
-                    </telerikPrimitives:RadDataBoundListBox>
+                            </telerikDataControls:RadJumpList.EmptyContentTemplate>
+
+                        </telerikDataControls:RadJumpList>
                    
                     
 

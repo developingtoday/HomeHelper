@@ -12,6 +12,7 @@ using HomeHelperPhone.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HomeHelperPhone.Resources;
+using Telerik.Windows.Controls;
 using GestureEventArgs = System.Windows.Input.GestureEventArgs;
 
 namespace HomeHelperPhone
@@ -73,7 +74,7 @@ namespace HomeHelperPhone
 
         private void EditItemClick(object sender, RoutedEventArgs e)
         {
-            var item = lstUtilitati.SelectedItem as Utilitati;
+            var item = _utilitateSelectataMenu;
             if (item == null) return;
             if (e == null) return;
             NavigationService.Navigate(new Uri(string.Format("/Views/EditViewUtilitate.xaml?Id={0}",item.IdUtilitati), UriKind.Relative));
@@ -99,7 +100,7 @@ namespace HomeHelperPhone
 
         private void DeleteUtilitateItemOnClick(object sender, RoutedEventArgs e)
         {
-            var item = lstUtilitati.SelectedItem as Utilitati;
+            var item = _utilitateSelectataMenu;
             if (item == null) return;
             if (e == null) return;
             if (MessageBox.Show(AppResources.ResourceManager.GetString("cntDeleteMbox"), AppResources.ResourceManager.GetString("cntDeleteTitle"), MessageBoxButton.OKCancel) !=
@@ -110,6 +111,15 @@ namespace HomeHelperPhone
 
         }
 
-        
+
+        private Utilitati _utilitateSelectataMenu;
+
+        private void OnOpeningContextMenu(object sender, ContextMenuOpeningEventArgs e)
+        {
+            _utilitateSelectataMenu = null;
+            var item = e.FocusedElement as RadDataBoundListBoxItem;
+            if (item == null) return;
+            _utilitateSelectataMenu = item.DataContext as Utilitati;
+        }
     }
 }
