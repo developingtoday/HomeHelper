@@ -34,6 +34,10 @@ namespace HomeHelperPhone.Views
             _task.Completed += CameraCaptureTaskCompleted;
             Loaded += (s, e) =>
                           {
+                              if (ViewModelConsum.ObiectInBinding.IdConsumUtilitate != 0)
+                              {
+                                  lstUtils.IsEnabled = false;
+                              }
                               if (ViewModelConsum.ObiectInBinding.IdConsumUtilitate == 0 && lstUtils.SelectedItem==null && lstUtils.Items.Any())
                               {
                                   lstUtils.SelectedIndex = 0;
