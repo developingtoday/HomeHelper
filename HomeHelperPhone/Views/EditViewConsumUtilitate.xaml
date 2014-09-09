@@ -101,7 +101,13 @@
                 <TextBlock  Margin="10" Text="{Binding Path=LocalizedResources.lblUtitlitatiText,Source={StaticResource LocalizedStrings}}"></TextBlock>
                 <toolkit:ListPicker  ItemsSource="{Binding Path=ListaUtilitati}" DisplayMemberPath="DenumireUtilitate" 
             SelectionChanged="ListPicker_OnSelectionChanged" Name="lstUtils" SelectedItem="{Binding Path=UtilitateSelectata, Mode=TwoWay}"
-            IsEnabled="True"></toolkit:ListPicker>
+            IsEnabled="True">
+                    <toolkit:ListPicker.FullModeItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DenumireUtilitate}"></TextBlock>
+                        </DataTemplate>
+                    </toolkit:ListPicker.FullModeItemTemplate>
+                </toolkit:ListPicker>
             </StackPanel>
             
             <StackPanel Grid.Row="1" Orientation="Vertical">

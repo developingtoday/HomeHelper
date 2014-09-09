@@ -88,6 +88,11 @@ namespace HomeHelperPhone.Views
 
         private void AddConsumptionButton(object sender, EventArgs e)
         {
+            if (_utilitati.IdUtilitati != 0)
+            {
+                NavigationService.Navigate(new Uri(string.Format("/Views/EditViewConsumUtilitate.xaml?Utilitate={0}",_utilitati.IdUtilitati), UriKind.Relative));
+                return;
+            }
             NavigationService.Navigate(new Uri("/Views/EditViewConsumUtilitate.xaml", UriKind.Relative));
         }
 

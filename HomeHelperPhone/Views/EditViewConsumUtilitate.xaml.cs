@@ -34,6 +34,10 @@ namespace HomeHelperPhone.Views
             _task.Completed += CameraCaptureTaskCompleted;
             Loaded += (s, e) =>
                           {
+                              if (ViewModelConsum.ObiectInBinding.IdConsumUtilitate != 0)
+                              {
+                                  lstUtils.IsEnabled = false;
+                              }
                               if (ViewModelConsum.ObiectInBinding.IdConsumUtilitate == 0 && lstUtils.SelectedItem==null && lstUtils.Items.Any())
                               {
                                   lstUtils.SelectedIndex = 0;
@@ -101,6 +105,17 @@ namespace HomeHelperPhone.Views
             var prevSel = lstUtils.SelectedItem as Utilitati;
             var prev = ViewModelBase.ObiectInBinding.IndexUtilitate;
             base.OnNavigatedTo(e);
+            if (NavigationContext.QueryString.ContainsKey("Utilitate"))
+            {
+                var parser = NavigationContext.QueryString["Utilitate"];
+                int parse = 0;
+                if (int.TryParse(parser, out parse))
+                {
+
+                    (ViewModelBase as ConsumUtilitateInputViewModel).UtilitateSelectata = _repository.GetById(parse);
+                }
+                NavigationContext.QueryString.Clear();
+            }
             LoadImage();
         }
 

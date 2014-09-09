@@ -119,7 +119,7 @@ namespace HomeHelperPhone.Utils
                     break;
             }
             var alarm = new Reminder(t.IdAlertaUilitate.ToString());
-            alarm.Content = string.Format(DbUtils.Loader.GetString("AlertaIndexConsum"), t.NumeUtilitate);
+            alarm.Content = string.Format("{0} {1}",DbUtils.Loader.GetString("AlertaIndexConsum"), t.NumeUtilitate);
             alarm.BeginTime = t.DataAlerta;
             alarm.RecurrenceType = recurence;
             alarm.NavigationUri = new Uri("/Views/EditViewConsumUtilitate.xaml", UriKind.Relative);
