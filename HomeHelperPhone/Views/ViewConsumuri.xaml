@@ -381,7 +381,7 @@
                                 <telerikPrimitives:RadDataBoundListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Height="40">
-                                    <TextBlock Text="{Binding DataConsum}" Width="200"/>
+                                    <TextBlock Text="{Binding DataConsum}" Width="200" Margin="0,0,50,0"/>
                                     <TextBlock Text="{Binding IndexUtilitate}" Width="100"/>
                                     <TextBlock Text="{Binding Consum}"/>
                                 </StackPanel>
