@@ -222,10 +222,16 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\BadgeLogo.png" />
     <Content Include="Assets\capture.png" />
     <Content Include="Assets\feature.camera.png" />
     <Content Include="Assets\feature.camera_dark.png" />
+    <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\MediumTileLogo.png" />
     <Content Include="Assets\no_photo.png" />
+    <Content Include="Assets\SmallLogo.png" />
+    <Content Include="Assets\SmallTileLogo.png" />
+    <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -241,6 +247,7 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\WideLog.png" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
