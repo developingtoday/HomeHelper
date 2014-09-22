@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ARM\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WP8</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>ARM</PlatformTarget>
@@ -86,7 +86,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WP8</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -137,9 +137,14 @@
     <Compile Include="Repository\Abstract\IRepository.cs" />
     <Compile Include="Repository\Concret\ConsumUtilitateRepository.cs" />
     <Compile Include="Repository\Concret\FakeUtilitatiRepository.cs" />
+    <Compile Include="Repository\Concret\ScheduleWindows8.cs" />
     <Compile Include="Repository\Concret\UtilitatiRepository.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="SQLite.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SQLiteAsync.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utils\DbUtils.cs" />
     <Compile Include="Utils\FactoryRepository.cs" />
     <Compile Include="Utils\LiveTileCreator.cs" />
@@ -216,6 +221,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

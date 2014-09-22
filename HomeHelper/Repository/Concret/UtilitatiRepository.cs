@@ -13,11 +13,14 @@ namespace HomeHelper.Repository.Concret
 {
     public class UtilitatiRepository:IRepositoryEnhancing<Utilitati>
     {
-        private readonly IEnhancedRepository<AlertaUtilitate> _repositoryAlerte=new AlertaUtilitateRepository(); 
+        
         public UtilitatiRepository()
         {
             
         }
+
+        
+         
         public Tuple<string, bool> CreateOrUpdate(Utilitati t)
         {
             using (var sqlConn=new SQLiteConnection(DbUtils.DbPath))
@@ -55,7 +58,7 @@ namespace HomeHelper.Repository.Concret
                     }
                     foreach (var alerta in sqlConn.Table<AlertaUtilitate>().Where(a=>a.IdUitlitate==id).ToList())
                     {
-                       AlertaUtilitateRepository.DeleteFromSchedule(alerta);
+                        AlertaUtilitateRepository.ScheduleRepository.DeleteFromSchedule(alerta);
                         sqlConn.Delete(alerta);
                     }
                     sqlConn.Delete(t);

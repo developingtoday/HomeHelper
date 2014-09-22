@@ -8,8 +8,6 @@ using HomeHelper.Model;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Utils;
 using SQLite;
-using Windows.ApplicationModel.Resources;
-using Windows.UI.Notifications;
 
 namespace HomeHelper.Repository.Concret
 {
@@ -73,6 +71,9 @@ namespace HomeHelper.Repository.Concret
 
     public class AlertaUtilitateRepository : IEnhancedRepository<AlertaUtilitate>
     {
+
+        public static IScheduleRepository ScheduleRepository { get; set; }
+
         public Tuple<string, bool> CreateOrUpdate(AlertaUtilitate t)
         {
             using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
@@ -85,6 +86,7 @@ namespace HomeHelper.Repository.Concret
                         sqlConn.Insert(t);
                     }
                     else sqlConn.Update(t);
+                    ScheduleRepository.AddAlertToSchedule(t);
                     sqlConn.Commit();
                     return new Tuple<string, bool>(ResurseMesaje.CrudSucces, true);
                 }
@@ -104,7 +106,7 @@ namespace HomeHelper.Repository.Concret
                 {
                     sqlConn.BeginTransaction();
                     sqlConn.Delete(t);
-                    DeleteFromSchedule(t);
+                    ScheduleRepository.DeleteFromSchedule(t);
                     sqlConn.Commit();
                     return new Tuple<string, bool>(ResurseMesaje.CrudSucces, true);
                 }
@@ -116,17 +118,7 @@ namespace HomeHelper.Repository.Concret
             }
         }
 
-        public static void DeleteFromSchedule(AlertaUtilitate t)
-        {
-            var found =
-                ToastNotificationManager.CreateToastNotifier()
-                                        .GetScheduledToastNotifications()
-                                        .FirstOrDefault(x => x.Id == t.IdAlertaUilitate.ToString());
-            if (found != null)
-            {
-                ToastNotificationManager.CreateToastNotifier().RemoveFromSchedule(found);
-            }
-        }
+
 
         public ObservableCollection<AlertaUtilitate> GetAll()
         {
@@ -145,7 +137,7 @@ namespace HomeHelper.Repository.Concret
         {
              using (var sqlConn = new SQLiteConnection(DbUtils.DbPath))
              {
-                 var loader = new ResourceLoader();
+                 var loader = DbUtils.Loader;
                 try
                 {
                     sqlConn.BeginTransaction();
@@ -155,22 +147,7 @@ namespace HomeHelper.Repository.Concret
                     }
                     else sqlConn.Update(t);
                     sqlConn.Commit();
-                    if (t.IdAlertaUilitate != 0)
-                    {
-                        var found =
-                            ToastNotificationManager.CreateToastNotifier()
-                                                    .GetScheduledToastNotifications()
-                                                    .FirstOrDefault(x => x.Id == t.IdAlertaUilitate.ToString());
-                        if (found != null)
-                        {
-                            ToastNotificationManager.CreateToastNotifier().RemoveFromSchedule(found);
-                        }
-                    }
-                    var toast = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
-                    var elements = toast.GetElementsByTagName("text");
-                    elements[0].AppendChild(toast.CreateTextNode(string.Format("{0} {1}", loader.GetString(resource: "AlertaIndexConsum"),t.NumeUtilitate)));
-                    var toastNou = new ScheduledToastNotification(toast,t.DataAlerta) { Id = t.IdAlertaUilitate.ToString() };
-                    ToastNotificationManager.CreateToastNotifier().AddToSchedule(toastNou);
+                    ScheduleRepository.AddAlertToSchedule(t);
                     return new Tuple<string, bool,int>(ResurseMesaje.CrudSucces, true,t.IdAlertaUilitate);
                 }
                 catch (Exception ex)
@@ -180,7 +157,9 @@ namespace HomeHelper.Repository.Concret
                 }
             }
         }
-        }
+
+
+    }
     }
 
    

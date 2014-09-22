@@ -4,18 +4,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HomeHelper.Common;
 using HomeHelper.Model.Abstract;
 using HomeHelper.Utils;
 using SQLite;
-using Windows.ApplicationModel.Resources;
 
 namespace HomeHelper.Model
 {
-    public class Utilitati:BindableBase,IValidation 
+    public class Utilitati:IValidation 
     {
+
        
-        private readonly ResourceLoader loader=new ResourceLoader();
 
         [PrimaryKey,AutoIncrement]
         public int IdUtilitati { get; set; }
@@ -33,11 +31,11 @@ namespace HomeHelper.Model
 
         public string InformatieLunaCurenta
         {
-            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, loader.GetString(resource: "LunaCurenta")); }
+            get { return string.Format("{2}: {0} {1}", ConsumActual, UnitateMasura, DbUtils.Loader.GetString(resource: "LunaCurenta")); }
         }
         public string InformatieLunaAnterioara
         {
-            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, loader.GetString(resource: "LunaAnterioara")); }
+            get { return string.Format("{2}: {0} {1}", ConsumLunaAnterioara, UnitateMasura, DbUtils.Loader.GetString(resource: "LunaAnterioara")); }
         }
 
         
@@ -69,6 +67,10 @@ namespace HomeHelper.Model
                 return list;
             }
         }
+        public IList<ConsumUtilitate> ListaConsumuri
+        {
+            get { return Consums.ToList(); }
+        } 
 
         public Utilitati()
         {
@@ -76,7 +78,7 @@ namespace HomeHelper.Model
         }
 
 
-        public float GetConsumUtilitateLaData(DateTime data)
+        public double GetConsumUtilitateLaData(DateTime data)
         {
             var list = Consums.ToList();
             if (!list.Any()) return 0;
@@ -89,7 +91,7 @@ namespace HomeHelper.Model
         /// Calculeaza consum pe ultima luna. Daca sunt in luna mai o sa am afisat pe luna aprilie
         /// </summary>
         /// <param name="time">Data de referinta</param>
-        public float GetConsumUtilitatePeLunaAnterioara(DateTime time)
+        public double GetConsumUtilitatePeLunaAnterioara(DateTime time)
         {
             var lastDay = new DateTime(time.Year, time.Month, 1).AddDays(-1);
             var firstDay = new DateTime(time.Year, time.Month, 1).AddMonths(-1);
@@ -111,7 +113,7 @@ namespace HomeHelper.Model
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
 
-        public float GetConsumUtilitatePeLunaCurenta(DateTime time)
+        public double GetConsumUtilitatePeLunaCurenta(DateTime time)
         {
             var lastDay = new DateTime(time.Year, time.Month, 1).AddMonths(1).AddDays(-1);
             var firstDay = new DateTime(time.Year, time.Month, 1);
@@ -135,7 +137,7 @@ namespace HomeHelper.Model
             return GetConsumUtilitateIntreDate(lastDay, firstDay);
         }
 
-        private float GetConsumUtilitateIntreDate(DateTime dataI, DateTime dataF)
+        private double GetConsumUtilitateIntreDate(DateTime dataI, DateTime dataF)
         {
             var list = Consums.ToList();
             if (!list.Any()) return 0;
@@ -177,7 +179,7 @@ namespace HomeHelper.Model
             
         }
 
-        private float ConsumUtilitateLaData(IOrderedEnumerable<ConsumUtilitate> source)
+        private double ConsumUtilitateLaData(IOrderedEnumerable<ConsumUtilitate> source)
         {
             if (source.Count() == 1)
             {
@@ -185,8 +187,8 @@ namespace HomeHelper.Model
             }
             var stack = new Stack<ConsumUtilitate>(source);
             var first = stack.Pop().IndexUtilitate;
-            float usedDif = 0;
-            float sum = 0;
+            double usedDif = 0;
+            double sum = 0;
             if (!stack.Any()) return 0;
             while (stack.Any())
             {
@@ -198,15 +200,15 @@ namespace HomeHelper.Model
             return sum;
         }
 
-        public float ConsumActual
+        public double ConsumActual
         {
             get { return GetConsumUtilitatePeLunaCurenta(DateTime.Now); }
         }
-        public float ConsumLunaAnterioara
+        public double ConsumLunaAnterioara
         {
             get { return GetConsumUtilitatePeLunaAnterioara(DateTime.Now); }
         }
-        public float ConsumPanaLaData
+        public double ConsumPanaLaData
         {
             get
             {
@@ -218,7 +220,7 @@ namespace HomeHelper.Model
 
         public void DoValidation()
         {
-            
+            var loader = DbUtils.Loader;
             _errors = new List<StringKeyValue>();
             if (string.IsNullOrEmpty(DenumireUtilitate))
             {
@@ -295,6 +297,18 @@ namespace HomeHelper.Model
         public List<StringKeyValue> GetErrors()
         {
             return _errors;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var target = obj as Utilitati;
+            if (target == null)
+                return false;
+
+            if (this.IdUtilitati == target.IdUtilitati)
+                return true;
+
+            return false;
         }
     }
 }

@@ -21,10 +21,11 @@ namespace HomeHelper.ViewModel
 
     public class ConsumUtilitateInputViewModel:InputViewModelBase<ConsumUtilitate>
     {
-        private readonly IRepository<Utilitati> _repositoryUtilitati=new UtilitatiRepository();  
+        private readonly IRepository<Utilitati> _repositoryUtilitati=new UtilitatiRepository();
+      
         public ConsumUtilitateInputViewModel(IRepository<ConsumUtilitate> repository) : base(repository)
         {
-
+            
         }
         public bool IsEnabledCombobox
         {
@@ -33,7 +34,37 @@ namespace HomeHelper.ViewModel
         public ObservableCollection<Utilitati> ListaUtilitati
         {
             get { return _repositoryUtilitati.GetAll(); }
-        }  
+        } 
+
+
+#if !NETFX_CORE
+        private Utilitati _utilitateSelect;
+        public Utilitati UtilitateSelectata
+        {
+            get { return _utilitateSelect; }
+            set
+            {
+                if (value == null) return;
+                ObiectInBinding.IdUtilitate = value.IdUtilitati;
+                SetProperty(ref _utilitateSelect, value, "UtilitateSelectata");
+            }
+        }
+
+        public override ConsumUtilitate ObiectInBinding
+        {
+            get
+            {
+                return base.ObiectInBinding;
+            }
+            set
+            {
+                if (value == null) return;
+                UtilitateSelectata = ListaUtilitati.FirstOrDefault(a => a.IdUtilitati == value.IdUtilitate);
+                base.ObiectInBinding = value;
+            }
+        }
+#endif  
+        
 
     }
 
@@ -52,6 +83,34 @@ namespace HomeHelper.ViewModel
         public ObservableCollection<Utilitati> ListaUtilitati
         {
             get { return _repositoryUtilitati.GetAll(); }
-        } 
+        }
+
+#if !NETFX_CORE
+        private Utilitati _utilitateSelect;
+        public Utilitati UtilitateSelectata
+        {
+            get { return _utilitateSelect; }
+            set
+            {
+                if (value == null) return;
+                ObiectInBinding.IdUitlitate = value.IdUtilitati;
+                SetProperty(ref _utilitateSelect, value, "UtilitateSelectata");
+            }
+        }
+
+        public override AlertaUtilitate ObiectInBinding
+        {
+            get
+            {
+                return base.ObiectInBinding;
+            }
+            set
+            {
+                if (value == null) return;
+                UtilitateSelectata = ListaUtilitati.FirstOrDefault(a => a.IdUtilitati == value.IdUitlitate);
+                base.ObiectInBinding = value;
+            }
+        }
+#endif  
     }
 }

@@ -1,7 +1,14 @@
 ﻿using System;
+
+#if NETFX_CORE
+using System.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-
+#else
+using System.Globalization;
+using System.Windows;
+using System.Windows.Data;
+#endif 
 namespace HomeHelper.Common
 {
     /// <summary>
@@ -18,6 +25,16 @@ namespace HomeHelper.Common
         {
             return !(value is bool && (bool)value);
         }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Convert(value, targetType, parameter, culture.TwoLetterISOLanguageName);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ConvertBack(value, targetType, parameter, culture.TwoLetterISOLanguageName);
+        }
     }
 
     public class ItemCountToEmptyVisibilityConverterButtonsAdd:IValueConverter
@@ -33,6 +50,16 @@ namespace HomeHelper.Common
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Convert(value, targetType, parameter, culture.TwoLetterISOLanguageName);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -54,6 +81,16 @@ namespace HomeHelper.Common
         {
             throw new NotImplementedException();
         }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Convert(value, targetType, parameter, culture.TwoLetterISOLanguageName);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class BooleanToActiv:IValueConverter
@@ -64,6 +101,16 @@ namespace HomeHelper.Common
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Convert(value, targetType, parameter, culture.TwoLetterISOLanguageName);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

@@ -30,11 +30,27 @@ namespace HomeHelper.Common
         /// </summary>
         private readonly IRepository<T> _repository;
 
+#if WP8
+        public IRepository<T> Repository
+        {
+            get { return _repository; }
+        } 
+#endif 
+
         /// <summary>
         /// Obiectul care se trimite in view si apoi il preluam pentru prelucrare
         /// </summary>
+        /// 
+#if NETFX_CORE
         public T ObiectInBinding { get; set; }
-
+#else
+        private T _obiect;
+        public virtual T ObiectInBinding
+        {
+            get { return _obiect; }
+            set { SetProperty(ref _obiect, value, "ObiectInBinding"); }
+        }
+#endif
         public InputViewModelBase(IRepository<T> repository )
         {
             _eroriValidare = new List<StringKeyValue>();

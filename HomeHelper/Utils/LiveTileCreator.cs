@@ -1,7 +1,9 @@
 ﻿using System;
 using HomeHelper.Model;
+using HomeHelper.Model.Abstract;
 using HomeHelper.Repository.Abstract;
 using HomeHelper.Repository.Concret;
+using Windows.ApplicationModel.Resources;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
@@ -59,6 +61,20 @@ namespace HomeHelper.Utils
         private XmlDocument BuildTileXml(TileTemplateType type)
         {
             return TileUpdateManager.GetTemplateContent(type);
+        }
+    }
+
+
+    public class WindowsResources:IResources
+    {
+        private readonly ResourceLoader _loader;
+        public WindowsResources()
+        {
+            _loader = new ResourceLoader();
+        }
+        public string GetString(string resource)
+        {
+            return _loader.GetString(resource);
         }
     }
 }

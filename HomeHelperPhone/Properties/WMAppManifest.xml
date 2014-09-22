@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
+  <DefaultLanguage xmlns="" code="en-US" />
+  <Languages xmlns="">
+    <Language code="ro-RO" />
+    <Language code="en" />
+  </Languages>
+  <App xmlns="" ProductID="{b6ce6166-9e2d-46d1-b766-ff120d149f41}" Title="HomeHelper" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Stelian.Popa" Description="HomeHelper helps you define and track your own home utilities that have a consumption e.g: electricity, gas, water, heating. Keep up to date your consumption by making a reminder and never forget to send the index of your utility to your landlord, or utili" Publisher="Stelian.Popa" PublisherID="{d592fe73-6217-4d6a-a8db-16cbc54dc958}">
+    <IconPath IsRelative="true" IsResource="false">Assets\Logo.png</IconPath>
+    <Capabilities>
+      <Capability Name="ID_CAP_NETWORKING" />
+      <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
+      <Capability Name="ID_CAP_MEDIALIB_PLAYBACK" />
+      <Capability Name="ID_CAP_SENSORS" />
+      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
+    </Capabilities>
+    <Tasks>
+      <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+    </Tasks>
+    <Tokens>
+      <PrimaryToken TokenID="HomeHelperPhoneToken" TaskName="_default">
+        <TemplateFlip>
+          <SmallImageURI IsRelative="true" IsResource="false">Assets\SmallTileLogo.png</SmallImageURI>
+          <Count>0</Count>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\MediumTileLogo.png</BackgroundImageURI>
+          <Title>HomeHelper</Title>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI IsRelative="true" IsResource="false">
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <DeviceLockImageURI IsRelative="true" IsResource="false">
+          </DeviceLockImageURI>
+          <HasLarge>false</HasLarge>
+        </TemplateFlip>
+      </PrimaryToken>
+    </Tokens>
+    <ScreenResolutions>
+      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
+      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
+    </ScreenResolutions>
+  </App>
+</Deployment>

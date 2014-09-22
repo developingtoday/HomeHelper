@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeHelper.Model;
 
 namespace HomeHelper.Repository.Abstract
 {
@@ -23,5 +24,11 @@ namespace HomeHelper.Repository.Abstract
     public interface IEnhancedRepository<T>:IRepository<T>
     {
         Tuple<string, bool, int> CreateOrUpdateEnhanced(T t);
+    }
+
+    public interface IScheduleRepository
+    {
+        void AddAlertToSchedule(AlertaUtilitate t);
+        void DeleteFromSchedule(AlertaUtilitate t);
     }
 }
